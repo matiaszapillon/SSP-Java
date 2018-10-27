@@ -1,11 +1,14 @@
 package entities;
 
-public class Activity {
+import java.io.Serializable;
+
+public class Activity implements Serializable{
 	
     public final static int NO_INICIADA = 1;
 	public final static int EN_CURSO = 2;
 	public final static int FINALIZADA = 3;
     
+	private int id;
 
 	private Stage stage;
 	private int duration;
@@ -19,6 +22,12 @@ public class Activity {
 	}
 	public String getDescription() {
 		return description;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setDescription(String description) {
 		this.description = description;

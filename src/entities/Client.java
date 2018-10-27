@@ -1,12 +1,29 @@
 package entities;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable{
 
 	private String CUIT;
 	private String CUIL;
 	private String business_name ;
 	private String address;
 	private String email;
+	private User user;
+	private int id;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public String getCUIT() {
 		return CUIT;
 	}

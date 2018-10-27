@@ -1,6 +1,8 @@
 package entities;
 
-public class Provider {
+import java.io.Serializable;
+
+public class Provider implements Serializable{
 
 	public final static int CATEGORY_A = 1;
 	public final static int CATEGORY_B = 2;
@@ -10,7 +12,7 @@ public class Provider {
 	public final static int DESAPROBADO = 2;
 
 	
-	
+	private int id;
 	private String business_name;
 	private String name;
 	private String surname;
@@ -20,6 +22,14 @@ public class Provider {
 	private String email;
 	private String address;
 	private String phone;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getBusiness_name() {
 		return business_name;
 	}

@@ -1,9 +1,11 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Employee_training {
+public class Employee_training implements Serializable{
 	
+	private int id ;
 	private String mode ;
 	private Boolean outsourced;
 	private String state ;
@@ -12,11 +14,18 @@ public class Employee_training {
 	private Date endDate;
 	private Training training;
 	private Employee employee;
+	
 	public String getMode() {
 		return mode;
 	}
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Boolean getOutsourced() {
 		return outsourced;

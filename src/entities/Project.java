@@ -1,16 +1,23 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Project {
+public class Project implements Serializable{
 
-	
+	private int id;
 	private String name;
 	private String description;
 	private Client client;
-	private ArrayList<Supply> supplies = new ArrayList();
+	private ArrayList<Supply> supplies = new ArrayList<Supply>();
 	
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public ArrayList<Supply> getSupplies() {
 		return supplies;
 	}

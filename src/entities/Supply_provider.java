@@ -1,7 +1,10 @@
 package entities;
 
-public class Supply_provider {
+import java.io.Serializable;
 
+public class Supply_provider implements Serializable{
+
+	private int id;
 	private Supply supply;
 	private Provider provider;
 	private float prize;
@@ -11,6 +14,12 @@ public class Supply_provider {
 	}
 	public void setSupply(Supply supply) {
 		this.supply = supply;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Provider getProvider() {
 		return provider;

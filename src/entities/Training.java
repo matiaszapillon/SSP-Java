@@ -1,7 +1,10 @@
 package entities;
 
-public class Training {
+import java.io.Serializable;
 
+public class Training implements Serializable{
+
+	private int id;
 	private String description ;
 	private int cupo;
 	private String name ;
@@ -11,6 +14,12 @@ public class Training {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public int getCupo() {
 		return cupo;

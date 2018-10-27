@@ -1,13 +1,25 @@
 package entities;
 
-public class Project_stage {
+import java.io.Serializable;
 
+public class Project_stage implements Serializable{
+
+	private int id;
 	private Employee employee;
 	private Stage stage;
 	private Project project;
 	public Employee getEmployee() {
 		return employee;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}

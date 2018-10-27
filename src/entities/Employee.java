@@ -1,7 +1,10 @@
 package entities;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable{
 	
+	private int id;
 	private String DNI ;
 	private String name;
 	private String surname ;
@@ -10,6 +13,12 @@ public class Employee {
 	private User user;
 	
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getDNI() {
 		return DNI;
 	}

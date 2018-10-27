@@ -1,7 +1,10 @@
 package entities;
 
-public class Project_supply {
+import java.io.Serializable;
 
+public class Project_supply implements Serializable{
+	
+	private int id;
 	private Project project;
 	private Supply supply;
 	private int quantity;
@@ -11,6 +14,13 @@ public class Project_supply {
 	}
 	public void setProject(Project project) {
 		this.project = project;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Supply getSupply() {
 		return supply;
