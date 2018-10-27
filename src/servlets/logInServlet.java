@@ -52,9 +52,10 @@ public class logInServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuario",us);
 			response.sendRedirect("index.jsp");		
-			response.getWriter().print("<p> El Email y la contraseña son: \" " + username + password + "\"</p>");
+
 		} else {
-			response.getWriter().print("<p> El Email o la contraseña son incorrectas </p>");
+			response.sendRedirect("index.jsp");	
+		
 		}
 
 	}
