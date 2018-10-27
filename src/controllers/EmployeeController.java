@@ -12,6 +12,21 @@ public class EmployeeController {
 		employeeData = new data.EmployeeData();		
 	}
 	
+
+	public data.EmployeeData getEmployeeData() {
+		return employeeData;
+	}
+
+
+	public void setEmployeeData(data.EmployeeData employeeData) {
+		this.employeeData = employeeData;
+	}
+
+
+	public Employee getEmployeeByIdUser(int id) {
+		return getEmployeeData().getEmployeeByIdUser(id) ;
+	}
+	
 	
 	
 }

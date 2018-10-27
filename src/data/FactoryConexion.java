@@ -46,7 +46,7 @@ public class FactoryConexion {
 	
 	
 	public void releaseConn() throws SQLException{
-		try { //PREGUNTAR PARA QUE ES ESTO.
+		try { 
 			cantConn--;
 			if(cantConn==0){
 				conn.close();

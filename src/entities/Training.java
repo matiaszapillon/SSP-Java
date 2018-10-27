@@ -6,7 +6,7 @@ public class Training implements Serializable{
 
 	private int id;
 	private String description ;
-	private int cupo;
+	private int capacity;
 	private String name ;
 	private int duration;
 	public String getDescription() {
@@ -21,11 +21,11 @@ public class Training implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCupo() {
-		return cupo;
+	public int getCapacity() {
+		return capacity;
 	}
-	public void setCupo(int cupo) {
-		this.cupo = cupo;
+	public void setCapacity(int cupo) {
+		this.capacity = cupo;
 	}
 	public String getName() {
 		return name;

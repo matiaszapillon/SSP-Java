@@ -9,6 +9,7 @@ public class Supply_provider implements Serializable{
 	private Provider provider;
 	private float prize;
 	private String currency;
+	
 	public Supply getSupply() {
 		return supply;
 	}

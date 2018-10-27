@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import controllers.*;
+import entities.Client;
+import entities.Employee;
 import entities.User;
 
 /**
@@ -47,17 +49,34 @@ public class logInServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		UserController usController = new UserController();
-		if (usController.isUserValid(username, password)) {
-			User us = usController.getUserByCredentials(username, password);
-			HttpSession session = request.getSession();
-			session.setAttribute("usuario",us);
-			response.sendRedirect("index.jsp");		
-
+		// User u = usController.getUserByCredentials(username, password) ;
+		User u = usController.isUserValid(username, password);
+		if (u != null) {
+			if (u.getType() == User.CLIENT) {
+				ClientController cController = new ClientController();
+				Client c = new Client();
+				c = cController.getClientByIdUser(u.getId());
+				u.setClient(c);
+				c.setUser(u);
+				HttpSession session = request.getSession();
+				session.setAttribute("usuario", u);
+				response.sendRedirect("index.jsp");
+			} else {
+				EmployeeController eController = new EmployeeController();
+				Employee e = new Employee();
+				e = eController.getEmployeeByIdUser(u.getId());
+				u.setEmployee(e);
+				e.setUser(u);
+				HttpSession session = request.getSession();
+				session.setAttribute("usuario", u);
+				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
+				// VER CUAL ES LA DIFERENCIA ENTRE LO DE ARRIBA Y LO DE ABAJO
+				//response.sendRedirect("index.jsp");
+			}
 		} else {
-			response.sendRedirect("index.jsp");	
-		
+			// Contraseña Incorrecta.
+			response.sendRedirect("");
 		}
-
 	}
 
 }

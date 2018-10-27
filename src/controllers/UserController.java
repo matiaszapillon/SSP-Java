@@ -21,17 +21,17 @@ public class UserController {
 		this.userData = userData;
 	}
 
-	public boolean isUserValid(String name, String pw) {
+	public User isUserValid(String name, String pw) {
 		
 			try {
 				return getUserData().isUserValid(name, pw);
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
-			return false;		
+			return null;	
 	}
 
-	public User getUserByCredentials(String username, String password) {
+/*	public User getUserByCredentials(String username, String password) {
 		
 		User u = new User();
 		try {
@@ -41,6 +41,6 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return u;
-	}
+	} */
 
 }
