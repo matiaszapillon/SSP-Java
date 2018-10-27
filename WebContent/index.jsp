@@ -21,9 +21,7 @@
 </head>
   <body id="page-top">
   
-<p> Bienvenido
-<%=((User)session.getAttribute("usuario")).getUsername() %>
-</p>
+
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
       <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
@@ -72,6 +70,9 @@
         </li>
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          
+<%=((User)session.getAttribute("usuario")).getUsername() %>
+
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
