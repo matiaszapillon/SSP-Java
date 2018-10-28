@@ -9,7 +9,7 @@ public class FactoryConexion {
 	private String port="3306";
 	private String user="root";
 	private String password="";
-	private String db="SSP_DB";
+	private String db="ssp_db";
 	
 	private static FactoryConexion instancia;
 		

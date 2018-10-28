@@ -49,7 +49,6 @@ public class logInServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		UserController usController = new UserController();
-		// User u = usController.getUserByCredentials(username, password) ;
 		User u = usController.isUserValid(username, password);
 		if (u != null) {
 			if (u.getType() == User.CLIENT) {
@@ -67,7 +66,9 @@ public class logInServlet extends HttpServlet {
 				e = eController.getEmployeeByIdUser(u.getId());
 				u.setEmployee(e);
 				e.setUser(u);
-				HttpSession session = request.getSession();
+				HttpSession session = request.getSession(true); // EL PARAMETRO TRUE INDICA QUE LA SESSION ES NUEVA,
+				//SI DESPUES QUEREMOS VOLVER A RECOGER LA SESSION Y GUARDARLA EN UN OBJETO HAY QUE PASARLE FALSE COMO PARAMETRO
+				//PARA INDICAR QUE NO HAY QUE CREAR UNA NUEVA, RE UTILIZAR LA EXISTENTE.
 				session.setAttribute("usuario", u);
 				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
 				// VER CUAL ES LA DIFERENCIA ENTRE LO DE ARRIBA Y LO DE ABAJO

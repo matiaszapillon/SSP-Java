@@ -25,6 +25,7 @@ public class EmployeeData {
 				e.setId(rs.getInt("id_employee"));
 				e.setSurname(rs.getString("surname"));
 				e.setPhone(rs.getString("phone"));
+				e.setPhone(rs.getString("email"));
 				return e;
 			}
 		} catch (SQLException ex) {

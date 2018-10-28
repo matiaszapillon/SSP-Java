@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import data.*;
 import entities.User;
@@ -29,6 +30,16 @@ public class UserController {
 				e.printStackTrace();
 			}
 			return null;	
+	}
+
+	public ArrayList<User> getAll() {
+		try {
+			return getUserData().getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 /*	public User getUserByCredentials(String username, String password) {

@@ -66,17 +66,17 @@ import java.io.Serializable;
 		this.password = password;
 	}
 
-	/*public String getType() {
+	public String getStringType() {
 		switch (type) {
-		case EMPLOYEE:
+		case User.EMPLOYEE:
 			return "Empleado";
-		case CLIENT:
+		case User.CLIENT:
 			return "Cliente";
-		case ADMINISTRATOR:
+		case User.ADMINISTRATOR:
 			return "Administrador";
 		}
 		return "";
-	} */
+	} 
 
 	
 
