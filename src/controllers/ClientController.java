@@ -9,9 +9,26 @@ public class ClientController {
 	public ClientController() {
 		clientData = new data.ClientData() ;
 	}
+	
+	
+	public data.ClientData getClientData() {
+		return clientData;
+	}
+
+
+	public void setClientData(data.ClientData clientData) {
+		this.clientData = clientData;
+	}
+
+
 	public Client getClientByIdUser(int id) {
 		
-		return clientData.getClientByIdUser(id) ;
+		return this.getClientData().getClientByIdUser(id) ;
+	}
+	public void deleteUser(int idUser) {
+		// TODO Auto-generated method stub
+		this.getClientData().deleteUser(idUser);
+		
 	}
 	
 	

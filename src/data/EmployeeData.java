@@ -47,4 +47,9 @@ public class EmployeeData {
 
 	}
 
+	public void deleteUser(int idUser) {
+		// TODO Auto-generated method stub//
+		//Eliminar usuario.
+	}
+
 }

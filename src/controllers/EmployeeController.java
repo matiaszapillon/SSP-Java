@@ -26,6 +26,12 @@ public class EmployeeController {
 	public Employee getEmployeeByIdUser(int id) {
 		return getEmployeeData().getEmployeeByIdUser(id) ;
 	}
+
+
+	public void deleteUser(int idUser) {
+		this.getEmployeeData().deleteUser(idUser);
+		
+	}
 	
 	
 	

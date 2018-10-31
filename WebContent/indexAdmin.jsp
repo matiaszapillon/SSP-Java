@@ -40,19 +40,8 @@
       </form>
 
       <!-- Navbar -->
+      
       <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell fa-fw"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           
@@ -73,38 +62,38 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
+      
+  <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+          <a class="nav-link" href="indexAdmin.jsp">
+            SSP
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.html">404 Page</a>
-            <a class="dropdown-item" href="blank.html">Blank Page</a>
-          </div>
+            <a class="dropdown-item" href="login.html">Proveedores</a>
+            <a class="dropdown-item" href="register.html">Insumos</a>
+              <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
+            <a class="dropdown-item" href="forgot-password.html">Etapas</a>
+           <a class="dropdown-item" href="forgot-password.html">Actividades</a>
+            <a class="dropdown-item" href="404.html">Empleados</a>
+            <a class="dropdown-item" href="blank.html">Clientes</a>
+		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+          </div> 
         </li>
         <li class="nav-item">
           <a class="nav-link" href="userManagmentServlet">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Usuarios</span></a>
+            <span>Gestion Capacitaciones</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-table"></i>
-            <span>Home</span></a>
+            <span>Gestion Proyectos</span></a>
         </li>
       </ul>
 
@@ -189,70 +178,8 @@
           </div>
 
           <!-- DataTables Example -->
+          
           <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-              Data Table Example</div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
-                      <td>$170,750</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>66</td>
-                      <td>2009/01/12</td>
-                      <td>$86,000</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Edinburgh</td>
-                      <td>22</td>
-                      <td>2012/03/29</td>
-                      <td>$433,060</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
 
@@ -260,6 +187,7 @@
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
+        
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">

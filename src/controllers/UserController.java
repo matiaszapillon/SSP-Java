@@ -42,6 +42,21 @@ public class UserController {
 		return null;
 	}
 
+	public User getUserById(int id) {
+		try {
+			return this.getUserData().getUserById(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void deleteUser(int idUser) {
+		this.getUserData().deleteUser(idUser) ;
+		
+	}
+
 /*	public User getUserByCredentials(String username, String password) {
 		
 		User u = new User();

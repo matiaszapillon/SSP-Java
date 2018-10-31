@@ -67,6 +67,42 @@ public class UserData {
 		return users;
 	}
 
+	public User getUserById(int id) throws SQLException {
+		User u = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String SQLQuery = "select * from user u where u.id_user = '" + id + " ";
+			
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		rs = stmt.executeQuery(SQLQuery);
+		if (rs != null && rs.next()) {
+			u = new User();
+			u.setUsername(rs.getString("username"));
+			u.setPassword(rs.getString("password"));
+			u.setId(rs.getInt("id_user"));
+			u.setType(rs.getInt("type"));
+			u.setEmail(rs.getString("email"));
+			return u;
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+
+		
+	}
+
+	public void deleteUser(int idUser) {
+		// TODO Auto-generated method stub
+		//Eliminar Usuario.
+	}
+
 	/*
 	 * select u.* , c.business_name as 'Nombre' from user u inner join client c on
 	 * u.id_user = c.id_user union select u.*, CONCAT( e.name ,' ' , e.surname) as

@@ -12,6 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bienvenido </title>
     <!-- Bootstrap core CSS-->
+    <link href="css/bootstrap.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,19 +42,6 @@
 
       <!-- Navbar -->
       <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown no-arrow mx-1">
-          <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell fa-fw"></i>
-            <span class="badge badge-danger">9+</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           
@@ -76,36 +64,35 @@
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
+          <a class="nav-link" href="indexAdmin.jsp">
+            SSP
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.html">404 Page</a>
-            <a class="dropdown-item" href="blank.html">Blank Page</a>
-          </div>
+            <a class="dropdown-item" href="login.html">Proveedores</a>
+            <a class="dropdown-item" href="register.html">Insumos</a>
+              <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
+            <a class="dropdown-item" href="forgot-password.html">Etapas</a>
+           <a class="dropdown-item" href="forgot-password.html">Actividades</a>
+            <a class="dropdown-item" href="404.html">Empleados</a>
+            <a class="dropdown-item" href="blank.html">Clientes</a>
+		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+          </div> 
         </li>
         <li class="nav-item">
           <a class="nav-link" href="userManagmentServlet">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Usuarios</span></a>
+            <span>Gestion Capacitaciones</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
             <i class="fas fa-fw fa-table"></i>
-            <span>Home</span></a>
+            <span>Gestion Proyectos</span></a>
         </li>
       </ul>
 
@@ -114,15 +101,18 @@
         <div class="container-fluid">
 
           <!-- DataTables Example -->
+        <form class="form-userManagment" action="userManagmentServlet" method="post"> 
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Data Table Example</div>
+              Gestion de Usuarios
+           </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr> 
+                    <th> Seleccionar</th>
                       <th>Id</th>
                       <th>Nombre de usuario</th>
                       <th>Email</th>
@@ -135,6 +125,7 @@
                   for(User u : users){
                   %>
                     <tr>
+                     <td> <input required type="radio" name="radioABM" onClick=setHidden(<%=u.getType() %>) value= <%= u.getId()%>> </td>
                       <td><%= u.getId() %></td>
                       <td> <%= u.getUsername() %></td>                  
                       <td><%= u.getEmail() %></td>
@@ -148,8 +139,14 @@
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted">
+            <button type="submit" name ="addButton" class="btn btn-success" id="addButton" >Nuevo</button>
+            <button type="submit" name ="editButton" class="btn btn-info" id="editButton" >Editar</button>
+            <button type="submit" name ="deleteButton" class="btn btn-danger " id="deleteButton" >Eliminar</button>
+            </div>
+            <input type="hidden" name="rowValue" id="rowIdValue" /> 
           </div>
+      </form>
 
         </div>
         <!-- /.container-fluid -->
@@ -179,12 +176,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Esta seguro que desea salir?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Selecciona "Logout" si desea salir y finalizar la session</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <a class="btn btn-primary" href="logIn.html">Logout</a>
@@ -211,6 +208,9 @@
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
+    
+    <!-- Own JavaScript-->
+     <script src="js/userManagment.js"></script>
 
   </body>
 </html>

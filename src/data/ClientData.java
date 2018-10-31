@@ -47,4 +47,11 @@ public class ClientData {
 
 	}
 
+	public void deleteUser(int idUser) {
+		// TODO Auto-generated method stub
+		//Eliminar usuario
+		
+		
+	}
+
 }
