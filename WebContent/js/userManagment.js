@@ -1,10 +1,16 @@
-function setHidden(clickedId) {
-	 document.querySelector('#rowIdValue').value = clickedId ;
+function setHidden(clickedRadioButtonId) {
+	 document.querySelector('#rowIdValue').value = clickedRadioButtonId ;
 }
-
-/*function validateForm(event) {  
+function setHiddenValue(idButton) {
+	
+	document.querySelector('#idClickedButton').value = idButton;
+}
+function validateForm() {  
+	if(document.querySelector('#idClickedButton').value == "addButton"){
+		return true
+	}
 	var i = 0 ;
-	radioElements = document.querySelectorAll('input[name="pwd"]')
+	radioElements = document.querySelectorAll('input[name="radioABM"]')
 	for(var x=0; x < radioElements.length ; x++ ) {
 		if(radioElements[x].checked) {
 			i ++;
@@ -12,6 +18,18 @@ function setHidden(clickedId) {
 	}
 	if(i == 0) {
 		window.alert("Debe seleccionar un usuario antes de realizar esta operacion")
-		event.preventDefault(); < PAra que no se envie el formulario al servlet
+		return false;
+	} else {
+		return true;
 	}
-} */ // ESTO ERA ANTES DE ENTERARME EL ATRIBUTO REQUIRED PARA EL RADIOBUTTON ......
+} 
+function findPeople() {
+	var userType = document.querySelector('#idUserType').value ;
+	if(userType == "Cliente"){
+
+		window.alert("Cliente") ;
+	} else {
+		window.alert("Empleado")
+	}
+	
+}

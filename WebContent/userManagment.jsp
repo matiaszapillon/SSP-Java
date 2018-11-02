@@ -12,12 +12,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bienvenido </title>
     <!-- Bootstrap core CSS-->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="bootstrap/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
 
@@ -71,18 +70,17 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
             <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="login.html">Proveedores</a>
-            <a class="dropdown-item" href="register.html">Insumos</a>
+            <a class="dropdown-item disabled" href="register.html">Insumos</a>
               <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
             <a class="dropdown-item" href="forgot-password.html">Etapas</a>
            <a class="dropdown-item" href="forgot-password.html">Actividades</a>
             <a class="dropdown-item" href="404.html">Empleados</a>
             <a class="dropdown-item" href="blank.html">Clientes</a>
-		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+		  <a class="dropdown-item active" href="userManagmentServlet">Usuarios</a>
           </div> 
         </li>
         <li class="nav-item">
@@ -102,7 +100,7 @@
         <div class="container-fluid">
 
           <!-- DataTables Example -->
-        <form class="form-userManagment" action="userManagmentServlet" method="post"> 
+        <form class="form-userManagment" action="userManagmentServlet" method="post" onsubmit="return validateForm()"> 
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
@@ -126,7 +124,7 @@
                   for(User u : users){
                   %>
                     <tr>
-                     <td> <input required type="radio" name="radioABM" onClick=setHidden(<%=u.getType() %>) value= <%= u.getId()%>> </td>
+                     <td> <input type="radio" name="radioABM" onClick=setHidden(<%=u.getType() %>) value= <%= u.getId()%>> </td>
                       <td><%= u.getId() %></td>
                       <td> <%= u.getUsername() %></td>                  
                       <td><%= u.getEmail() %></td>
@@ -141,11 +139,12 @@
               </div>
             </div>
             <div class="card-footer small text-muted">
-            <button type="submit" name ="addButton" class="btn btn-success" id="addButton" >Nuevo</button>
-            <button type="submit" name ="editButton" class="btn btn-info" id="editButton" >Editar</button>
-            <button type="submit" name ="deleteButton" class="btn btn-danger " id="deleteButton" >Eliminar</button>
+            <button type="submit" name ="addButton" class="btn btn-success" id="addButton" onclick = "setHiddenValue(this.id)" >Nuevo</button>
+            <button type="submit" name ="editButton" class="btn btn-info" id="editButton" onclick = "setHiddenValue(this.id)">Editar</button>
+            <button type="submit" name ="deleteButton" class="btn btn-danger float-right" id="deleteButton" onclick ="setHiddenValue(this.id)">Eliminar</button>
             </div>
             <input type="hidden" name="rowValue" id="rowIdValue" /> 
+            <input type="hidden" name="clickedButton" id="idClickedButton" /> 
           </div>
       </form>
 
@@ -192,16 +191,16 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap/jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="bootstrap/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="bootstrap/chart.js/Chart.min.js"></script>
+    <script src="bootstrap/datatables/jquery.dataTables.js"></script>
+    <script src="bootstrap/datatables/dataTables.bootstrap4.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>

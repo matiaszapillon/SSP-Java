@@ -55,31 +55,43 @@ public class userManagmentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		UserController uController = new UserController();
-		if (request.getParameter("addButton") != null) {
 
+		UserController uController = new UserController();
+		EmployeeController eController = new EmployeeController();
+		ClientController cController = new ClientController();
+		
+		
+		if (request.getParameter("addButton") != null) {
+			request.getRequestDispatcher("userRegistration.jsp").forward(request, response);
 		}
 		if (request.getParameter("editButton") != null) {
+			int userType = Integer.parseInt(request.getParameter("rowValue"));
 			String IdRow = (String) request.getParameter("radioABM");
 			int idUser = Integer.parseInt(IdRow);
 			User u = uController.getUserById(idUser);
-
+			if (userType == User.CLIENT) {
+			u.setClient(cController.getClientByIdUser(idUser));
+			} else {
+			u.setEmployee(eController.getEmployeeByIdUser(idUser));
+			}
+			request.setAttribute("user", u);
+			request.getRequestDispatcher("userRegistration.jsp").forward(request, response);
 		}
 		if (request.getParameter("deleteButton") != null) {
+			int userType = Integer.parseInt(request.getParameter("rowValue"));
 			String IdRow = (String) request.getParameter("radioABM");
 			int idUser = Integer.parseInt(IdRow);
-			int userType = Integer.parseInt(request.getParameter("rowValue"));
-			uController.deleteUser(idUser);
 			if (userType == User.CLIENT) {
-				ClientController cController = new ClientController();
 				cController.deleteUser(idUser);
 			} else {
-				EmployeeController eController = new EmployeeController();
 				eController.deleteUser(idUser);
 			}
 
 		}
 
+
+		}
+
 	}
 
-}
+

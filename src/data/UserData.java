@@ -71,7 +71,7 @@ public class UserData {
 		User u = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		String SQLQuery = "select * from user u where u.id_user = '" + id + " ";
+		String SQLQuery = "select * from user u where u.id_user = '" + id + "' ";
 			
 		stmt = FactoryConexion.getInstancia().getConn().createStatement();
 		rs = stmt.executeQuery(SQLQuery);
