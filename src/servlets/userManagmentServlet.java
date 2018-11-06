@@ -62,6 +62,12 @@ public class userManagmentServlet extends HttpServlet {
 		
 		
 		if (request.getParameter("addButton") != null) {
+			ArrayList<Client> clients = new ArrayList<Client>();
+			clients =  cController.getClientsWithoutUser();
+			ArrayList<Employee> employees = new ArrayList<Employee>();
+			employees = eController.getEmployeesWithoutUser();
+			request.setAttribute("clients", clients);
+			request.setAttribute("employees", employees);
 			request.getRequestDispatcher("userRegistration.jsp").forward(request, response);
 		}
 		if (request.getParameter("editButton") != null) {

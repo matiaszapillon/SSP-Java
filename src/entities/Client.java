@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 public class Client implements Serializable{
 
-	private String CUIT;
-	private String CUIL;
+	private String CUIT_CUIL;
 	private String business_name ;
 	private String address;
 	private String email;
@@ -24,17 +23,12 @@ public class Client implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getCUIT() {
-		return CUIT;
+
+	public String getCUIT_CUIL() {
+		return CUIT_CUIL;
 	}
-	public void setCUIT(String cUIT) {
-		CUIT = cUIT;
-	}
-	public String getCUIL() {
-		return CUIL;
-	}
-	public void setCUIL(String cUIL) {
-		CUIL = cUIL;
+	public void setCUIT_CUIL(String cUIT_CUIL) {
+		CUIT_CUIL = cUIT_CUIL;
 	}
 	public String getBusiness_name() {
 		return business_name;

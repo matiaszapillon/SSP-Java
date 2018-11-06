@@ -3,8 +3,10 @@ package data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import entities.Client;
+import entities.Employee;
 import entities.User;
 
 public class ClientData {
@@ -23,8 +25,7 @@ public class ClientData {
 				c.setId(rs.getInt("id_client"));
 				c.setAddress(rs.getString("address"));
 				c.setBusiness_name(rs.getString("business_name"));
-				c.setCUIT(rs.getString("CUIT"));
-				c.setCUIL(rs.getString("CUIL"));
+				c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
 				c.setEmail(rs.getString("email"));
 				return c;
 			}
@@ -51,6 +52,37 @@ public class ClientData {
 		// TODO Auto-generated method stub
 		//Eliminar usuario
 		
+		
+	}
+
+	public ArrayList<Client> getClientsWithoutUser() throws SQLException {
+		ArrayList<Client> clients = new ArrayList<Client>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String SQLQuery = "SELECT * FROM employee where id_user is null";
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		rs = stmt.executeQuery(SQLQuery);
+		if (rs != null) {
+			while (rs.next()) {
+				Client c = new Client();
+				c.setBusiness_name(rs.getString("business_name"));
+				c.setAddress(rs.getString("address"));
+				c.setId(rs.getInt("id_client"));
+				c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
+				c.setEmail(rs.getString("email"));
+				clients.add(c);
+			}
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clients;
 		
 	}
 
