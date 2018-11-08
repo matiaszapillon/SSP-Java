@@ -72,7 +72,7 @@ public class UserData {
 		Statement stmt = null;
 		ResultSet rs = null;
 		String SQLQuery = "select * from user u where u.id_user = '" + id + "' ";
-			
+
 		stmt = FactoryConexion.getInstancia().getConn().createStatement();
 		rs = stmt.executeQuery(SQLQuery);
 		if (rs != null && rs.next()) {
@@ -95,21 +95,128 @@ public class UserData {
 		}
 		return u;
 
-		
 	}
 
-	public void deleteUser(int idUser) {
+	public void deleteUserFromClient(int idUser) throws SQLException {
+		PreparedStatement updateClient = null;
+		PreparedStatement deleteUser = null;
+		Connection con = FactoryConexion.getInstancia().getConn();
+		try {
+			con.setAutoCommit(false);
+			updateClient = con.prepareStatement("update client set id_user = ? where id_user = ?");
+			deleteUser = con.prepareStatement("delete from user where id_user = ?");
+			updateClient.setNull(1, java.sql.Types.INTEGER);
+			updateClient.setInt(2, idUser);
+			updateClient.executeUpdate();
+			deleteUser.setInt(1, idUser);
+			deleteUser.executeUpdate();
+			con.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		}
+		finally {
+			if(updateClient != null) {
+				updateClient.close();
+			}
+			if(deleteUser != null) {
+				deleteUser.close();
+			}
+			con.setAutoCommit(true);
+		}
+	}
+
+	public void deleteUserFromEmployee(int idUser) throws SQLException {
 		// TODO Auto-generated method stub
-		//Eliminar Usuario.
+		// Eliminar Usuario de tabla cliente o empleado y elimminar Usuario
+		PreparedStatement updateEmployee = null;
+		PreparedStatement deleteUser = null;
+		Connection con = FactoryConexion.getInstancia().getConn();
+		try {
+			con.setAutoCommit(false);
+			updateEmployee = con.prepareStatement("update employee set id_user = ? where id_user = ?");
+			deleteUser = con.prepareStatement("delete from user where id_user = ?");
+			updateEmployee.setNull(1, java.sql.Types.INTEGER);
+			updateEmployee.setInt(2, idUser);
+			updateEmployee.executeUpdate();
+			deleteUser.setInt(1, idUser);
+			deleteUser.executeUpdate();
+			con.commit();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		}
+		finally {
+			if(updateEmployee != null) {
+				updateEmployee.close();
+			}
+			if(deleteUser != null) {
+				deleteUser.close();
+			}
+			con.setAutoCommit(true);
+		}
 	}
 
-	/*
-	 * select u.* , c.business_name as 'Nombre' from user u inner join client c on
-	 * u.id_user = c.id_user union select u.*, CONCAT( e.name ,' ' , e.surname) as
-	 * 'Nombre' from user u inner join employee e on u.id_user = e.id_employee //
-	 * ESTA CONSULTA TRAE UNA LISTA DE TODOS LOS USUARIOS Y TAMBIEN EL NOMBRE DEL
-	 * CLIENTE O EMPLEADO.
-	 */
+	public void create(User u) throws SQLException {
+		PreparedStatement stmt = null;
+		ResultSet keyResultSet = null;
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"INSERT INTO user(username, password, email, type) values (?,?,?,?)",
+				PreparedStatement.RETURN_GENERATED_KEYS);
+
+		stmt.setString(1, u.getUsername());
+		stmt.setString(2, u.getPassword());
+		stmt.setString(3, u.getEmail());
+		stmt.setInt(4, u.getType());
+		stmt.executeUpdate();
+		keyResultSet = stmt.getGeneratedKeys();
+		if (keyResultSet != null && keyResultSet.next()) {
+			u.setId(keyResultSet.getInt(1));
+		}
+
+		try {
+			if (keyResultSet != null)
+				keyResultSet.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void update(User u) throws SQLException {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null;
+		stmt = FactoryConexion.getInstancia().getConn()
+				.prepareStatement("update user set username = ?, email = ?, password = ?, type = ? where id_user = ?");
+		stmt.setString(1, u.getUsername());
+		stmt.setString(2, u.getEmail());
+		stmt.setString(3, u.getPassword());
+		stmt.setInt(4, u.getType());
+		stmt.setInt(5, u.getId());
+		stmt.executeUpdate();
+		try {
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
 
 /*

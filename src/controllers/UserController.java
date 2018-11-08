@@ -52,9 +52,43 @@ public class UserController {
 		return null;
 	}
 
-	public void deleteUser(int idUser) {
-		this.getUserData().deleteUser(idUser) ;
+	public void deleteUserFromClient(int idUser) {
+		try {
+			this.getUserData().deleteUserFromClient(idUser) ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+	}
+	public void deleteUserFromEmployee(int idUser) {
+		try {
+			this.getUserData().deleteUserFromEmployee(idUser) ;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void create(User user) {
+	try {
+		this.getUserData().create(user);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	}
+ 
+	public void update(User u) {
+		// TODO Auto-generated method stub
+		try {
+			this.getUserData().update(u);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 /*	public User getUserByCredentials(String username, String password) {

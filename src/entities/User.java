@@ -19,6 +19,15 @@ import java.io.Serializable;
 	private Employee employee = null;
 	private Client client = null;
 
+	public User() {}
+	public User(String email, String username, String password, int type, Employee employee, Client client) {
+		this.email = email;
+		this.username = username;
+		this.password = password;
+		this.type = type;
+		this.employee = employee;
+		this.client = client;
+	}
 	public int getId() {
 		return id;
 	}
@@ -77,9 +86,6 @@ import java.io.Serializable;
 		}
 		return "";
 	} 
-
-	
-
 
 	public int getType() {
 		return type;

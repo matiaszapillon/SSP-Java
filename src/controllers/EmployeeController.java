@@ -26,11 +26,6 @@ public class EmployeeController {
 		return getEmployeeData().getEmployeeByIdUser(id);
 	}
 
-	public void deleteUser(int idUser) {
-		this.getEmployeeData().deleteUser(idUser);
-
-	}
-
 	public ArrayList<Employee> getEmployeesWithoutUser() {
 		try {
 			return getEmployeeData().getEmployeesWithoutUser();
@@ -40,6 +35,28 @@ public class EmployeeController {
 		}
 		return null;
 
+	}
+
+	public Employee getEmployeeById(int idPerson) {
+		// TODO Auto-generated method stub
+		try {
+			return this.getEmployeeData().getEmployeeById(idPerson);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+
+	public void addUser(Employee e) {
+		// TODO Auto-generated method stub
+		try {
+			this.getEmployeeData().addUser(e);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 }

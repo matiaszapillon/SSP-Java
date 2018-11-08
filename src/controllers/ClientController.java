@@ -26,11 +26,6 @@ public class ClientController {
 		return this.getClientData().getClientByIdUser(id);
 	}
 
-	public void deleteUser(int idUser) {
-		// TODO Auto-generated method stub
-		this.getClientData().deleteUser(idUser);
-
-	}
 
 	public ArrayList<Client> getClientsWithoutUser() {
 		try {
@@ -40,6 +35,27 @@ public class ClientController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public Client getClientById(int idPerson) {
+		try {
+			return this.getClientData().getClientById(idPerson);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public void addUser(Client c) {
+		// TODO Auto-generated method stub
+		try {
+			this.getClientData().addUser(c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

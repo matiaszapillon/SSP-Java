@@ -23,14 +23,5 @@ function validateForm() {
 		return true;
 	}
 } 
-function findPeople() {
-	var selectList = document.querySelector('#idUserType') ;
-	var userType = selectList.value;
-	if(userType == "Cliente"){
 
-		window.alert("Cliente") ;
-	} else {
-		window.alert("Empleado")
-	}
 	
-}

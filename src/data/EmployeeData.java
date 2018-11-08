@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -84,6 +85,58 @@ public class EmployeeData {
 			e.printStackTrace();
 		}
 		return employees;
+	}
+
+	public Employee getEmployeeById(int idPerson) throws SQLException {
+		Employee e = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"select * from employee where id_employee=?");
+		stmt.setInt(1, idPerson);
+		rs = stmt.executeQuery();
+		if (rs != null && rs.next()) {
+			e = new Employee();
+			User u = new User();
+			u.setId(rs.getInt("id_user"));
+			e.setAddress(rs.getString("address"));
+			e.setDNI(rs.getString("DNI"));
+			e.setName(rs.getString("name"));
+			e.setId(rs.getInt("id_employee"));
+			e.setPhone(rs.getString("phone"));
+			e.setSurname(rs.getString("surname"));
+			e.setUser(u);
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return e;
+	}
+
+	public void addUser(Employee e) throws SQLException {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt = null ;
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("update client set id_user = ? where id_client =?");
+		stmt.setInt(1, e.getUser().getId());
+		stmt.setInt(2, e.getId());
+		stmt.executeUpdate();
+		
+		try {
+			if(stmt != null) stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+			
+		}
+		catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		
 	}
 
 }

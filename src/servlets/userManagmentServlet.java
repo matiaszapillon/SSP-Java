@@ -86,11 +86,11 @@ public class userManagmentServlet extends HttpServlet {
 		if (request.getParameter("deleteButton") != null) {
 			int userType = Integer.parseInt(request.getParameter("rowValue"));
 			String IdRow = (String) request.getParameter("radioABM");
-			int idUser = Integer.parseInt(IdRow);
+			int idUser = Integer.parseInt(IdRow);			
 			if (userType == User.CLIENT) {
-				cController.deleteUser(idUser);
+				uController.deleteUserFromClient(idUser);
 			} else {
-				eController.deleteUser(idUser);
+				uController.deleteUserFromEmployee(idUser);
 			}
 
 		}
