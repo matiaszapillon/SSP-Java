@@ -25,7 +25,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Administrador</a>
+      <a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Cliente</a>
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -65,34 +65,19 @@
       
   <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="indexAdmin.jsp">
+          <a class="nav-link" href="indexClient.jsp">
             SSP
           </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span>ABM</span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Proveedores</a>
-            <a class="dropdown-item" href="register.html">Insumos</a>
-              <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
-            <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-           <a class="dropdown-item" href="forgot-password.html">Actividades</a>
-            <a class="dropdown-item" href="404.html">Empleados</a>
-            <a class="dropdown-item" href="blank.html">Clientes</a>
-		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
-          </div> 
-        </li>
         <li class="nav-item">
-          <a class="nav-link" href="userManagmentServlet">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Gestion Capacitaciones</span></a>
+            <span>Proyectos</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="projectManagmentServlet">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-table"></i>
-            <span>Proyectos</span></a>
+            <span>Legales</span></a>
         </li>
       </ul>
 

@@ -57,27 +57,23 @@ public class logInServlet extends HttpServlet {
 				c = cController.getClientByIdUser(u.getId());
 				u.setClient(c);
 				c.setUser(u);
-				HttpSession session = request.getSession();
+				HttpSession session = request.getSession(true);
 				session.setAttribute("usuario", u);
-				response.sendRedirect("index.jsp");
+				request.getRequestDispatcher("indexClient.jsp").forward(request,response);
 			} else {
 				EmployeeController eController = new EmployeeController();
 				Employee e = new Employee();
 				e = eController.getEmployeeByIdUser(u.getId());
 				u.setEmployee(e);
 				e.setUser(u);
-				HttpSession session = request.getSession(true); // EL PARAMETRO TRUE INDICA QUE LA SESSION ES NUEVA,
-				//SI DESPUES QUEREMOS VOLVER A RECOGER LA SESSION Y GUARDARLA EN UN OBJETO HAY QUE PASARLE FALSE COMO PARAMETRO
-				//PARA INDICAR QUE NO HAY QUE CREAR UNA NUEVA, RE UTILIZAR LA EXISTENTE.
+				HttpSession session = request.getSession(true); 
 				session.setAttribute("usuario", u);
 				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
-				// VER CUAL ES LA DIFERENCIA ENTRE LO DE ARRIBA Y LO DE ABAJO
+				// VER CUAL ES LA DIFERENCIA ENTRE LO DE ARRIBA Y LO DE ABAJO (LO DE ARRIBA ES MEJOR )
 				//response.sendRedirect("index.jsp");
 			}
 		} else {
-			// Contraseña Incorrecta.
-			response.sendRedirect("");
-			
+			response.sendRedirect("logIn.html");			
 		}
 	}
 
