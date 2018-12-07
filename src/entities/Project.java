@@ -10,13 +10,20 @@ public class Project implements Serializable{
 	private String description;
 	private Client client;
 	private ArrayList<Supply> supplies = new ArrayList<Supply>();
-	
+	private ArrayList<Stage> stages = new ArrayList<Stage>();
 	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public ArrayList<Stage> getStages() {
+		return stages;
+	}
+	public void setStages(ArrayList<Stage> stages) {
+		this.stages = stages;
 	}
 	public ArrayList<Supply> getSupplies() {
 		return supplies;
@@ -43,4 +50,22 @@ public class Project implements Serializable{
 		this.client = client;
 	}
 	
+	public String getState() {
+		for (Stage stage : getStages()) {
+			if(stage.getIdState() == Stage.EN_CURSO) {
+				return "En curso";
+			}
+		}
+		
+		return "Finalizado";		
+	}
+	public Stage getCurrentStage() {
+		if(this.getStages()!=null) {
+		for (Stage stage : this.getStages()) {
+			if(stage.getIdState() == stage.EN_CURSO) {
+				return stage;
+			}
+		}}
+	return null;
+	}
 }

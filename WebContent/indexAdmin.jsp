@@ -92,7 +92,7 @@
         <li class="nav-item">
           <a class="nav-link" href="projectManagmentServlet">
             <i class="fas fa-fw fa-table"></i>
-            <span>Proyectos</span></a>
+            <span>Gestion Proyectos</span></a>
         </li>
       </ul>
 

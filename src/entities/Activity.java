@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Activity implements Serializable{
 	
+	//MODIFICAR CLASE, EL ESTADO NO VA ACA.
     public final static int NO_INICIADA = 1;
 	public final static int EN_CURSO = 2;
 	public final static int FINALIZADA = 3;
@@ -40,6 +41,10 @@ public class Activity implements Serializable{
 		}
 		return "";
 	}
+	public int getIdState() {
+		return this.state;
+	}
+	
 	public void setState(int state) {
 		this.state = state;
 	}

@@ -1,5 +1,6 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.User"%>
+<%@page import="entities.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -63,7 +64,7 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
+        <li class="nav-item ">
           <a class="nav-link" href="indexAdmin.jsp">
             SSP
           </a>
@@ -75,12 +76,12 @@
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="login.html">Proveedores</a>
             <a class="dropdown-item disabled" href="register.html">Insumos</a>
-              <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
+            <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
             <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-           <a class="dropdown-item" href="forgot-password.html">Actividades</a>
+            <a class="dropdown-item" href="forgot-password.html">Actividades</a>
             <a class="dropdown-item" href="404.html">Empleados</a>
             <a class="dropdown-item" href="blank.html">Clientes</a>
-		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+		    <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
           </div> 
         </li>
         <li class="nav-item">
@@ -88,10 +89,10 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Gestion Capacitaciones</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-table"></i>
-            <span>Proyectos</span></a>
+            <span>Gestion Proyectos</span></a>
         </li>
       </ul>
 
@@ -99,34 +100,90 @@
 
         <div class="container-fluid">
         
-<form method="post" action="projectManagmentServlet">
+         	<!-- Projects list -->
+         	<div class="container">
+		          	<%Project clickedProject = (Project)request.getAttribute("project"); %>
+         		<div class="row">
+         			<!-- Columna con primer form -->
+		          	<div class="col-md-4">
+		          		<form method="post" action="projectManagmentServlet">
+		          			<div class="form-group">
+		          				<input class="form-control" type="text" name="" placeholder="Buscar proyecto">
+		          			</div>
+		          			
+				            <div class="form-group">
+				            <%ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects"); 
+				            for(Project p: projects){
+				            %>		
+				            <button type="submit" id=<%=p.getId()%> name="buttonProject" 
+				            <%if(clickedProject != null) {
+				            	if(clickedProject.getId() == p.getId()){
+				            %> class="list-group-item list-group-item-action btn btn-light active" 
+				            <%}else {%>class="list-group-item list-group-item-action btn btn-light" <% }} else { %> class="list-group-item list-group-item-action btn btn-light" 
+				            <%}%> value=<%=p.getId()%> > <%=p.getName() %> </button>				            				         	            			            																            
+							<%} %>
+							</div>
+		          		</form>		  
+		          	</div>
 
+		          	<!-- Columna con segundo form -->
 
-          <!-- Projects list -->
-          <div class="container">
-         	 <div class="row">
-		          <div class="col-md-4" style="background-color:lightcyan;">
-		                <div class="list-group">
-						  <button type="submit" name="buttonProject" class="list-group-item list-group-item-action" value="A"> A </button>
-						  <button type="submit" name="buttonProject" class="list-group-item list-group-item-action" value="B"> B </button>
-						  <button type="submit" name="buttonProject" class="list-group-item list-group-item-action" value="F"> F </button>
-						  <button type="submit" name="buttonProject" class="list-group-item list-group-item-action" value="C"> C </button>
-						  <button type="submit" name="buttonProject" class="list-group-item list-group-item-action" value="D"> D </button>				  
-						</div>
-		          </div>
-					<div class="col-md-2 " style="background-color:lavenderblush;">
-							<label for="userType" class="col-form-label">Cliente</label>
-					</div>
-					<div class="col-md-6" style="background-color:lightgray;">
-							 <input type="text" id="clientInputId"  name="clientInputName">					
-					</div>
-			</div>			
-          </div>
-
-
-</form>		  
-			
-        </div>
+		          	<div class="col-md-8">
+		          		<form method="post" action="projectManagmentServlet">
+		          			<div class="form-group">
+		          				<h4>Detalles del proyecto</h4>
+		          			</div>
+		          			<div class="row">
+		          				<div class="form-group col-2">
+		          					<label>ID</label>
+		          					<input class="form-control" type="text" name="idProjectName" <%if (clickedProject != null){ %> 
+		          					value = "<%= clickedProject.getId() %> <%} %> ">
+		          				</div>
+		          				<div class="form-group col">
+		          					<label> Descripcion </label>
+		          					<input class="form-control" type="text" name="descriptionName" <%if (clickedProject != null){ %> 
+		          					value = "<%=clickedProject.getDescription() %> <% } %> ">
+		          				</div>
+		          				<div class="form-group col">
+		          					<label> Nombre del Proyecto </label>
+		          					<input class="form-control" type="text" name="nameName" <%if (clickedProject != null){ %> 
+		          					value = "<%=clickedProject.getName() %> <% } %> ">
+		          				</div>		          				
+		          			</div>
+		          			<div class= "row">
+		          			   <div class="form-group col">
+			          				<label>Cliente</label>
+			          				<input class="form-control" type="text" name="clientName" <%if (clickedProject != null) {if(clickedProject.getClient() != null){ %> 
+			          				value = "<%= clickedProject.getClient().getBusiness_name() %> <% }} %>">		          			
+			          		   </div>
+			          		   <div class="form-group col">
+			          				<label>CUIT / CUIL</label>
+			          				<input class="form-control" type="text" name="CUIT_CUILName" <%if (clickedProject != null) { if(clickedProject.getClient() != null){%> 
+			          				value = "<%= clickedProject.getClient().getCUIT_CUIL() %> <% }} %>">		          			
+			          		   </div>
+			          		</div>
+		          			<div class="row">
+		          				<div class="form-group col">
+			          				<label>Estado proyecto</label>
+			          				<input class="form-control" type="text" name="stateName" <%if (clickedProject != null) { %> 
+			          				value = " <%= clickedProject.getState()%> <% } %> ">
+			          			</div>
+		          				<div class="form-group col">
+			          				<label>Etapa actual</label>
+			          				<input class="form-control" type="text" name="currentStageName"  <%if (clickedProject != null) { 
+			          				if(clickedProject.getCurrentStage() != null){ %> value = "<%=clickedProject.getCurrentStage().getName() %>
+			          				"<%} else { %> value =  "<%=" - " %> <% } } %> ">
+			          			</div>
+		          			</div>
+		          			<div class="form-group">
+								<input type="submit" class="btn btn-outline-info" name="detallesName" value="Detalles"
+								<%if(clickedProject == null){ %> disabled <%} %>>
+		          			</div>
+		          		</form>
+		          	</div>
+         		</div>          	
+      		</div>
+      	</div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
@@ -188,7 +245,7 @@
     <script src="js/demo/chart-area-demo.js"></script>
     
     <!-- Own JavaScript-->
-     <script src="js/userManagment.js"></script>
+     <script src="js/projectManagment.js"></script>
 
   </body>
 </html>

@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="entities.User"%>
+<%@page import="entities.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -12,14 +12,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Bienvenido </title>
     <!-- Bootstrap core CSS-->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
     <link href="bootstrap/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Page level plugin CSS-->
     <link href="bootstrap/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-
 </head>
   <body id="page-top">
   
@@ -41,6 +40,7 @@
       </form>
 
       <!-- Navbar -->
+      
       <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown no-arrow">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -62,7 +62,8 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
+      
+  <ul class="sidebar navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="indexAdmin.jsp">
             SSP
@@ -74,13 +75,13 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="login.html">Proveedores</a>
-            <a class="dropdown-item disabled" href="register.html">Insumos</a>
-            <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
+            <a class="dropdown-item" href="register.html">Insumos</a>
+              <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
             <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-            <a class="dropdown-item" href="forgot-password.html">Actividades</a>
+           <a class="dropdown-item" href="forgot-password.html">Actividades</a>
             <a class="dropdown-item" href="404.html">Empleados</a>
             <a class="dropdown-item" href="blank.html">Clientes</a>
-		  <a class="dropdown-item active" href="userManagmentServlet">Usuarios</a>
+		  <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
           </div> 
         </li>
         <li class="nav-item">
@@ -88,10 +89,10 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Gestion Capacitaciones</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="projectManagment.jsp">
+        <li class="nav-item active">
+          <a class="nav-link" href="projectManagmentServlet">
             <i class="fas fa-fw fa-table"></i>
-            <span>Gestion Proyectos</span></a>
+            <span>Proyectos</span></a>
         </li>
       </ul>
 
@@ -99,59 +100,93 @@
 
         <div class="container-fluid">
 
-          <!-- DataTables Example -->
-        <form class="form-userManagment" action="userManagmentServlet" method="post" onsubmit="return validateForm()"> 
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-              Gestion de Usuarios
-           </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr> 
-                    <th> Seleccionar</th>
-                      <th>Id</th>
-                      <th>Nombre de usuario</th>
-                      <th>Email</th>
-                      <th>Tipo de usuario</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <%
-                  ArrayList<User> users = (ArrayList<User>)request.getAttribute("usuarios");
-                  for(User u : users){
-                  %>
-                    <tr>
-                     <td> <input type="radio" name="radioABM" onClick=setHidden(<%=u.getType() %>) value= <%= u.getId()%>> </td>
-                      <td><%= u.getId() %></td>
-                      <td> <%= u.getUsername() %></td>                  
-                      <td><%= u.getEmail() %></td>
-                      <td><%= u.getStringType() %></td>
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Overview</li>
+          </ol>
 
-                    </tr>
-                    <%
-                  }
-                    %>
-                  </tbody>
-                </table>
+          <!-- Icon Cards-->
+          <div class="row">
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-primary o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-comments"></i>
+                  </div>
+                  <div class="mr-5">26 New Messages!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
               </div>
             </div>
-            <div class="card-footer small text-muted">
-            <button type="submit" name ="addButton" class="btn btn-success" id="addButton" onclick = "setHiddenValue(this.id)" >Nuevo</button>
-            <button type="submit" name ="editButton" class="btn btn-info" id="editButton" onclick = "setHiddenValue(this.id)">Editar</button>
-            <button type="submit" name ="deleteButton" class="btn btn-danger float-right" id="deleteButton" onclick ="setHiddenValue(this.id)">Eliminar</button>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-warning o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-list"></i>
+                  </div>
+                  <div class="mr-5">11 New Tasks!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
             </div>
-            <input type="hidden" name="rowValue" id="rowIdValue" /> 
-            <input type="hidden" name="clickedButton" id="idClickedButton" /> 
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-success o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                  </div>
+                  <div class="mr-5">123 New Orders!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+              <div class="card text-white bg-danger o-hidden h-100">
+                <div class="card-body">
+                  <div class="card-body-icon">
+                    <i class="fas fa-fw fa-life-ring"></i>
+                  </div>
+                  <div class="mr-5">13 New Tickets!</div>
+                </div>
+                <a class="card-footer text-white clearfix small z-1" href="#">
+                  <span class="float-left">View Details</span>
+                  <span class="float-right">
+                    <i class="fas fa-angle-right"></i>
+                  </span>
+                </a>
+              </div>
+            </div>
           </div>
-      </form>
+
+          <!-- DataTables Example -->
+          
+          <div class="card mb-3">
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
 
         </div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
+        
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -176,12 +211,12 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Esta seguro que desea salir?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">Selecciona "Logout" si desea salir y finalizar la session</div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
             <a class="btn btn-primary" href="logIn.html">Logout</a>
@@ -208,9 +243,6 @@
     <!-- Demo scripts for this page-->
     <script src="js/demo/datatables-demo.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
-    
-    <!-- Own JavaScript-->
-     <script src="js/userManagment.js"></script>
 
   </body>
 </html>
