@@ -9,7 +9,14 @@ public class Supply_provider implements Serializable{
 	private Provider provider;
 	private float prize;
 	private String currency;
+	private boolean active;
 	
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	public Supply getSupply() {
 		return supply;
 	}

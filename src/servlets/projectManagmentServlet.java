@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import controllers.ProjectController;
+import controllers.SupplyController;
 import entities.Project;
+import entities.Supply;
 
 /**
  * Servlet implementation class projectManagmentServlet
@@ -44,9 +46,11 @@ public class projectManagmentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ProjectController pController = new ProjectController();
+	
+		//Info de ProjectManagment
 		
 		if(request.getParameter("detallesName") != null) {
-			int idProj = Integer.parseInt(request.getParameter("idProjectName"));
+			int idProj = Integer.parseInt(request.getParameter("idProjectName"));			
 			Project project = pController.getProjectById(idProj);
 			request.setAttribute("project", project);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
@@ -60,6 +64,13 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
 		}
 
+		//Info de DetailsProject
+		if(request.getParameter("suppliesName") != null) {
+			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			SupplyController sController = new SupplyController();
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(idProject);
+		}
+		
 	}
 
 }
