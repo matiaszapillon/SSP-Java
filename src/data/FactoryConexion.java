@@ -37,7 +37,9 @@ public class FactoryConexion {
 		{
 			if(conn==null || conn.isClosed()){	
 				conn = DriverManager.getConnection(
-			        "jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password);
+			        "jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+				     //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+
 			}
 		}
 		cantConn++;
