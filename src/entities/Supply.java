@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Supply implements Serializable{
 
@@ -9,9 +10,22 @@ public class Supply implements Serializable{
 	private String description;
 	private String unity ;
 	private int stock;
+	private int quantity;
+	private ArrayList<Supply_provider> supply_provider = new ArrayList<Supply_provider>();
 	
 	
-	
+	public ArrayList<Supply_provider> getSupply_provider() {
+		return supply_provider;
+	}
+	public void setSupply_provider(ArrayList<Supply_provider> supply_provider) {
+		this.supply_provider = supply_provider;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	public String getName() {
 		return name;
 	}

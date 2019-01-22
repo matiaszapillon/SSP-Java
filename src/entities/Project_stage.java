@@ -2,6 +2,8 @@ package entities;
 
 import java.io.Serializable;
 
+//ELIMINAR CLASE - SE IMPLEMENTO UN ARREGLO DE STAGES EN CLASE PROJECT
+
 public class Project_stage implements Serializable{
 
     public final static int NO_INICIADA = 1;

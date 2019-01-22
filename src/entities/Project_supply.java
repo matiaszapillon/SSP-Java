@@ -2,6 +2,8 @@ package entities;
 
 import java.io.Serializable;
 
+//ELIMINAR CLASE - SE IMPLEMENTO UN ARREGLO DE SUPPLIES EN CLASE PROJECT
+
 public class Project_supply implements Serializable{
 	
 	private int id;

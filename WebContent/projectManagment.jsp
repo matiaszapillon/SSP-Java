@@ -11,6 +11,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
     <title>Bienvenido </title>
     <!-- Bootstrap core CSS-->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -136,43 +137,43 @@
 		          			<div class="row">
 		          				<div class="form-group col-2">
 		          					<label>ID</label>
-		          					<input class="form-control" type="text" name="idProjectName" <%if (clickedProject != null){ %> 
-		          					value = "<%= clickedProject.getId() %> <%} %> ">
+		          					<input class="form-control" type="text" name="idProjectName" readonly <%if (clickedProject != null){ %> 
+		          					value= "<%= clickedProject.getId()%>"<%} %>>
 		          				</div>
 		          				<div class="form-group col">
 		          					<label> Descripcion </label>
-		          					<input class="form-control" type="text" name="descriptionName" <%if (clickedProject != null){ %> 
-		          					value = "<%=clickedProject.getDescription() %> <% } %> ">
+		          					<input class="form-control" type="text" name="descriptionName"  readonly <%if (clickedProject != null){ %> 
+		          					value= "<%=clickedProject.getDescription() %><% } %>">
 		          				</div>
 		          				<div class="form-group col">
 		          					<label> Nombre del Proyecto </label>
-		          					<input class="form-control" type="text" name="nameName" <%if (clickedProject != null){ %> 
-		          					value = "<%=clickedProject.getName() %> <% } %> ">
+		          					<input class="form-control" type="text" name="nameName" readonly <%if (clickedProject != null){ %> 
+		          					value= "<%=clickedProject.getName() %>" <% } %>>
 		          				</div>		          				
 		          			</div>
 		          			<div class= "row">
 		          			   <div class="form-group col">
 			          				<label>Cliente</label>
-			          				<input class="form-control" type="text" name="clientName" <%if (clickedProject != null) {if(clickedProject.getClient() != null){ %> 
-			          				value = "<%= clickedProject.getClient().getBusiness_name() %> <% }} %>">		          			
+			          				<input class="form-control" type="text" name="clientName" readonly<%if (clickedProject != null) {if(clickedProject.getClient() != null){ %> 
+			          				value= "<%= clickedProject.getClient().getBusiness_name() %>"  <% }}%>>		          			
 			          		   </div>
 			          		   <div class="form-group col">
 			          				<label>CUIT / CUIL</label>
-			          				<input class="form-control" type="text" name="CUIT_CUILName" <%if (clickedProject != null) { if(clickedProject.getClient() != null){%> 
-			          				value = "<%= clickedProject.getClient().getCUIT_CUIL() %> <% }} %>">		          			
+			          				<input class="form-control" type="text" name="CUIT_CUILName" readonly <%if (clickedProject != null) { if(clickedProject.getClient() != null){%> 
+			          				value= "<%= clickedProject.getClient().getCUIT_CUIL() %>" <% }} %>>		          			
 			          		   </div>
 			          		</div>
 		          			<div class="row">
 		          				<div class="form-group col">
 			          				<label>Estado proyecto</label>
-			          				<input class="form-control" type="text" name="stateName" <%if (clickedProject != null) { %> 
-			          				value = " <%= clickedProject.getState()%> <% } %> ">
+			          				<input class="form-control" type="text" name="stateName" readonly <%if (clickedProject != null) { %> 
+			          				value = " <%= clickedProject.getState()%><% } %>">
 			          			</div>
 		          				<div class="form-group col">
 			          				<label>Etapa actual</label>
-			          				<input class="form-control" type="text" name="currentStageName"  <%if (clickedProject != null) { 
-			          				if(clickedProject.getCurrentStage() != null){ %> value = "<%=clickedProject.getCurrentStage().getName() %>
-			          				"<%} else { %> value =  "<%=" - " %> <% } } %> ">
+			          				<input class="form-control" type="text" name="currentStageName" readonly <%if (clickedProject != null) { 
+			          				if(clickedProject.getCurrentStage() != null){ %> value = "<%=clickedProject.getCurrentStage().getName() %>"
+			          				<%} else { %> value =  "<%=" - " %><% } } %>">
 			          			</div>
 		          			</div>
 		          			<div class="form-group">
