@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entities.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -91,57 +92,98 @@ pageEncoding="UTF-8"%>
 						<div class="container-fluid">
 							<!-- DataTables  -->
 							<div class="container">
+								<%Project project = (Project)request.getAttribute("project"); %>
+								<%Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
 								<form method="post" action="projectManagmentServlet">
 									<div class="row">
 										<div class="col-auto">
-											<button type="button" name="suppliesName" class="btn btn-primary form-group">Ver insumos</button>
+											<button type="submit" name="suppliesName" class="btn btn-primary form-group">Ver insumos</button>
 										</div>
 										<div class="col-auto">
-											<button type="button" name="activitiesName" class="btn btn-primary form-group">Ver Actividades</button>
+											<button type="submit" name="activitiesName" class="btn btn-primary form-group">Ver Actividades</button>
 										</div>
 										<div class="col-md-8">
-											<h4 align="center">Detalles del Proyecto</h4>
+											<div class="form-group">
+												<h4 align="center">Detalles del Proyecto</h4>
+											</div>
+											<div class="row">
+												<div class="form-group col-2">
+													<label>ID</label>
+													<input class="form-control" type="text" name="idProjectName" readonly <%if (project != null){ %>
+													value=<%=project.getId()%><%}else {%>value=<%=projectWithSupplies.getId()%><%} %>>
+												</div>
+												<div class="form-group col">
+													<label> Nombre </label>
+													<input class="form-control" type="text" name="descriptionName"  readonly <%if (project != null){ %>
+													value= "<%=project.getName() %>"<% }else{ %>value="<%=projectWithSupplies.getName() %>"<%} %> >
+												</div>
+												<div class="form-group col">
+													<label> Descripcion </label>
+													<input class="form-control" type="text" name="descriptionName"  readonly <%if (project != null){ %>
+													value= "<%=project.getDescription() %>"<% }else{  %> value= "<%=projectWithSupplies.getDescription() %>"<%} %> >
+												</div>
+											</div>
 										</div>
 									</div>
 								</form>
-								<div style="display: none">
-									<div class="form-group">
+
+								<div <%if(projectWithSupplies == null) {%>
+									style="display: none"><%} %>
+									<div class ="form-group">
 										<div class="table-responsive">
 											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 												<thead>
 													<tr>
-														<th> Nombre</th>
+														<th>Nombre</th>
 														<th>Descripcion</th>
-														<th>Unidad</th>
 														<th>Cantidad</th>
-														<th>Existencia</th>
+														<th>Unidad</th>
+														<th>Stock</th>
+														<th>Proveedor</th>
+														<th>Categoria Prov</th>
 													</tr>
 												</thead>
 												<tbody>
+													<%if(projectWithSupplies != null) {
+													ArrayList<Supply> supplies = projectWithSupplies.getSupplies() ;
+													for(Supply s : supplies){
+													%>
 													<tr>
-														<td>   a </td>
-														<td> b	</td>
-														<td> c	</td>
-														<td>	d</td>
-														<td>	e</td>
+														<td><%= s.getName() %></td>
+														<td><%= s.getDescription() %></td>
+														<td><%= s.getQuantity() %></td>
+														<td><%=s.getUnity()   %></td>
+														<td><%= s.getStock() %></td>
+														<%if(s.getProvider().getBusiness_name() != null){ %>
+														<td>"<%= s.getProvider().getBusiness_name() %>"</td>
+														<%} else { %>
+														<td><%= s.getProvider().getName() + " " + s.getProvider().getSurname() %></td>
+														<%} %>
+														<td><%= s.getProvider().getCategory() %></td>
 													</tr>
+													<%
+													} }
+													%>
 												</tbody>
 											</table>
 										</div>
 									</div>
-									<form action="projectManagmentServlet" method="post">
-										<div class="row">
-											<div class="col-auto">
-												<button type="button" name ="addSupplyName"  class="btn btn-success">Agregar insumos</button>
+									<div class="form-group">
+										<form action="projectManagmentServlet" method="post">
+											<div class="row">
+												<div class="col-md-4">
+													<button type="button" name ="addSupplyName"  class="btn btn-success">Agregar insumos</button>
+												</div>
+												<div class="col-md-4">
+													<button type="submit" name ="calculateCostName" class="btn btn-info float-right">Calcular costo total</button>
+												</div>
+												<div class="col">
+													<input type="text" class="form-control float-right" name="costName" <%if(projectWithSupplies != null && projectWithSupplies.getTotalCost() != 0){ %>
+													value="<%=projectWithSupplies.getTotalCost() %>" > <%} %>
+												</div>
 											</div>
-											<div class="col">
-												<button type="submit" name ="deleteSupplyName" class="btn btn-info float-right">Calcular costo total</button>
-											</div>
-											<div class="col-md-2">
-												<input type="text" class="form-control" name="costName">
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>

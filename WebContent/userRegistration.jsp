@@ -43,8 +43,7 @@
                     <%if(u != null){ %> value = <%=u.getUsername() %>                    
                     <%
                     } 
-                    %>>
-                    
+                    %>>                    
                     <label for="firstName">Nombre de usuario</label>
                   </div>
                 </div>

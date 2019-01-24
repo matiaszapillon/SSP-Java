@@ -1,5 +1,6 @@
 package controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import data.SupplyData;
@@ -27,7 +28,13 @@ public class SupplyController {
 
 	public ArrayList<Supply> getSuppliesByProject(int idProject) {
 		// TODO Auto-generated method stub
-		return this.getSupplyData().getSuppliesByProject(idProject);
+		try {
+			return this.getSupplyData().getSuppliesByProject(idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		
 	}
 	

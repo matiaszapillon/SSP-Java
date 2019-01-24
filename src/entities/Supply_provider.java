@@ -3,7 +3,9 @@ package entities;
 import java.io.Serializable;
 
 public class Supply_provider implements Serializable{
-
+//CREO QUE ESTA CLASE INTERMEDIA SI VA, O AL MENOS DEBERIA HABER UNA CLASE PARA MOSTRAR TODA LA INFO
+	//DEL PROVEDOR Y EL INSUMO CON EL PRECIO Y DEMAS, YA QUE EL PRECIO POR EJEMPLO DEPENDE DE AMBOS A LA VEZ
+	
 	private int id;
 	private Supply supply;
 	private Provider provider;

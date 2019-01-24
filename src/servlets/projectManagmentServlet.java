@@ -66,9 +66,32 @@ public class projectManagmentServlet extends HttpServlet {
 
 		//Info de DetailsProject
 		if(request.getParameter("suppliesName") != null) {
-			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			String idP = request.getParameter("idProjectName") ;
+			int idProject = Integer.parseInt(idP);			
+			Project projectWithSupplies = pController.getProjectById(idProject);
 			SupplyController sController = new SupplyController();
-			ArrayList<Supply> supplies = sController.getSuppliesByProject(idProject);
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		}
+		if(request.getParameter("calculateCostName") != null) {
+			
+			/* ESTO ME DEVUELVE NULL EN EL VALUE. POR QUE? EN PANTALLA APARECE.
+			 	<label>ID</label>
+			<input class="form-control" type="text" name="idProjectName" readonly <%if (project != null){ %>
+			value=<%=project.getId()%><%}else{%> value=<%=projectWithSupplies.getId()%><%} %>>
+			 */
+			String idP = request.getParameter("idProjectName") ;
+			int idProject = Integer.parseInt(idP);
+			Project projectWithSupplies = pController.getProjectById(idProject);
+			SupplyController sController = new SupplyController();
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			projectWithSupplies.calculateTotalCost(supplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		
 		}
 		
 	}

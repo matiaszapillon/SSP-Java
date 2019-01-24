@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Project implements Serializable{
 
@@ -11,7 +12,16 @@ public class Project implements Serializable{
 	private Client client;
 	private ArrayList<Supply> supplies = new ArrayList<Supply>();
 	private ArrayList<Stage> stages = new ArrayList<Stage>();
+	private float totalCost;
 	
+	
+	
+	public float getTotalCost() {
+		return totalCost;
+	}
+	public void setTotalCost(float totalCost) {
+		this.totalCost = totalCost;
+	}
 	public int getId() {
 		return id;
 	}
@@ -67,5 +77,12 @@ public class Project implements Serializable{
 			}
 		}}
 	return null;
+	}
+	public void calculateTotalCost(ArrayList<Supply> supplies) {
+		float total = 0 ;
+		for(Supply s: supplies) {
+			total += ( s.getPrize() * s.getQuantity() );
+		}
+		this.setTotalCost(total);
 	}
 }

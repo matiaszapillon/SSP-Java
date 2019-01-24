@@ -7,44 +7,55 @@ import java.util.ArrayList;
 
 import entities.Client;
 import entities.Project;
+import entities.Provider;
 import entities.Stage;
 import entities.Supply;
 
 public class SupplyData {
 
-	public ArrayList<Supply> getSuppliesByProject(int idProject) {
+	public ArrayList<Supply> getSuppliesByProject(int idProject) throws SQLException {
 		// TODO Auto-generated method stub
-		ArrayList<Supply> supplies = null;
+		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("SELECT p.id_project, p.description, p.name as 'name_project' , c.*, s.description as 'description_stage', s.id_stage, s.name as 'name_stage', ps.state\n" + 
-				"FROM project p INNER JOIN client c\n" + 
-				"ON p.id_client = c.id_client INNER JOIN project_stage ps \n" + 
-				"ON p.id_project = ps.id_project INNER JOIN stage s \n" + 
-				"ON ps.id_stage = s.id_stage\n" + 
-				"WHERE p.id_project = ? ");
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider, \n" + 
+				"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,\n" + 
+				"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state, \n" + 
+				"p.description as 'description provider', p.category, ps.quantity \n" + 
+				"from supply s inner join supply_provider sp on s.id_supply = sp.id_supply_provider\n" + 
+				"inner join provider p on sp.id_provider = p.id_provider\n" + 
+				"inner join project_supply ps on ps.id_supply = s.id_supply\n" + 
+				"where ps.id_project = ? and active is true");
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
 		if (rs != null) {
 			while (rs.next()) {
 				Supply s = new Supply();
-				p.setDescription(rs.getString("description"));
-				p.setId(rs.getInt("id_project"));	
-				p.setName(rs.getString("name_project"));
-				Client c = new Client();
-				c.setAddress(rs.getString("address"));
-				c.setBusiness_name(rs.getString("business_name"));
-				c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
-				c.setEmail(rs.getString("email"));
-				c.setId(rs.getInt("id_client"));
-				p.setClient(c);
-					Stage stage = new Stage();
-					stage.setDescription(rs.getString("description_stage"));
-					stage.setId(rs.getInt("id_stage"));
-					stage.setName(rs.getString("name_stage"));
-					stage.setState(rs.getInt("state"));
-					p.getStages().add(stage);
-			}		
+				s.setName(rs.getString("name supply"));
+				s.setId(rs.getInt("id_supply"));
+				s.setDescription(rs.getString("description supply"));
+				s.setUnity(rs.getString("unity"));
+				s.setStock(rs.getInt("stock"));
+				s.setActive(rs.getBoolean("active"));
+				s.setCurrency(rs.getString("currency"));
+				s.setPrize(rs.getInt("prize"));
+				s.setQuantity(rs.getInt("quantity"));
+
+				Provider p = new Provider();
+				p.setDescription(rs.getString("description provider"));
+				p.setId(rs.getInt("id_provider"));
+				p.setName(rs.getString("name provider"));
+				p.setAddress(rs.getString("address"));
+				p.setBusiness_name(rs.getString("business_name"));
+				p.setSurname(rs.getString("surname"));
+				p.setCategory(rs.getInt("category"));
+				p.setState(rs.getInt("state"));
+				p.setEmail(rs.getString("email"));
+				p.setPhone(rs.getString("phone"));
+
+				s.setProvider(p);
+				supplies.add(s);
+			}
 		}
 		try {
 			if (rs != null)
