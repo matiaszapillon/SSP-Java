@@ -17,7 +17,7 @@ function validateForm() {
 		}		
 	}
 	if(i == 0) {
-		window.alert("Debe seleccionar un usuario antes de realizar esta operacion")
+		window.alert("Debe seleccionar un registro antes de realizar esta operacion")
 		return false;
 	} else {
 		return true;

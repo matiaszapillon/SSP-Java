@@ -75,7 +75,7 @@
             <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="login.html">Proveedores</a>
+            <a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
             <a class="dropdown-item" href="register.html">Insumos</a>
               <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
             <a class="dropdown-item" href="forgot-password.html">Etapas</a>

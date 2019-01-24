@@ -27,33 +27,43 @@ public class Provider implements Serializable{
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getBusiness_name() {
 		return business_name;
 	}
+	
 	public void setBusiness_name(String business_name) {
 		this.business_name = business_name;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getSurname() {
 		return surname;
 	}
+	
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getState() {
         switch (state) {
         case APROBADO:
@@ -63,9 +73,11 @@ public class Provider implements Serializable{
     }
     return "";
 	}
+	
 	public void setState(int state) {
 		this.state = state;
 	}
+	
 	public String getCategory() {
         switch (category) {
         case CATEGORY_A:
@@ -74,33 +86,37 @@ public class Provider implements Serializable{
             return "B";
         case CATEGORY_C:
             return "C";
-    }
+        }
     return "";
-		
 	}
+	
 	public void setCategory(int category) {
 		this.category = category;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 	public String getAddress() {
 		return address;
 	}
+	
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
 	public String getPhone() {
 		return phone;
 	}
+	
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	
-	
+		
 	
 }
