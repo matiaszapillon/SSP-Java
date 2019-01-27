@@ -84,7 +84,7 @@ public class ProviderData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// Aca se devuelve con null si no lo encontró
+		// Aca se devuelve con null si no lo encontrï¿½
 		return p;
 	}
 	
@@ -175,6 +175,44 @@ public class ProviderData {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public ArrayList<Provider> getProvidersByIdSupply(int idSupply) throws SQLException {
+		ArrayList<Provider> providers = new ArrayList<Provider>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String SQLQuery = "SELECT * FROM provider";
+		
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		rs = stmt.executeQuery(SQLQuery);
+		
+		if(rs != null) {
+			while(rs.next()) {
+				Provider p = new Provider();
+				p.setId(rs.getInt("id_provider"));
+				p.setBusiness_name(rs.getString("business_name"));
+				p.setName(rs.getString("name"));
+				p.setSurname(rs.getString("surname"));
+				p.setState(rs.getInt("state"));
+				p.setDescription(rs.getString("description"));
+				p.setCategory(rs.getInt("category"));
+				p.setEmail(rs.getString("email"));
+				p.setAddress(rs.getString("address"));
+				p.setPhone(rs.getString("phone"));
+				
+				providers.add(p);
+			}
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return providers;
 	}
 
 }

@@ -37,6 +37,17 @@ public class SupplyController {
 		return null;
 		
 	}
+
+
+	public ArrayList<Supply> getAllSupplies() {
+		try {
+			return this.supplyData.getAllSupplies();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 }

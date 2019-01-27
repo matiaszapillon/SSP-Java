@@ -70,5 +70,15 @@ public class ProviderController {
 		
 		
 	}
+
+	public ArrayList<Provider> getProvidersByIdSupply(int idSupply) {
+		try {
+			return this.providerData.getProvidersByIdSupply(idSupply);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 		
 }

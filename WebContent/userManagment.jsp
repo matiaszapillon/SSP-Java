@@ -150,7 +150,6 @@
       </form>
 
         </div>
-        <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">

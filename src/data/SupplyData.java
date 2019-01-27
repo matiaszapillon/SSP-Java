@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.PreparedStatement;
+import java.sql.* ;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,19 +14,19 @@ import entities.Supply;
 
 public class SupplyData {
 
-	public ArrayList<Supply> getSuppliesByProject(int idProject) throws SQLException {
+	public ArrayList<Supply> getSuppliesByProject(int idProject) throws SQLException  {
 		// TODO Auto-generated method stub
 		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider, \n" + 
-				"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,\n" + 
-				"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state, \n" + 
-				"p.description as 'description provider', p.category, ps.quantity \n" + 
-				"from supply s inner join supply_provider sp on s.id_supply = sp.id_supply_provider\n" + 
-				"inner join provider p on sp.id_provider = p.id_provider\n" + 
-				"inner join project_supply ps on ps.id_supply = s.id_supply\n" + 
-				"where ps.id_project = ? and active is true");
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider, \n" + 
+					"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,\n" + 
+					"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state, \n" + 
+					"p.description as 'description provider', p.category, ps.quantity \n" + 
+					"from supply s inner join supply_provider sp on s.id_supply = sp.id_supply_provider\n" + 
+					"inner join provider p on sp.id_provider = p.id_provider\n" + 
+					"inner join project_supply ps on ps.id_supply = s.id_supply\n" + 
+					"where ps.id_project = ? and active is true");
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
 		if (rs != null) {
@@ -68,6 +69,37 @@ public class SupplyData {
 		}
 
 		return supplies;
+	}
+
+	public ArrayList<Supply> getAllSupplies() throws SQLException {
+		ArrayList<Supply> supplies = new ArrayList<Supply>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		rs = stmt.executeQuery("select * from supply");
+		if (rs != null) {
+			while (rs.next()) {
+				Supply s = new Supply();
+				s.setName(rs.getString("name"));
+				s.setId(rs.getInt("id_supply"));
+				s.setDescription(rs.getString("description"));
+				s.setUnity(rs.getString("unity"));
+				s.setStock(rs.getInt("stock"));
+				supplies.add(s);
+			}
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return supplies;
+		
 	}
 
 }

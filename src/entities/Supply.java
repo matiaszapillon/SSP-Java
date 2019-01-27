@@ -84,7 +84,10 @@ public class Supply implements Serializable{
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	
+	@Override
+	public boolean equals(Object obj) {
+	    return (obj instanceof Supply) && this.id == ((Supply)obj).getId();
+	}
 	
 	
 }

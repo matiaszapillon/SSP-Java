@@ -50,7 +50,7 @@
                 <div class="col-md-6">
               <div class="form-label-group">
                 <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required="required"
-                    <%if(u != null){ %> value = <%= u.getEmail() %>                  
+                    <%if(u != null){ %> value = "<%= u.getEmail() %>"                  
                     <%
                     } 
                     %>>
