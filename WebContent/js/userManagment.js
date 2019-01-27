@@ -1,10 +1,11 @@
 function setHidden(clickedRadioButtonId) {
 	 document.querySelector('#rowIdValue').value = clickedRadioButtonId ;
 }
+
 function setHiddenValue(idButton) {
-	
 	document.querySelector('#idClickedButton').value = idButton;
 }
+
 function validateForm() {  
 	if(document.querySelector('#idClickedButton').value == "addButton"){
 		return true

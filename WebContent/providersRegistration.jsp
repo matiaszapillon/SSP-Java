@@ -34,50 +34,54 @@
                 Registrar / Editar Proveedor
             </div>
             <div class="card-body">
-                <form action="providersManagmentServlet" method="post">
-                    
+                <form action="providersRegistrationServlet" method="post">
+
                     <!-- Fila 1 -->
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderNumber" name="providerID" 
-                                        placeholder="Id Proveedor" readonly="readonly" <% if(p != null) { %> value="<%= p.getId() %>" <% } %> >
+                                    <input type="text" class="form-control" id="idProviderNumber" name="providerID"
+                                        placeholder="Id Proveedor" readonly="readonly" <% if(p !=null) { %> value="
+                                    <%=p.getId() %>"
+                                    <% } %> >
                                 </div>
                             </div>
                             <div class="col-md-6">
-                            	<div class="form-label-group">
-                            		<input type="text" class="form-control" id="idProviderBssName" name="providerBssName" 
-                                    placeholder="Proveedor" <% if(p != null) { %> value="<%= p.getBusiness_name() %>" <% } %> >
-                                	<label for="idProviderBssName">Proveedor</label>
-                            	</div>
+                                <div class="form-label-group">
+                                    <input type="text" class="form-control" id="idProviderBssName" name="providerBssName"
+                                        placeholder="Proveedor" required="required" <% if(p !=null) { %> value="
+                                    <%=p.getBusiness_name() %>"
+                                    <% } %> >
+                                    <label for="BssName">Proveedor</label>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Fila 2 -->
                     <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="text" class="form-control" id="idProviderName" name="providerName"
-                                            placeholder="Nombre" required="required" <% if(p !=null) { %> value="
-                                        <%= p.getName() %>"
-                                        <% } %> >
-                                        <label for="idProviderName">Nombre</label>
-                                    </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" class="form-control" id="idProviderName" name="providerName"
+                                        placeholder="Nombre" required="required" <% if(p !=null) { %> value="
+                                    <%=p.getName() %>"
+                                    <% } %> >
+                                    <label for="idProviderName">Nombre</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="text" class="form-control" id="idProviderSurname" name="providerSurname"
-                                            placeholder="Apellido" required="required" <% if(p !=null) { %> value="
-                                        <%= p.getSurname() %>"
-                                        <% } %> >
-                                        <label for="idProviderSurname">Apellido</label>
-                                    </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" class="form-control" id="idProviderSurname" name="providerSurname"
+                                        placeholder="Apellido" required="required" <% if(p !=null) { %> value="
+                                    <%=p.getSurname() %>"
+                                    <% } %> >
+                                    <label for="idProviderSurname">Apellido</label>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <!-- Fila 3 -->
                     <div class="form-group">
@@ -85,7 +89,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderDescription" name="providerDescription"
-                                    	placeholder="Descripcion" required="required" <% if(p !=null) { %> value="
+                                        placeholder="Descripcion" required="required" <% if(p !=null) { %> value="
                                     <%= p.getDescription() %>"
                                     <% } %> >
                                     <label for="idProviderDescription">Descripcion</label>
@@ -126,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Fila 5 -->
                     <div class="form-group">
                         <div class="form-row">

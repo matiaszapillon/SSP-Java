@@ -8,6 +8,9 @@ import entities.*;
 
 public class ProviderData {
 	
+	// PreparedStatement único (mayor seguridad y eficiencia)
+	PreparedStatement prepStmt = null;
+	
 	public ArrayList<Provider> getAll() throws SQLException {
 		ArrayList<Provider> providers = new ArrayList<Provider>();
 		Statement stmt = null;
@@ -48,14 +51,17 @@ public class ProviderData {
 	
 	public Provider getProviderById(int id) throws SQLException {
 		Provider p = null;
-		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		String SqlQuery = "SELECT * FROM provider WHERE id_provider = ?";
 		
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
-		stmt.setInt(1, id);
+		if(prepStmt == null) {
+			// Crear el PreparedStatement de la conexión
+			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+			prepStmt.setInt(1, id);
+		}
 		
-		rs = stmt.executeQuery(SqlQuery);
+		// Ejecutar Query
+		rs = prepStmt.executeQuery();
 		
 		if(rs != null) {
 			while(rs.next()) {
@@ -78,8 +84,8 @@ public class ProviderData {
 		try {
 			if(rs != null)
 				rs.close();
-			if(stmt != null)
-				stmt.close();
+			if(prepStmt != null)
+				prepStmt.close();
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,29 +95,36 @@ public class ProviderData {
 	}
 	
 	public void create (Provider p) throws SQLException {
-		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-				"INSERT INTO provider (business_name, name, surname, state, description, category, email, address, phone) values (?,?,?,?,?,?,?,?,?)",
-				PreparedStatement.RETURN_GENERATED_KEYS);
-
-		stmt.setString(1, p.getBusiness_name());
-		stmt.setString(2, p.getName());
-		stmt.setString(3, p.getSurname());
-		stmt.setString(4, p.getState());
-		stmt.setString(5, p.getDescription());
-		switch(p.getCategory()) {
-			case "A": stmt.setInt(6, Provider.CATEGORY_A); 
-			case "B": stmt.setInt(6, Provider.CATEGORY_B); 
-			case "C": stmt.setInt(6, Provider.CATEGORY_C); 
+		String SqlQUery = "INSERT INTO provider (business_name, name, surname, state, description, category, email, address, phone) values (?,?,?,?,?,?,?,?,?)";
+		
+		if(prepStmt == null) {
+			// Crear el PreparedStatement de la conexión
+			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQUery, PreparedStatement.RETURN_GENERATED_KEYS);
+			prepStmt.setString(1, p.getBusiness_name());
+			prepStmt.setString(2, p.getName());
+			prepStmt.setString(3, p.getSurname());
+			switch(p.getState()) {
+				case "APROBADO": prepStmt.setInt(4, Provider.APROBADO);
+				case "DESAPROBADO": prepStmt.setInt(4, Provider.DESAPROBADO);
+			}
+			prepStmt.setString(5, p.getDescription());
+			switch(p.getCategory()) {
+				case "A": prepStmt.setInt(6, Provider.CATEGORY_A); 
+				case "B": prepStmt.setInt(6, Provider.CATEGORY_B); 
+				case "C": prepStmt.setInt(6, Provider.CATEGORY_C); 
+			}
+			prepStmt.setString(7, p.getEmail());
+			prepStmt.setString(8, p.getAddress());
+			prepStmt.setString(9, p.getPhone());
+			
 		}
-		stmt.setString(7, p.getEmail());
-		stmt.setString(8, p.getAddress());
-		stmt.setString(9, p.getPhone());
-		stmt.executeUpdate();
 		
-		keyResultSet = stmt.getGeneratedKeys();
+		// Ejecutar Query
+		prepStmt.executeUpdate();
 		
+		// Traer claves generadas
+		keyResultSet = prepStmt.getGeneratedKeys();
 		if (keyResultSet != null && keyResultSet.next()) {
 			p.setId(keyResultSet.getInt(1));
 		}
@@ -119,8 +132,8 @@ public class ProviderData {
 		try {
 			if (keyResultSet != null)
 				keyResultSet.close();
-			if (stmt != null)
-				stmt.close();
+			if (prepStmt != null)
+				prepStmt.close();
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -129,31 +142,36 @@ public class ProviderData {
 	}
 	
 	public void update (Provider p) throws SQLException {
-		PreparedStatement stmt = null;
-		stmt = FactoryConexion.getInstancia().getConn()
-				.prepareStatement("UPDATE provider SET business_name = ? ,name = ?, surname = ?, state = ?, description = ?, category = ?, email = ?, address = ?, phone = ? WHERE id_provider = ?");
+		String SqlQuery = "UPDATE provider SET business_name = ? ,name = ?, surname = ?, state = ?, description = ?, category = ?, email = ?, address = ?, phone = ? WHERE id_provider = ?";
 		
-		stmt.setString(1, p.getBusiness_name());
-		stmt.setString(2, p.getName());
-		stmt.setString(3, p.getSurname());
-		stmt.setString(4, p.getState());
-		stmt.setString(5, p.getDescription());
-		switch(p.getCategory()) {
-			case "A": stmt.setInt(6, Provider.CATEGORY_A); 
-			case "B": stmt.setInt(6, Provider.CATEGORY_B); 
-			case "C": stmt.setInt(6, Provider.CATEGORY_C); 
+		if(prepStmt == null) {
+			// Crear el PreparedStatement de la conexión
+			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+			prepStmt.setString(1, p.getBusiness_name());
+			prepStmt.setString(2, p.getName());
+			prepStmt.setString(3, p.getSurname());
+			switch(p.getState()) {
+				case "APROBADO": prepStmt.setInt(4, Provider.APROBADO);
+				case "DESAPROBADO": prepStmt.setInt(4, Provider.DESAPROBADO);
+			}
+			prepStmt.setString(5, p.getDescription());
+			switch(p.getCategory()) {
+				case "A": prepStmt.setInt(6, Provider.CATEGORY_A); 
+				case "B": prepStmt.setInt(6, Provider.CATEGORY_B); 
+				case "C": prepStmt.setInt(6, Provider.CATEGORY_C); 
+			}
+			prepStmt.setString(7, p.getEmail());
+			prepStmt.setString(8, p.getAddress());
+			prepStmt.setString(9, p.getPhone());		
+			prepStmt.setInt(10, p.getId());
 		}
-		stmt.setString(7, p.getEmail());
-		stmt.setString(8, p.getAddress());
-		stmt.setString(9, p.getPhone());
 		
-		stmt.setInt(10, p.getId());
-		
-		stmt.executeUpdate();
+		// Ejecutar la Query
+		prepStmt.executeUpdate();
 		
 		try {
-			if (stmt != null)
-				stmt.close();
+			if (prepStmt != null)
+				prepStmt.close();
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -162,13 +180,20 @@ public class ProviderData {
 	}
 	
 	public void delete (int idProv) throws SQLException {
-		PreparedStatement stmt = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("DELETE FROM provider where id_provider = ?");
-		stmt.executeUpdate();
+		String SqlQUery = "DELETE FROM provider where id_provider = ?";
+		
+		if(prepStmt == null) {
+			// Crear el PreparedStatement de la conexión
+			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQUery);
+			prepStmt.setInt(1, idProv);
+		}
+		
+		// Ejecutar la Query
+		prepStmt.executeUpdate();
 		
 		try {
-			if(stmt != null) {
-				stmt.close();
+			if(prepStmt != null) {
+				prepStmt.close();
 				FactoryConexion.getInstancia().releaseConn();
 			} 
 		} catch (SQLException e) {
