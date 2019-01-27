@@ -1,14 +1,13 @@
 package data;
+
 import java.sql.*;
-
-
 
 public class FactoryConexion {
 	private String driver="com.mysql.cj.jdbc.Driver";
 	private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String password="";
+	private String password="root";
 	private String db="ssp_db";
 	
 	private static FactoryConexion instancia;
@@ -39,7 +38,6 @@ public class FactoryConexion {
 				conn = DriverManager.getConnection(
 			        "jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 				     //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-
 			}
 		}
 		cantConn++;

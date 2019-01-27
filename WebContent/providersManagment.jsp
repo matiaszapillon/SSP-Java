@@ -123,9 +123,9 @@
                                             <th>Id</th>
                                             <th>Nombre de negocio</th>
                                             <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>Descripcion</th>
+                                            <th>Apellido</th>                                            
                                             <th>Estado</th>
+                                            <th>Descripcion</th>
                                             <th>Categoría</th>
                                             <th>Email</th>
                                             <th>Dirección</th>
