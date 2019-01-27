@@ -63,18 +63,13 @@ public class providersRegistrationServlet extends HttpServlet {
 		
 		// Pregunto si tiene ID el campo de ID
 		if(request.getParameter("providerID").equals(""))
-			try {
-				pController.create(p);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		else 
-			try {
-				p.setId(Integer.parseInt(request.getParameter("providerID")));
-				pController.update(p);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			pController.create(p);
+		else {
+			p.setId(Integer.parseInt(request.getParameter("providerID")));
+			pController.update(p);
+		}
+		// Redireccionar a otra pagina (verificar que se cargue la tabla, caso contrario hay que volver a mandarlos
+		request.getRequestDispatcher("providersManagment.jsp").forward(request, response);
 	}
 
 }

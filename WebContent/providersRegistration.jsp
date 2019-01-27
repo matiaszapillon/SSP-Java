@@ -34,7 +34,7 @@
                 Registrar / Editar Proveedor
             </div>
             <div class="card-body">
-                <form action="providersRegistrationServlet" method="post">
+                <form action="providersManagmentServlet" method="post">
 
                     <!-- Fila 1 -->
                     <div class="form-group">
@@ -155,12 +155,12 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton">Guardar</button>
+                    <button class="btn btn-primary btn-block" type="submit" name="saveButton">Guardar</button>
 
                 </form>
 
                 <div class="text-center">
-                    <a class="d-block small mt-3" href="loginAdmin.jsp">Pagina de inicio</a>
+                    <a class="d-block small mt-3" href="indexAdmin.jsp">Pagina de inicio</a>
                     <a class="d-block small" href="forgot-password.html">Olvidó la contraseña?</a>
                 </div>
 
