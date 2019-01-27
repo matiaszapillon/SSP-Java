@@ -42,17 +42,14 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderNumber" name="providerID"
-                                        placeholder="Id Proveedor" readonly="readonly" <% if(p !=null) { %> value="
-                                    <%=p.getId() %>"
+                                        placeholder="Id Proveedor" readonly="readonly" <% if(p !=null) { %> value="<%=p.getId() %>"
                                     <% } %> >
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderBssName" name="providerBssName"
-                                        placeholder="Proveedor" required="required" <% if(p !=null) { %> value="
-                                    <%=p.getBusiness_name() %>"
-                                    <% } %> >
+                                        placeholder="Proveedor" required="required" <% if(p !=null) { %> value="<%=p.getBusiness_name() %>"<% } %> >
                                     <label for="BssName">Proveedor</label>
                                 </div>
                             </div>
@@ -65,8 +62,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderName" name="providerName"
-                                        placeholder="Nombre" required="required" <% if(p !=null) { %> value="
-                                    <%=p.getName() %>"
+                                        placeholder="Nombre" required="required" <% if(p !=null) { %> value="<%=p.getName() %>"
                                     <% } %> >
                                     <label for="idProviderName">Nombre</label>
                                 </div>
@@ -74,8 +70,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderSurname" name="providerSurname"
-                                        placeholder="Apellido" required="required" <% if(p !=null) { %> value="
-                                    <%=p.getSurname() %>"
+                                        placeholder="Apellido" required="required" <% if(p !=null) { %> value="<%=p.getSurname() %>"
                                     <% } %> >
                                     <label for="idProviderSurname">Apellido</label>
                                 </div>
@@ -89,8 +84,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderDescription" name="providerDescription"
-                                        placeholder="Descripcion" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getDescription() %>"
+                                        placeholder="Descripcion" required="required" <% if(p !=null) { %> value="<%= p.getDescription() %>"
                                     <% } %> >
                                     <label for="idProviderDescription">Descripcion</label>
                                 </div>
@@ -98,8 +92,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderCategory" name="providerCategory"
-                                        placeholder="Categoria" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getCategory() %>"
+                                        placeholder="Categoria" required="required" <% if(p !=null) { %> value="<%= p.getCategory() %>"
                                     <% } %> >
                                     <label for="idProviderCategory">Categoria</label>
                                 </div>
@@ -113,8 +106,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderEmail" name="providerEmail"
-                                        placeholder="Email" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getEmail() %>"
+                                        placeholder="Email" required="required" <% if(p !=null) { %> value="<%= p.getEmail() %>"
                                     <% } %> >
                                     <label for="idProviderEmail">Email</label>
                                 </div>
@@ -122,8 +114,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderAddress" name="providerAddress"
-                                        placeholder="Direccion" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getAddress() %>"
+                                        placeholder="Direccion" required="required" <% if(p !=null) { %> value="<%= p.getAddress() %>"
                                     <% } %> >
                                     <label for="idProviderAddress">Direccion</label>
                                 </div>
@@ -137,8 +128,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderPhone" name="providerPhone"
-                                        placeholder="Telefono" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getPhone() %>"
+                                        placeholder="Telefono" required="required" <% if(p !=null) { %> value="<%= p.getPhone() %>"
                                     <% } %> >
                                     <label for="idProviderPhone">Telefono</label>
                                 </div>
@@ -146,8 +136,7 @@
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderState" name="providerState"
-                                        placeholder="Estado" required="required" <% if(p !=null) { %> value="
-                                    <%= p.getState() %>"
+                                        placeholder="Estado" required="required" <% if(p !=null) { %> value="<%= p.getState() %>"
                                     <% } %> >
                                     <label for="idProviderState">Estado</label>
                                 </div>

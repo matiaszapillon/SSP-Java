@@ -67,7 +67,7 @@ public class providersManagmentServlet extends HttpServlet {
 			
 			p = pController.getProviderById(idProvider);
 			
-			// Pasar el proveedor a la página redireccionada que contiene el formulario
+			// Pasar el proveedor a la pï¿½gina redireccionada que contiene el formulario
 			request.setAttribute("proveedor", p);
 			request.getRequestDispatcher("providersRegistration.jsp").forward(request, response);
 		}
@@ -89,14 +89,14 @@ public class providersManagmentServlet extends HttpServlet {
 			p.setName(request.getParameter("providerName"));
 			p.setSurname(request.getParameter("providerSurname"));
 			switch(request.getParameter("providerState")){
-				case "1": p.setState(Provider.APROBADO);
-				case "2": p.setState(Provider.DESAPROBADO);
+				case "APROBADO": p.setState(Provider.APROBADO);
+				case "DESAPROBADO": p.setState(Provider.DESAPROBADO);
 			}
 			p.setDescription(request.getParameter("providerDescription"));
 			switch (request.getParameter("providerCategory")) {
-				case "1": p.setCategory(Provider.CATEGORY_A);
-				case "2": p.setCategory(Provider.CATEGORY_B);
-				case "3": p.setCategory(Provider.CATEGORY_C);
+				case "A": p.setCategory(Provider.CATEGORY_A);
+				case "B": p.setCategory(Provider.CATEGORY_B);
+				case "C": p.setCategory(Provider.CATEGORY_C);
 			}
 			p.setEmail(request.getParameter("providerEmail"));
 			p.setAddress(request.getParameter("providerAddress"));
