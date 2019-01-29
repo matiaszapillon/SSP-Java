@@ -27,14 +27,6 @@ pageEncoding="UTF-8"%>
 			<a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Administrador</a>
 			<!-- Navbar Search -->
 			<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-					<div class="input-group-append">
-						<button class="btn btn-primary" type="button">
-						<i class="fas fa-search"></i>
-						</button>
-					</div>
-				</div>
 			</form>
 			<!-- Navbar -->
 			
@@ -57,7 +49,7 @@ pageEncoding="UTF-8"%>
 			<!-- Sidebar -->
 			
 			<ul class="sidebar navbar-nav">
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a class="nav-link" href="indexAdmin.jsp">
 						SSP
 					</a>
@@ -67,7 +59,7 @@ pageEncoding="UTF-8"%>
 						<span>ABM</span>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-						<a class="dropdown-item" href="login.html">Proveedores</a>
+						<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
 						<a class="dropdown-item" href="register.html">Insumos</a>
 						<a class="dropdown-item" href="forgot-password.html">Proyectos</a>
 						<a class="dropdown-item" href="forgot-password.html">Etapas</a>
@@ -93,8 +85,8 @@ pageEncoding="UTF-8"%>
 							<div class="form-group">
 								<h4 align="center">Seleccion de Proveedores</h4>
 							</div>
-						<%ArrayList<Supply> suppliesProviders = (ArrayList<Supply>)request.getAttribute("suppliesProviders"); %>
-						<%Project project = (Project)request.getAttribute("project"); %>	
+							<%ArrayList<Supply> suppliesProviders = (ArrayList<Supply>)request.getAttribute("suppliesProviders"); %>
+							<%Project project = (Project)request.getAttribute("project"); %>
 							<form action="projectManagmentServlet" method="post">
 								<div class="card mb-3">
 									<div class="card-header">
@@ -115,7 +107,6 @@ pageEncoding="UTF-8"%>
 													</tr>
 												</thead>
 												<tbody>
-
 													<%if(suppliesProviders != null) {
 													for(Supply s : suppliesProviders){
 													%>

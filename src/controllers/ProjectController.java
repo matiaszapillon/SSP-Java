@@ -42,7 +42,12 @@ try {
 	}
 
 	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) {
-		this.projectData.addSupplyToProject(idProject,idSupply,idProvider,quantity);
+		try {
+			this.projectData.addSupplyToProject(idProject,idSupply,idProvider,quantity);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

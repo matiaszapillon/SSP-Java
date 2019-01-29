@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import entities.Client;
 import entities.Employee;
 import entities.Project;
+import entities.Provider;
 import entities.Stage;
 import entities.User;
 
@@ -90,7 +91,31 @@ public class projectData {
 		return projects;
 	}
 
-	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) {
+	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) throws SQLException {
+		PreparedStatement prepStmt = null;
+		ResultSet keyResultSet = null;
+		String SqlQuery = "INSERT INTO project_supply (id_project, id_supply, quantity, id_provider) values (?,?,?,?)";
+
+		// Crear el PreparedStatement de la conexi�n
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery,PreparedStatement.RETURN_GENERATED_KEYS);
+		prepStmt.setInt(1, idProject);
+		prepStmt.setInt(2, idSupply);
+		prepStmt.setFloat(3, quantity);
+		prepStmt.setInt(4, idProvider);
+	
+		// Ejecutar Query
+		prepStmt.executeUpdate();
+	
+		// Cerrar conexion
+		try {
+			if (keyResultSet != null)
+				keyResultSet.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 	}
 

@@ -225,19 +225,20 @@ public class ProviderData {
 	}
 
 
-	public ArrayList<Provider> getProvidersByIdSupply(int idSupply) throws SQLException {
-		ArrayList<Provider> providers = new ArrayList<Provider>();
+	public ArrayList<Supply> getProvidersByIdSupply(int idSupply) throws SQLException {
+		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SQLQuery = "SELECT * \n" + 
-				"FROM provider p inner join supply_provider sp on p.id_provider = sp.id_provider \n" + 
-				"inner join supply s on s.id_supply = sp.id_supply\n" + 
-				"where s.id_supply = ?";
 		// Armar statement
-		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement("\n" + 
+				"SELECT p.id_provider,p.name as 'name provider', p.surname, p.state, p.description, p.category,\n" + 
+				"p.email, p.address, p.phone, p.business_name, s.id_supply, sp.prize, sp.currency, sp.active, s.name as 'name supply' \n" + 
+				"FROM provider p inner join supply_provider sp on p.id_provider = sp.id_provider\n" + 
+				"inner join supply s on s.id_supply = sp.id_supply\n" + 
+				"where s.id_supply = ?");
 		prepStmt.setInt(1, idSupply);
 		// Ejecutar Query
-		rs = prepStmt.executeQuery(SQLQuery);
+		rs = prepStmt.executeQuery();
 
 		
 		if(rs != null) {

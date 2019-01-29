@@ -42,8 +42,7 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="text" id="idUsername" class="form-control" name="username" placeholder="Username"
-                    required="required" <%if(u !=null){ %> value =
-                  <%=u.getUsername() %>
+                    required="required" <%if(u !=null){ %> value ="<%=u.getUsername()%>"
                   <%
                     } 
                     %>>
@@ -53,10 +52,8 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address"
-                    required="required" <%if(u !=null){ %> value =
-                  <%= u.getEmail() %>
-                  <%
-
+                    required="required" <%if(u !=null){ %> value ="<%= u.getEmail() %>"
+                  <%                 
                     } 
                     %>>
 
@@ -71,8 +68,7 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="password" id="idPassword" class="form-control" name="password" placeholder="Password"
-                    required="required" <%if(u !=null){ %> value =
-                  <%=u.getPassword() %>
+                    required="required" <%if(u !=null){ %> value ="<%=u.getPassword() %>"
                   <%
                     } 
                     %>>
@@ -82,8 +78,7 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password"
-                    required="required" <%if(u !=null){ %> value =
-                  <%=u.getPassword()%>
+                    required="required" <%if(u !=null){ %> value ="<%=u.getPassword()%>"
                   <%
                     } 
                     %>>
@@ -108,15 +103,11 @@
             <div class="col-md-5">
               <input type="text" class="form-control" name="textPerson" id="textIdPerson" placeholder="Seleccionar cliente o empleado"
                 aria-label="Search" aria-describedby="basic-addon2" disabled="" <%if(u !=null){ if(u.getType()==User.CLIENT){
-                String business_name=u.getClient().getBusiness_name() ;%> value =
-              <%=business_name %>
+                String business_name=u.getClient().getBusiness_name() ;%> value ="<%=business_name %>"
               <%
-                    }else { String name = u.getEmployee().getSurname()+ "," + u.getEmployee().getName() ;
-                    %>
-              value=
-              <%=name%>
-              <%}}   //PREGUNTAR PORQUE NO ME TOMA EL ESPACIO EN LA CONCATENACION.(Solo el espacio falla)%>
-              >
+                }else { String name = u.getEmployee().getSurname()+ "," + u.getEmployee().getName() ;
+                 %>
+              value="<%=name%>"<%}}  %>>
             </div>
             <div class="col-md-1">
               <button class="btn btn-primary" type="button" id="buttonModal" data-toggle="modal" onclick="findPeople()"
@@ -126,15 +117,14 @@
               </button>
             </div>
             <input type="hidden" name="hiddenIdPerson" id="hiddenIdPerson" />
-            <input type="hidden" name="hiddenUser" id="hiddenIdUser" <%if (u!=null) { %> value =
-            <%= u.getId() %>
+            <input type="hidden" name="hiddenUser" id="hiddenIdUser" <%if (u!=null) { %> value ="<%= u.getId() %>"
             <%} %>/>
             <input type="hidden" name="hiddenNamePerson" id="hiddenNameIdPerson" />
           </div>
           <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton"> Guardar</button>
         </form>
         <div class="text-center">
-          <a class="d-block small mt-3" href="loginAdmin.jsp">Pagina de inicio</a>
+          <a class="d-block small mt-3" href="indexAdmin.jsp">Pagina de inicio</a>
           <a class="d-block small" href="forgot-password.html">Olvidó la contraseña?</a>
         </div>
       </div>

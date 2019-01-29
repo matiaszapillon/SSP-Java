@@ -97,13 +97,14 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		
 		if(request.getParameter("addSupplyName") != null) {
-			//MUESTRO INSUMOS QUE NO ESTEN EN EL PROYECTO
-			//SE DEBE SELECCIONAR EL QUE DESEE AGREGAR Y LUEGO ELEGIR EL PROVEEDOR
-			// (SOLO SE PODRA SELECCIONAR LOS PROVEEDORES QUE ESTAN APROBADOS)
-//			String idP = request.getParameter("idProjectName") ;
+				/*MUESTRO INSUMOS QUE NO ESTEN EN EL PROYECTO
+   				SE DEBE SELECCIONAR EL QUE DESEE AGREGAR Y LUEGO ELEGIR EL PROVEEDOR
+   				(SOLO SE PODRA SELECCIONAR LOS PROVEEDORES QUE ESTAN APROBADOS)
+				 */
+			
+//			String idP = request.getParameter("idProjectName") ;  <<< retorna null - PReguntar porque.
 //			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = pController.getProjectById(1);
-
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
 			projectWithSupplies.setSupplies(supplies);
 			ArrayList<Supply> allSupplies = sController.getAllSupplies();
@@ -137,6 +138,7 @@ public class projectManagmentServlet extends HttpServlet {
 			int idSupply = Integer.parseInt(request.getParameter("numberSupplyName")) ;
 			int idProject = Integer.parseInt(request.getParameter("numberProjectName"));
 			pController.addSupplyToProject(idProject,idSupply,idProvider,quantity) ;
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 
 		}
 	}
