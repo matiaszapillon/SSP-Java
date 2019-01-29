@@ -19,14 +19,14 @@ public class SupplyData {
 		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider, \n" + 
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider,\n" + 
 					"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,\n" + 
-					"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state, \n" + 
-					"p.description as 'description provider', p.category, ps.quantity \n" + 
+					"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state,\n" + 
+					"p.description as 'description provider', p.category, ps.quantity\n" + 
 					"from supply s inner join supply_provider sp on s.id_supply = sp.id_supply_provider\n" + 
-					"inner join provider p on sp.id_provider = p.id_provider\n" + 
 					"inner join project_supply ps on ps.id_supply = s.id_supply\n" + 
-					"where ps.id_project = ? and active is true");
+					"inner join provider p on ps.id_provider = p.id_provider\n" + 
+					"where ps.id_project = ?");
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
 		if (rs != null) {

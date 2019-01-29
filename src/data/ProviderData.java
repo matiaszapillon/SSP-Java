@@ -211,34 +211,41 @@ public class ProviderData {
 
 	}
 
-	public ArrayList<Provider> getProvidersByIdSupply(int idSupply) throws SQLException {
-		ArrayList<Provider> providers = new ArrayList<Provider>();
+	public ArrayList<Supply> getProvidersByIdSupply(int idSupply) throws SQLException {
+		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		ResultSet rs = null;
-		String SQLQuery = "SELECT * \n" + 
-				"FROM provider p inner join supply_provider sp on p.id_provider = sp.id_provider \n" + 
-				"inner join supply s on s.id_supply = sp.id_supply\n" + 
-				"where s.id_supply = ?";
+		String SQLQuery = "";
 		if(prepStmt == null) {
-			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
+			prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement("SELECT p.id_provider,p.name as 'name provider', p.surname, p.state, p.description, p.category,\n" + 
+					"p.email, p.address, p.phone, p.business_name, s.id_supply, sp.prize, sp.currency, sp.active, s.name as 'name supply'\n" + 
+					"FROM provider p inner join supply_provider sp on p.id_provider = sp.id_provider\n" + 
+					"inner join supply s on s.id_supply = sp.id_supply\n" + 
+					"where s.id_supply =?");
 			prepStmt.setInt(1, idSupply);
+			rs = prepStmt.executeQuery();
 		}
-		rs = prepStmt.executeQuery(SQLQuery);
+
 		
 		if(rs != null) {
 			while(rs.next()) {
+				Supply s = new Supply();
+				s.setId(rs.getInt("id_supply"));
+				s.setName(rs.getString("name supply"));
+				s.setPrize(rs.getFloat("prize"));
+				s.setCurrency(rs.getString("currency"));
+				s.setActive(rs.getBoolean("active"));
+				
 				Provider p = new Provider();
 				p.setId(rs.getInt("id_provider"));
 				p.setBusiness_name(rs.getString("business_name"));
-				p.setName(rs.getString("name"));
+				p.setName(rs.getString("name provider"));
 				p.setSurname(rs.getString("surname"));
 				p.setState(rs.getInt("state"));
 				p.setDescription(rs.getString("description"));
-				p.setCategory(rs.getInt("category"));
-				p.setEmail(rs.getString("email"));
-				p.setAddress(rs.getString("address"));
-				p.setPhone(rs.getString("phone"));
+				p.setCategory(rs.getInt("category"));	
 				
-				providers.add(p);
+				s.setProvider(p);
+				supplies.add(s);
 			}
 		}
 		try {
@@ -250,7 +257,7 @@ public class ProviderData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	return providers;
+	return supplies;
 	}
 	
 

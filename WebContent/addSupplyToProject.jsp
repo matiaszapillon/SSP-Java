@@ -88,97 +88,102 @@ pageEncoding="UTF-8"%>
 							<span>Gestion Proyectos</span></a>
 						</li>
 					</ul>
+					<!-- Hidden atributo para mantener el id del Proyecto entre las distintas paginas. -->
+					<% Project currentProject = (Project)request.getAttribute("projectWithSupplies"); %>
+					
 					<div id="content-wrapper">
 						<div class="container-fluid">
 							<div class="form-group">
 								<h4 align="center">Seleccion de insumos y Proveedores</h4>
 							</div>
-						<form action="projectManagmentServlet" method="post">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-									<thead>
-										<tr>
-											<th>Seleccionar</th>
-											<th>Nombre</th>
-											<th>Descripcion</th>
-										</tr>
-									</thead>
-									<tbody>
-								<%ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("allSupplies"); %>
-										<%if(supplies != null) {
-										for(Supply s : supplies){
-										%>
-										<tr>
-											<td> <input type="radio" name="radioAddSupply"  value= <%=s.getId()%>></td>
-											<td><%=s.getName()%></td>
-											<td><%=s.getDescription() %></td>
-										</tr>
-										<%
-										} }
-										%>
-									</tbody>
-								</table>
-							</div>
-							<div class="form-group">
-								<div class="col-auto">
-									<button type="submit" name ="selectProvider"  class="btn btn-success">Seleccionar proveedor</button>
+							<form action="projectManagmentServlet" method="post">
+								<div class="card mb-3">
+									<div class="card-header">
+										<i class="fas fa-table"></i>
+										Insumos del proyecto
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>Seleccionar</th>
+														<th>Nombre</th>
+														<th>Descripcion</th>
+													</tr>
+												</thead>
+												<tbody>
+													<%ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("allSupplies"); %>
+													<%if(supplies != null) {
+													for(Supply s : supplies){
+													%>
+													<tr>
+														<td> <input type="radio" name="radioAddSupply"  value= <%=s.getId()%>></td>
+														<td><%=s.getName()%></td>
+														<td><%=s.getDescription() %></td>
+													</tr>
+													<%
+													} }
+													%>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card-footer small text-muted">
+										<button type="submit" name ="selectProvider"  class="btn btn-success">Seleccionar proveedor</button>
+										<input type="hidden" name="hiddenId" value="<%=currentProject.getId()%>">
+									</div>
 								</div>
-							</div>
+							</form>
+							<!-- Sticky Footer -->
+							
+							<footer class="sticky-footer">
+								<div class="container my-auto">
+									<div class="copyright text-center my-auto">
+										<span>Copyright © Your Website 2018</span>
+									</div>
+								</div>
+							</footer>
 						</div>
-					</form>
-					<!-- Sticky Footer -->
-					
-					<footer class="sticky-footer">
-						<div class="container my-auto">
-							<div class="copyright text-center my-auto">
-								<span>Copyright © Your Website 2018</span>
-							</div>
-						</div>
-					</footer>
+					</div>
+					<!-- /.content-wrapper -->
 				</div>
-				</div>
-				<!-- /.content-wrapper -->
-			</div>
-			<!-- /#wrapper -->
-			<!-- Hidden atributo para mantener el id del Proyecto entre las distintas paginas. -->
-			<% Project currentProject = (Project)request.getAttribute("projectWithSupplies");  %>
-			
-			<input type="hidden" name="hiddenProjectName" value="<%=currentProject.getId() %>>"/> 
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top">
-				<i class="fas fa-angle-up"></i>
-			</a>
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-						<div class="modal-footer">
-							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-							<a class="btn btn-primary" href="logIn.html">Logout</a>
+				<!-- /#wrapper -->
+				<!-- Scroll to Top Button-->
+				<a class="scroll-to-top rounded" href="#page-top">
+					<i class="fas fa-angle-up"></i>
+				</a>
+				<!-- Logout Modal-->
+				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+							<div class="modal-footer">
+								<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+								<a class="btn btn-primary" href="logIn.html">Logout</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<!-- Bootstrap core JavaScript-->
-			<script src="bootstrap/jquery/jquery.min.js"></script>
-			<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-			<!-- Core plugin JavaScript-->
-			<script src="bootstrap/jquery-easing/jquery.easing.min.js"></script>
-			<!-- Page level plugin JavaScript-->
-			<script src="bootstrap/chart.js/Chart.min.js"></script>
-			<script src="bootstrap/datatables/jquery.dataTables.js"></script>
-			<script src="bootstrap/datatables/dataTables.bootstrap4.js"></script>
-			<!-- Custom scripts for all pages-->
-			<script src="js/sb-admin.min.js"></script>
-			<!-- Demo scripts for this page-->
-			<script src="js/demo/datatables-demo.js"></script>
-			<script src="js/demo/chart-area-demo.js"></script>
-		</body>
-	</html>
+				<!-- Bootstrap core JavaScript-->
+				<script src="bootstrap/jquery/jquery.min.js"></script>
+				<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+				<!-- Core plugin JavaScript-->
+				<script src="bootstrap/jquery-easing/jquery.easing.min.js"></script>
+				<!-- Page level plugin JavaScript-->
+				<script src="bootstrap/chart.js/Chart.min.js"></script>
+				<script src="bootstrap/datatables/jquery.dataTables.js"></script>
+				<script src="bootstrap/datatables/dataTables.bootstrap4.js"></script>
+				<!-- Custom scripts for all pages-->
+				<script src="js/sb-admin.min.js"></script>
+				<!-- Demo scripts for this page-->
+				<script src="js/demo/datatables-demo.js"></script>
+				<script src="js/demo/chart-area-demo.js"></script>
+			</body>
+		</html>

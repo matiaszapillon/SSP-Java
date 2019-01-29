@@ -80,7 +80,7 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		if(request.getParameter("calculateCostName") != null) {
 			
-			/* ESTO ME DEVUELVE NULL EN EL VALUE. POR QUE? EN PANTALLA APARECE.
+			/* ESTO ME DEVUELVE NULL EN EL VALUE. POR QUE? EN PANTALLA APARECE.(Y en agregar insumo tambien)
 			 	<label>ID</label>
 			<input class="form-control" type="text" name="idProjectName" readonly <%if (project != null){ %>
 			value=<%=project.getId()%><%}else{%> value=<%=projectWithSupplies.getId()%><%} %>>
@@ -95,6 +95,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		
 		}
+		
 		if(request.getParameter("addSupplyName") != null) {
 			//MUESTRO INSUMOS QUE NO ESTEN EN EL PROYECTO
 			//SE DEBE SELECCIONAR EL QUE DESEE AGREGAR Y LUEGO ELEGIR EL PROVEEDOR
@@ -112,14 +113,31 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("addSupplyToProject.jsp").forward(request, response);
 			
 		}
+		
+		//Info de addSupplyToProject.jsp
+		
 		if(request.getParameter("selectProvider") != null) {
-			
-			int idProject = Integer.parseInt(request.getParameter("hiddenProjectName"));
-			Project project = pController.getProjectById(idProject);
+			String idP = request.getParameter("hiddenId");			
+			int idProject = Integer.parseInt(idP);			
+			Project project = pController.getProjectById(idProject);			
 			String idSup = request.getParameter("radioAddSupply");
 			int idSupply = Integer.parseInt(idSup);
-			ArrayList<Provider> providers = provController.getProvidersByIdSupply(idSupply);
-			request.setAttribute("projectWithSupplies", project);
+			ArrayList<Supply> suppliesProviders = provController.getProvidersByIdSupply(idSupply);
+			int id= suppliesProviders.get(0).getId();
+			request.setAttribute("project", project);
+			request.setAttribute("suppliesProviders", suppliesProviders);
+			request.getRequestDispatcher("selectProvider.jsp").forward(request, response);
+		}
+		
+		//info de selectProvider.jsp
+		
+		if(request.getParameter("saveProviderName") != null) {
+			int quantity = Integer.parseInt(request.getParameter("quantityName"));
+			int idProvider = Integer.parseInt(request.getParameter("radioSelectProvider"));
+			int idSupply = Integer.parseInt(request.getParameter("numberSupplyName")) ;
+			int idProject = Integer.parseInt(request.getParameter("numberProjectName"));
+			pController.addSupplyToProject(idProject,idSupply,idProvider,quantity) ;
+
 		}
 	}
 

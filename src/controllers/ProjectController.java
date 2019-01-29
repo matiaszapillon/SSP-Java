@@ -41,4 +41,9 @@ try {
 		return null;
 	}
 
+	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) {
+		this.projectData.addSupplyToProject(idProject,idSupply,idProvider,quantity);
+		
+	}
+
 }

@@ -90,4 +90,8 @@ public class projectData {
 		return projects;
 	}
 
+	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) {
+
+	}
+
 }

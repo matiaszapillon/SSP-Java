@@ -93,63 +93,80 @@ pageEncoding="UTF-8"%>
 							<div class="form-group">
 								<h4 align="center">Seleccion de Proveedores</h4>
 							</div>
-						<form action="projectManagmentServlet" method="post">
-							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-									<thead>
-										<tr>
-											<th>Seleccionar</th>
-											<th>Proveedor</th>
-											<th>Descripcion</th>
-											<th>Estado</th>
-											<th>Categoria</th>
-											<th>Email</th>
-											<th>Direccion</th>
-											<th>Telefono</th>
-										</tr>
-									</thead>
-									<tbody>
-								<%ArrayList<Provider> providers = (ArrayList<Provider>)request.getAttribute("providers"); %>
-										<%if(providers != null) {
-										for(Provider p : providers){
-										%>
-										<tr>
+						<%ArrayList<Supply> suppliesProviders = (ArrayList<Supply>)request.getAttribute("suppliesProviders"); %>
+						<%Project project = (Project)request.getAttribute("project"); %>	
+							<form action="projectManagmentServlet" method="post">
+								<div class="card mb-3">
+									<div class="card-header">
+										<i class="fas fa-table"></i>
+										Proveedores
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>Seleccionar</th>
+														<th>Proveedor</th>
+														<th>Estado</th>
+														<th>Categoria</th>
+														<th>Precio insumo</th>
+														<th>Tipo de cambio</th>
+													</tr>
+												</thead>
+												<tbody>
+
+													<%if(suppliesProviders != null) {
+													for(Supply s : suppliesProviders){
+													%>
+													<tr>
+														
+														<td><input type="radio" name="radioSelectProvider" value=<%=s.getProvider().getId()%>
+														<%if(s.getProvider().getState() == "DESAPROBADO") { %> disabled <%} %> >  </td>
+														<%if(s.getProvider().getBusiness_name() != null){ %>
+														<td><%=s.getProvider().getBusiness_name() %></td> <%}else{ %>
+														<td><%=s.getProvider().getName() + " " + s.getProvider().getSurname() %></td> <% } %>
+														<td><%= s.getProvider().getState() %></td>
+														<td><%=s.getProvider().getCategory() %></td>
+														<td><%=s.getPrize() %></td>
+														<td><%= s.getCurrency() %></td>
+													</tr>
+													<%
+													} }
+													%>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="card-footer small text-muted">
+										<div class="row">
+											<div>
+												<label class="col-form-label">Cantidad</label>
+											</div>
+											<div class="col-auto">
+												<input type="text" name="quantityName" >
+											</div>
+											<div class="col-auto">
+												<button type="submit" name ="saveProviderName"  class="btn btn-success">Guardar</button>
+												<input type="hidden" name="numberSupplyName" value="<%=suppliesProviders.get(0).getId()%>">
+												<input type="hidden" name="numberProjectName" value="<%=project.getId()%>">
+											</div>
 											
-											<td><input type="radio" name="radioSelectProvider" value=<%=p.getId()%>
-											<%if(p.getState() == "DESAPROBADO") { %> disabled <%} %> >  </td>
-											<%if(p.getBusiness_name() != null){ %>										
-											<td><%=p.getBusiness_name() %></td> <%}else{ %>
-											<td><%=p.getName() + " " + p.getSurname() %></td> <% } %>										
-											<td><%= p.getState() %></td>
-											<td><%=p.getCategory() %></td>
-											<td><%= p.getEmail() %></td>
-											<td><%= p.getAddress() %></td>
-											<td><%=p.getPhone() %></td>
-											
-										</tr>
-										<%
-										} }
-										%>
-									</tbody>
-								</table>
-							</div>
-							<div class="form-group">
-								<div class="col-auto">
-									<button type="submit" name ="selectProvider"  class="btn btn-success">Guardar</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- Sticky Footer -->
+						
+						<footer class="sticky-footer">
+							<div class="container my-auto">
+								<div class="copyright text-center my-auto">
+									<span>Copyright © Your Website 2018</span>
 								</div>
 							</div>
-						</div>
-					</form>
-					<!-- Sticky Footer -->
-					
-					<footer class="sticky-footer">
-						<div class="container my-auto">
-							<div class="copyright text-center my-auto">
-								<span>Copyright © Your Website 2018</span>
-							</div>
-						</div>
-					</footer>
-				</div>
+						</footer>
+					</div>
 				</div>
 				<!-- /.content-wrapper -->
 			</div>

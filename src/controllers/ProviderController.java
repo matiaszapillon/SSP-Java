@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import data.ProviderData;
 import entities.Provider;
+import entities.Supply;
 
 public class ProviderController {
 	
@@ -71,7 +72,7 @@ public class ProviderController {
 		
 	}
 
-	public ArrayList<Provider> getProvidersByIdSupply(int idSupply) {
+	public ArrayList<Supply> getProvidersByIdSupply(int idSupply) {
 		try {
 			return this.providerData.getProvidersByIdSupply(idSupply);
 		} catch (SQLException e) {
