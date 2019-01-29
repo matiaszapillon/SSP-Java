@@ -42,9 +42,7 @@ public class providersManagmentServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		// Metodo para completar tabla en archivo "providersManagment.jsp" y redireccionar
-		ArrayList<Provider> providers = this.getAll();
-		request.setAttribute("proveedores", providers);
-		request.getRequestDispatcher("providersManagment.jsp").forward(request, response);
+		this.redirectToTable(request, response);
 		
 	}
 
@@ -67,7 +65,7 @@ public class providersManagmentServlet extends HttpServlet {
 			
 			p = pController.getProviderById(idProvider);
 			
-			// Pasar el proveedor a la p�gina redireccionada que contiene el formulario
+			// Pasar el proveedor a la pagina redireccionada que contiene el formulario
 			request.setAttribute("proveedor", p);
 			request.getRequestDispatcher("providersRegistration.jsp").forward(request, response);
 		}
@@ -78,7 +76,9 @@ public class providersManagmentServlet extends HttpServlet {
 			int idProvider = Integer.parseInt(IdRow);
 			
 			// Borrar proveedor
-			pController.delete(idProvider);			
+			pController.delete(idProvider);		
+			// Redireccionar
+			this.redirectToTable(request, response);
 		}
 		
 		// Manejo de datos del formulario providersRegistration.jsp
@@ -89,14 +89,21 @@ public class providersManagmentServlet extends HttpServlet {
 			p.setName(request.getParameter("providerName"));
 			p.setSurname(request.getParameter("providerSurname"));
 			switch(request.getParameter("providerState")){
-				case "APROBADO": p.setState(Provider.APROBADO);
-				case "DESAPROBADO": p.setState(Provider.DESAPROBADO);
+				case "1": 
+					p.setState(Provider.APROBADO);
+					break;
+				case "2": 
+					p.setState(Provider.DESAPROBADO);
+					break;
 			}
 			p.setDescription(request.getParameter("providerDescription"));
 			switch (request.getParameter("providerCategory")) {
-				case "A": p.setCategory(Provider.CATEGORY_A);
-				case "B": p.setCategory(Provider.CATEGORY_B);
-				case "C": p.setCategory(Provider.CATEGORY_C);
+				case "1": p.setCategory(Provider.CATEGORY_A);
+					break;
+				case "2": p.setCategory(Provider.CATEGORY_B);
+					break;
+				case "3": p.setCategory(Provider.CATEGORY_C);
+					break;
 			}
 			p.setEmail(request.getParameter("providerEmail"));
 			p.setAddress(request.getParameter("providerAddress"));
@@ -109,21 +116,20 @@ public class providersManagmentServlet extends HttpServlet {
 				p.setId(Integer.parseInt(request.getParameter("providerID")));
 				pController.update(p);
 			}
+			
+			// Redireccionar
+			this.redirectToTable(request, response);
 		}
-		
-		// Metodo para completar tabla en archivo "providersManagment.jsp"
-		ArrayList<Provider> providers = getAll();
-		request.setAttribute("proveedores", providers);
-		request.getRequestDispatcher("providersManagment.jsp").forward(request, response);
-		
+			
 	}
 	
-	// Codigo para traer a todos los proveedores de DB y mostrar en providersManagment.jsp
-	protected ArrayList<Provider> getAll(){
+	
+	protected void redirectToTable(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		// Metodo para completar tabla en archivo "providersManagment.jsp"
 		ArrayList<Provider> providers = new ArrayList<Provider>();
 		providers = pController.getAll();
-		
-		return providers;
+		req.setAttribute("proveedores", providers);
+		req.getRequestDispatcher("providersManagment.jsp").forward(req, res);
 	}
 
 }

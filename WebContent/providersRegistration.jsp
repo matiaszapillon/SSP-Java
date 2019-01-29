@@ -81,22 +81,35 @@
                     <!-- Fila 3 -->
                     <div class="form-group">
                         <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderDescription" name="providerDescription"
-                                        placeholder="Descripcion" required="required" <% if(p !=null) { %> value="<%= p.getDescription() %>"
-                                    <% } %> >
-                                    <label for="idProviderDescription">Descripcion</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderCategory" name="providerCategory"
-                                        placeholder="Categoria" required="required" <% if(p !=null) { %> value="<%= p.getCategory() %>"
-                                    <% } %> >
-                                    <label for="idProviderCategory">Categoria</label>
-                                </div>
-                            </div>
+                        	<div class="col-md-6 input-group">
+                                <select class="custom-select" id="inputStateGroup" name="providerState">
+                                    <option <% if(p != null && p.getState().equals(null)){ %> selected <% } %> >
+                                    	Estado ..
+                                    </option>
+                                    <option value="<%= Provider.APROBADO %>" <% if(p != null && p.getState().equalsIgnoreCase("APROBADO")){ %> selected <% } %> >
+                                    	APROBADO
+                                    </option>
+                                    <option value="<%= Provider.DESAPROBADO %>" <% if(p != null && p.getState().equalsIgnoreCase("DESAPROBADO")){ %> selected <% } %> >
+                                    	DESAPROBADO
+                                    </option>
+                                </select>
+                            </div>                            
+                            <div class="col-md-6">                                
+                                  <select class="custom-select" id="inputCategorySelect" name="providerCategory">
+                                    <option <% if( p != null && p.getCategory().equals(null)){ %> selected <% } %> >
+                                    	Categoria ..
+                                    </option>
+                                    <option value="<%= Provider.CATEGORY_A %>" <% if( p != null && p.getCategory().equalsIgnoreCase("A") ){ %> selected <% } %> >
+                                    	A
+                                    </option>
+                                    <option value="<%= Provider.CATEGORY_B %>" <% if( p != null && p.getCategory().equalsIgnoreCase("B") ){ %> selected <% } %> >
+                                    	B
+                                    </option>
+                                    <option value="<%= Provider.CATEGORY_C %>" <% if( p != null && p.getCategory().equalsIgnoreCase("C") ){ %> selected <% } %> >
+                                    	C
+                                    </option>
+                                  </select>
+                        	</div>
                         </div>
                     </div>
 
@@ -113,18 +126,26 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderAddress" name="providerAddress"
-                                        placeholder="Direccion" required="required" <% if(p !=null) { %> value="<%= p.getAddress() %>"
+                                    <input type="text" class="form-control" id="idProviderDescription" name="providerDescription"
+                                        placeholder="Descripcion" required="required" <% if(p !=null) { %> value="<%= p.getDescription() %>"
                                     <% } %> >
-                                    <label for="idProviderAddress">Direccion</label>
+                                    <label for="idProviderDescription">Descripcion</label>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
 
                     <!-- Fila 5 -->
                     <div class="form-group">
                         <div class="form-row">
+                        	<div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" class="form-control" id="idProviderAddress" name="providerAddress"
+                                        placeholder="Direccion" required="required" <% if(p !=null) { %> value="<%= p.getAddress() %>"
+                                    <% } %> >
+                                    <label for="idProviderAddress">Direccion</label>
+                                </div>
+                            </div>                        	
                             <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderPhone" name="providerPhone"
@@ -132,15 +153,7 @@
                                     <% } %> >
                                     <label for="idProviderPhone">Telefono</label>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderState" name="providerState"
-                                        placeholder="Estado" required="required" <% if(p !=null) { %> value="<%= p.getState() %>"
-                                    <% } %> >
-                                    <label for="idProviderState">Estado</label>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
 

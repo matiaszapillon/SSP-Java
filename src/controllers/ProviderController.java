@@ -49,7 +49,6 @@ public class ProviderController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 	 
 	public void update(Provider prov) {
