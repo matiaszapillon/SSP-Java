@@ -111,17 +111,22 @@ public class ProviderData {
 		switch (p.getState()) {
 			case "APROBADO":
 				prepStmt.setInt(4, Provider.APROBADO);
+				break;
 			case "DESAPROBADO":
 				prepStmt.setInt(4, Provider.DESAPROBADO);
+				break;
 		}
 		prepStmt.setString(5, p.getDescription());
 		switch (p.getCategory()) {
 			case "A":
 				prepStmt.setInt(6, Provider.CATEGORY_A);
+				break;
 			case "B":
 				prepStmt.setInt(6, Provider.CATEGORY_B);
+				break;
 			case "C":
 				prepStmt.setInt(6, Provider.CATEGORY_C);
+				break;
 		}
 		prepStmt.setString(7, p.getEmail());
 		prepStmt.setString(8, p.getAddress());
@@ -161,17 +166,22 @@ public class ProviderData {
 		switch (p.getState()) {
 			case "APROBADO":
 				prepStmt.setInt(4, Provider.APROBADO);
+				break;
 			case "DESAPROBADO":
 				prepStmt.setInt(4, Provider.DESAPROBADO);
+				break;
 		}
 		prepStmt.setString(5, p.getDescription());
 		switch (p.getCategory()) {
 			case "A":
 				prepStmt.setInt(6, Provider.CATEGORY_A);
+				break;
 			case "B":
 				prepStmt.setInt(6, Provider.CATEGORY_B);
+				break;
 			case "C":
 				prepStmt.setInt(6, Provider.CATEGORY_C);
+				break;
 		}
 		prepStmt.setString(7, p.getEmail());
 		prepStmt.setString(8, p.getAddress());

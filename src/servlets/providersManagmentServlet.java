@@ -89,14 +89,21 @@ public class providersManagmentServlet extends HttpServlet {
 			p.setName(request.getParameter("providerName"));
 			p.setSurname(request.getParameter("providerSurname"));
 			switch(request.getParameter("providerState")){
-				case "1": p.setState(Provider.APROBADO);
-				case "2": p.setState(Provider.DESAPROBADO);
+				case "1": 
+					p.setState(Provider.APROBADO);
+					break;
+				case "2": 
+					p.setState(Provider.DESAPROBADO);
+					break;
 			}
 			p.setDescription(request.getParameter("providerDescription"));
 			switch (request.getParameter("providerCategory")) {
 				case "1": p.setCategory(Provider.CATEGORY_A);
+					break;
 				case "2": p.setCategory(Provider.CATEGORY_B);
+					break;
 				case "3": p.setCategory(Provider.CATEGORY_C);
+					break;
 			}
 			p.setEmail(request.getParameter("providerEmail"));
 			p.setAddress(request.getParameter("providerAddress"));
