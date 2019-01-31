@@ -9,38 +9,49 @@ public class Activity implements Serializable{
 	public final static int EN_CURSO = 2;
 	public final static int FINALIZADA = 3;
     
-	private int id;
-
+	// Variables tabla original
+	private int id_actividad;
+	private String duration;
+	private String description;
+	
+	// Variables tabla intermedia
 	private Stage stage;
-	private int duration;
-	private String description ;
-	private int state ;
-	public int getDuration() {
+	private int state;
+	
+	// Metodos 
+	public int getId() {
+		return id_actividad;
+	}
+	
+	public void setId(int id) {
+		this.id_actividad = id;
+	}
+	
+	public String getDuration() {
 		return duration;
 	}
-	public void setDuration(int duration) {
+	
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
+	
 	public String getDescription() {
 		return description;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	}	
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	public String getState() {
 		switch(state) {
-		case NO_INICIADA: return "No iniciada"  ;
-		case EN_CURSO: return "En curso" ;
-		case FINALIZADA: return "Finalizada" ;
+			case NO_INICIADA: return "No iniciada";
+			case EN_CURSO: return "En curso";
+			case FINALIZADA: return "Finalizada";
 		}
 		return "";
 	}
+	
 	public int getIdState() {
 		return this.state;
 	}
@@ -48,13 +59,14 @@ public class Activity implements Serializable{
 	public void setState(int state) {
 		this.state = state;
 	}
+	
 	public Stage getStage() {
 		return stage;
 	}
+	
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-	
-	
+		
 	
 }

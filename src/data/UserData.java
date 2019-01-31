@@ -7,23 +7,29 @@ import entities.*;
 
 public class UserData {
 
-	public User isUserValid(String nombreUsuario, String pw) throws SQLException {
+	public User isUserValid(String user, String passw) throws SQLException {
 		User u = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String SQLQuery = "select * from user u where u.username = '" + nombreUsuario + "' and u.password = '" + pw
-				+ "'";
-		stmt = FactoryConexion.getInstancia().getConn().createStatement();
-		rs = stmt.executeQuery(SQLQuery);
+		String SQLQuery = "SELECT * FROM user WHERE username = ? AND password = ?";
+		
+		// Armar statement
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
+		stmt.setString(1, user);
+		stmt.setString(2, passw);
+		
+		// Ejecutar query
+		rs = stmt.executeQuery();
+		
 		if (rs != null && rs.next()) {
 			u = new User();
 			u.setUsername(rs.getString("username"));
 			u.setPassword(rs.getString("password"));
 			u.setId(rs.getInt("id_user"));
 			u.setType(rs.getInt("type"));
-			u.setEmail(rs.getString("email"));
-			return u;
+			u.setEmail(rs.getString("email"));			
 		}
+		// Cerrar conexion
 		try {
 			if (rs != null)
 				rs.close();
@@ -43,18 +49,24 @@ public class UserData {
 		ResultSet rs = null;
 		String SQLQuery = "SELECT * FROM user";
 		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		
+		// Ejecutar query
 		rs = stmt.executeQuery(SQLQuery);
+		
 		if (rs != null) {
 			while (rs.next()) {
 				User u = new User();
+				
 				u.setUsername(rs.getString("username"));
 				u.setPassword(rs.getString("password"));
 				u.setId(rs.getInt("id_user"));
 				u.setType(rs.getInt("type"));
 				u.setEmail(rs.getString("email"));
+				
 				users.add(u);
 			}
 		}
+		// Cerrar conexion
 		try {
 			if (rs != null)
 				rs.close();
@@ -69,21 +81,27 @@ public class UserData {
 
 	public User getUserById(int id) throws SQLException {
 		User u = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String SQLQuery = "select * from user u where u.id_user = '" + id + "' ";
-
-		stmt = FactoryConexion.getInstancia().getConn().createStatement();
-		rs = stmt.executeQuery(SQLQuery);
+		String SQLQuery = "SELECT * FROM user WHERE id_user = ?";
+		
+		// Armar el statement
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
+		stmt.setInt(1, id);
+		
+		// Ejecutar query
+		rs = stmt.executeQuery();
+		
 		if (rs != null && rs.next()) {
 			u = new User();
+			
 			u.setUsername(rs.getString("username"));
 			u.setPassword(rs.getString("password"));
 			u.setId(rs.getInt("id_user"));
 			u.setType(rs.getInt("type"));
 			u.setEmail(rs.getString("email"));
-			return u;
 		}
+		// Cerrar conexion
 		try {
 			if (rs != null)
 				rs.close();
@@ -103,14 +121,18 @@ public class UserData {
 		Connection con = FactoryConexion.getInstancia().getConn();
 		try {
 			con.setAutoCommit(false);
-			updateClient = con.prepareStatement("update client set id_user = ? where id_user = ?");
-			deleteUser = con.prepareStatement("delete from user where id_user = ?");
+			// Armar update query statement
+			updateClient = con.prepareStatement("UPDATE client SET id_user = ? WHERE id_user = ?");
 			updateClient.setNull(1, java.sql.Types.INTEGER);
 			updateClient.setInt(2, idUser);
 			updateClient.executeUpdate();
+			// Armar delete query statement
+			deleteUser = con.prepareStatement("DELETE FROM user WHERE id_user = ?");
 			deleteUser.setInt(1, idUser);
 			deleteUser.executeUpdate();
+			
 			con.commit();
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			if (con != null) {
@@ -120,8 +142,7 @@ public class UserData {
 					sqlex.printStackTrace();
 				}
 			}
-		}
-		finally {
+		} finally {
 			if(updateClient != null) {
 				updateClient.close();
 			}
@@ -134,20 +155,25 @@ public class UserData {
 
 	public void deleteUserFromEmployee(int idUser) throws SQLException {
 		// TODO Auto-generated method stub
+		
 		// Eliminar Usuario de tabla cliente o empleado y elimminar Usuario
 		PreparedStatement updateEmployee = null;
 		PreparedStatement deleteUser = null;
 		Connection con = FactoryConexion.getInstancia().getConn();
 		try {
 			con.setAutoCommit(false);
-			updateEmployee = con.prepareStatement("update employee set id_user = ? where id_user = ?");
-			deleteUser = con.prepareStatement("delete from user where id_user = ?");
+			// Armar update query statement
+			updateEmployee = con.prepareStatement("UPDATE employee SET id_user = ? WHERE id_user = ?");
 			updateEmployee.setNull(1, java.sql.Types.INTEGER);
 			updateEmployee.setInt(2, idUser);
 			updateEmployee.executeUpdate();
+			// Armar delete query statement
+			deleteUser = con.prepareStatement("DELETE FROM user WHERE id_user = ?");
 			deleteUser.setInt(1, idUser);
 			deleteUser.executeUpdate();
+			
 			con.commit();
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			if (con != null) {
@@ -157,8 +183,7 @@ public class UserData {
 					sqlex.printStackTrace();
 				}
 			}
-		}
-		finally {
+		} finally {
 			if(updateEmployee != null) {
 				updateEmployee.close();
 			}
@@ -172,20 +197,24 @@ public class UserData {
 	public void create(User u) throws SQLException {
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-				"INSERT INTO user(username, password, email, type) values (?,?,?,?)",
-				PreparedStatement.RETURN_GENERATED_KEYS);
-
+		String SqlQuery = "INSERT INTO user (username, password, email, type) values (?,?,?,?)";
+		
+		// Armar statement
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery, PreparedStatement.RETURN_GENERATED_KEYS);
 		stmt.setString(1, u.getUsername());
 		stmt.setString(2, u.getPassword());
 		stmt.setString(3, u.getEmail());
 		stmt.setInt(4, u.getType());
+		
+		// Ejecutar query
 		stmt.executeUpdate();
+		
+		// Recuperar claves generadas
 		keyResultSet = stmt.getGeneratedKeys();
 		if (keyResultSet != null && keyResultSet.next()) {
 			u.setId(keyResultSet.getInt(1));
 		}
-
+		// Cerrar conexion
 		try {
 			if (keyResultSet != null)
 				keyResultSet.close();
@@ -200,14 +229,19 @@ public class UserData {
 	public void update(User u) throws SQLException {
 		// TODO Auto-generated method stub
 		PreparedStatement stmt = null;
-		stmt = FactoryConexion.getInstancia().getConn()
-				.prepareStatement("update user set username = ?, email = ?, password = ?, type = ? where id_user = ?");
+		String SqlQuery = "UPDATE user SET username = ?, email = ?, password = ?, type = ? WHERE id_user = ?";
+		
+		// Armar statement
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		stmt.setString(1, u.getUsername());
 		stmt.setString(2, u.getEmail());
 		stmt.setString(3, u.getPassword());
 		stmt.setInt(4, u.getType());
 		stmt.setInt(5, u.getId());
+		
+		// Ejecutar query
 		stmt.executeUpdate();
+		// Cerrar conexion
 		try {
 			if (stmt != null)
 				stmt.close();

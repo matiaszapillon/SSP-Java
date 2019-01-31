@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
 						<a class="dropdown-item" href="register.html">Insumos</a>
 						<a class="dropdown-item" href="forgot-password.html">Proyectos</a>
 						<a class="dropdown-item" href="forgot-password.html">Etapas</a>
-						<a class="dropdown-item" href="forgot-password.html">Actividades</a>
+						<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
 						<a class="dropdown-item" href="404.html">Empleados</a>
 						<a class="dropdown-item" href="blank.html">Clientes</a>
 						<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>

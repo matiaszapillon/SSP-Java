@@ -93,7 +93,7 @@ pageEncoding="UTF-8"%>
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th> Seleccionar</th>
+                            <th>Seleccionar</th>
                             <th>Id</th>
                             <th>Nombre de usuario</th>
                             <th>Email</th>
@@ -106,9 +106,11 @@ pageEncoding="UTF-8"%>
                           for(User u : users){
                           %>
                           <tr>
-                            <td> <input type="radio" name="radioABM" onClick=setHidden(<%=u.getType() %>) value= <%= u.getId()%>> </td>
+                            <td> 
+                            	<input type="radio" name="radioABM" onClick=setHidden(<%= u.getType() %>) value="<%= u.getId() %>" > 
+                            </td>
                             <td><%= u.getId() %></td>
-                            <td> <%= u.getUsername() %></td>
+                            <td><%= u.getUsername() %></td>
                             <td><%= u.getEmail() %></td>
                             <td><%= u.getStringType() %></td>
                           </tr>

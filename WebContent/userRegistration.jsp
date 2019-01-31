@@ -29,7 +29,7 @@
 </head>
 
 <body class="bg-dark">
-  <%User u = (User)request.getAttribute("user"); %>
+  <% User u = (User)request.getAttribute("user"); %>
   <div class="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">
@@ -42,21 +42,14 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="text" id="idUsername" class="form-control" name="username" placeholder="Username"
-                    required="required" <%if(u !=null){ %> value ="<%=u.getUsername()%>"
-                  <%
-                    } 
-                    %>>
+                    required="required" <% if(u !=null) { %> value ="<%= u.getUsername() %>" <% } %> >
                   <label for="firstName">Nombre de usuario</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address"
-                    required="required" <%if(u !=null){ %> value ="<%= u.getEmail() %>"
-                  <%                 
-                    } 
-                    %>>
-
+                    required="required" <% if(u !=null) { %> value ="<%= u.getEmail() %>" <% } %> >
                   <label for="inputEmail">Email</label>
                 </div>
               </div>
@@ -68,20 +61,14 @@
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="password" id="idPassword" class="form-control" name="password" placeholder="Password"
-                    required="required" <%if(u !=null){ %> value ="<%=u.getPassword() %>"
-                  <%
-                    } 
-                    %>>
+                    required="required" <% if(u !=null) { %> value ="<%= u.getPassword() %>" <% } %> >
                   <label for="inputPassword">Contraseña</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-label-group">
                   <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm password"
-                    required="required" <%if(u !=null){ %> value ="<%=u.getPassword()%>"
-                  <%
-                    } 
-                    %>>
+                    required="required" <% if(u !=null) { %> value ="<%= u.getPassword() %>" <% } %> >
                   <label for="confirmPassword">Confirmar contraseña</label>
                 </div>
               </div>
@@ -92,36 +79,37 @@
             </div>
             <div class="col-md-3">
               <select class="form-control" id="idUserType" name="typeUserSelect">
-                <option <%if(u !=null && u.getType()==User.EMPLOYEE) {%> selected
-                  <%} %>>Empleado</option>
-                <option <%if(u !=null && u.getType()==User.CLIENT) {%> selected
-                  <%} %>>Cliente</option>
-                <option <%if(u !=null && u.getType()==User.ADMINISTRATOR) {%> selected
-                  <%} %>>Administrador</option>
+                <option <% if(u !=null && u.getType()==User.EMPLOYEE) { %> selected <% } %> >
+                	Empleado
+                </option>
+                <option <% if(u !=null && u.getType()==User.CLIENT) { %> selected <% } %> >
+                	Cliente
+                </option>
+                <option <% if(u !=null && u.getType()==User.ADMINISTRATOR) { %> selected <% } %> >
+                	Administrador 
+                </option>
               </select>
             </div>
             <div class="col-md-5">
               <input type="text" class="form-control" name="textPerson" id="textIdPerson" placeholder="Seleccionar cliente o empleado"
-                aria-label="Search" aria-describedby="basic-addon2" disabled="" <%if(u !=null){ if(u.getType()==User.CLIENT){
-                String business_name=u.getClient().getBusiness_name() ;%> value ="<%=business_name %>"
-              <%
-                }else { String name = u.getEmployee().getSurname()+ "," + u.getEmployee().getName() ;
-                 %>
-              value="<%=name%>"<%}}  %>>
+                aria-label="Search" aria-describedby="basic-addon2" disabled="" <% if(u !=null) { if(u.getType()==User.CLIENT) {
+                	String business_name = u.getClient().getBusiness_name(); %> value ="<%= business_name %>"
+              	<%
+                } else { String name = u.getEmployee().getSurname() + "," + u.getEmployee().getName();
+                %>
+              	value="<%= name %>" <% } } %> >
             </div>
             <div class="col-md-1">
               <button class="btn btn-primary" type="button" id="buttonModal" data-toggle="modal" onclick="findPeople()"
-                <%if (u!=null) {%> disabled = ""
-                <%} %>>
+                <% if (u!=null) { %> disabled = ""<% } %> >
                 <i class="fas fa-search"></i>
               </button>
             </div>
             <input type="hidden" name="hiddenIdPerson" id="hiddenIdPerson" />
-            <input type="hidden" name="hiddenUser" id="hiddenIdUser" <%if (u!=null) { %> value ="<%= u.getId() %>"
-            <%} %>/>
+            <input type="hidden" name="hiddenUser" id="hiddenIdUser" <% if (u!=null) { %> value ="<%= u.getId() %>" <% } %> />
             <input type="hidden" name="hiddenNamePerson" id="hiddenNameIdPerson" />
           </div>
-          <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton"> Guardar</button>
+          <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton">Guardar</button>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" href="indexAdmin.jsp">Pagina de inicio</a>
@@ -159,15 +147,16 @@
               </tr>
             </thead>
             <tbody>
-              <%
-				     ArrayList<Employee> employees = (ArrayList<Employee>)request.getAttribute("employees");
-				     if(employees != null) {
-                  for(Employee e : employees){
-                  %>
+            	<%
+				ArrayList<Employee> employees = (ArrayList<Employee>) request.getAttribute("employees");
+				if(employees != null) {
+                	for(Employee e : employees){
+                %>
               <tr>
-                <td> <input required type="radio" name="radioEmployee" onclick="setHiddenValues('<%= e.getName() + " ,"
-                    + e.getSurname() %>',
-                  <%= e.getId() %>);"> </td>
+                <td> 
+                	<input type="radio" name="radioEmployee" 
+                		onclick="setHiddenValues(<%= e.getName() %>, <%= e.getSurname() %>, <%= e.getId() %>);" />
+                </td>
                 <td>
                   <%= e.getDNI() %>
                 </td>
@@ -178,9 +167,7 @@
                   <%= e.getSurname()%>
                 </td>
               </tr>
-              <%
-                  }}
-                    %>
+              <% } } %>
             </tbody>
           </table>
         </div>
@@ -214,13 +201,14 @@
               </tr>
             </thead>
             <tbody>
-              <%
-				     ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients");
-				     if(clients != null){
-                  for(Client c : clients){
-                  %>
+            	<%
+				ArrayList<Client> clients = (ArrayList<Client>) request.getAttribute("clients");
+				if(clients != null){
+                	for(Client c : clients){
+                %>
               <tr>
-                <td> <input required type="radio" name="radioClient" onclick="setHiddenValues('<%= c.getBusiness_name() %>',<%= c.getId() %>);">
+                <td> 
+                	<input type="radio" name="radioClient" onclick="setHiddenValues(<%= c.getBusiness_name() %>, <%= c.getId() %>);">
                 </td>
                 <td>
                   <%= c.getCUIT_CUIL() %>
@@ -229,9 +217,7 @@
                   <%= c.getBusiness_name() %>
                 </td>
               </tr>
-              <%
-                  }}
-                    %>
+              <% } } %>
             </tbody>
           </table>
         </div>

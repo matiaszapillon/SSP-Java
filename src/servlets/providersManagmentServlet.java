@@ -19,7 +19,7 @@ public class providersManagmentServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	// Variables de instancia
+	// Variables
 	ProviderController pController;
 	Provider p;
        

@@ -57,7 +57,7 @@ public class ProviderData {
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		String SqlQuery = "SELECT * FROM provider WHERE id_provider = ?";
-
+		
 		// Crear el PreparedStatement de la conexi�n
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, id);
@@ -204,10 +204,10 @@ public class ProviderData {
 
 	public void delete(int idProv) throws SQLException {
 		PreparedStatement prepStmt = null;
-		String SqlQUery = "DELETE FROM provider where id_provider = ?";
+		String SqlQuery = "DELETE FROM provider WHERE id_provider = ?";
 
 		// Crear el PreparedStatement de la conexi�n
-		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQUery);
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProv);
 
 		// Ejecutar la Query
@@ -224,22 +224,22 @@ public class ProviderData {
 
 	}
 
-
 	public ArrayList<Supply> getProvidersByIdSupply(int idSupply) throws SQLException {
 		ArrayList<Supply> supplies = new ArrayList<Supply>();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
+		
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement("\n" + 
 				"SELECT p.id_provider,p.name as 'name provider', p.surname, p.state, p.description, p.category,\n" + 
 				"p.email, p.address, p.phone, p.business_name, s.id_supply, sp.prize, sp.currency, sp.active, s.name as 'name supply' \n" + 
 				"FROM provider p inner join supply_provider sp on p.id_provider = sp.id_provider\n" + 
-				"inner join supply s on s.id_supply = sp.id_supply\n" + 
-				"where s.id_supply = ?");
+				"INNER JOIN supply s on s.id_supply = sp.id_supply\n" + 
+				"WHERE s.id_supply = ?");
 		prepStmt.setInt(1, idSupply);
+		
 		// Ejecutar Query
 		rs = prepStmt.executeQuery();
-
 		
 		if(rs != null) {
 			while(rs.next()) {

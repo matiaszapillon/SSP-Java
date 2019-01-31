@@ -23,19 +23,21 @@ public class Stage implements Serializable {
 	
 	public String getState() {
 		switch(state) {
-		case NO_INICIADA: return "No iniciada"  ;
-		case EN_CURSO: return "En curso" ;
-		case FINALIZADA: return "Finalizada" ;
+			case NO_INICIADA: return "No iniciada";
+			case EN_CURSO: return "En curso";
+			case FINALIZADA: return "Finalizada";
 		}
 		return "";
 	}
+	
 	public int getIdState() {
 		return state;
-
 	}
+	
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -43,12 +45,15 @@ public class Stage implements Serializable {
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
