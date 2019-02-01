@@ -87,7 +87,7 @@ pageEncoding="UTF-8" %>
             <div class="container-fluid">
 
                 <!-- Formulario -->
-                <form action="activitiesManagmentServlet" method="POST" onsubmit="return validateForm()">
+                <form action="activityManagmentServlet" method="POST" onsubmit="return validateForm()">
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
@@ -95,11 +95,11 @@ pageEncoding="UTF-8" %>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Seleccionar</th>
-                                            <th>Id</th>
+                                            <th></th>
+                                            <th>#</th>
                                             <th>Descripción</th>
                                             <th>Duración</th>
                                         </tr>

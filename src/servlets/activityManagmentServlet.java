@@ -46,7 +46,54 @@ public class activityManagmentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// doGet(request, response);
+		
+		// Manejo de Create
+		if(request.getParameter("addButton") != null) {
+			request.getRequestDispatcher("activitiesRegistration.jsp").forward(request, response);
+		}
+		
+		// Manejo de Update
+		if(request.getParameter("editButton") != null) {
+			String IdRow = (String) request.getParameter("radioABM");
+			int idActividad = Integer.parseInt(IdRow);
+			
+			a = aController.getActivityById(idActividad);
+			// Pasar la actividad a la pagina redireccionada 
+			request.setAttribute("actividad", a);
+			request.getRequestDispatcher("activitiesRegistration.jsp").forward(request, response);
+		}
+
+		// Manejo de Delete
+		if(request.getParameter("deleteButton") != null) {
+			String IdRow = (String) request.getParameter("radioABM");
+			int idActividad = Integer.parseInt(IdRow);
+			
+			aController.deleteActivity(idActividad);
+			// Redireccionar
+			this.redirectToTable(request, response);
+		}
+		
+		// Manejo de formulario
+		if(request.getParameter("saveButton") != null){
+			a = new Activity();
+			
+			a.setDescription(request.getParameter("activityDescription"));
+			a.setDuration(request.getParameter("activityDuration"));
+			
+			if(request.getParameter("hiddenID").equals("")) {
+				// Create
+				aController.createActivity(a);
+			} else {
+				// Update
+				a.setId(Integer.parseInt(request.getParameter("hiddenID")));
+				aController.updateActivity(a);
+			}
+			
+			// Redireccionar
+			this.redirectToTable(request, response);				
+		}
+		
 	}
 	
 	public void redirectToTable(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{

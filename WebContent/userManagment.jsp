@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
             <a class="dropdown-item" href="register.html">Insumos</a>
             <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
             <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-            <a class="dropdown-item" href="forgot-password.html">Actividades</a>
+            <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
             <a class="dropdown-item" href="404.html">Empleados</a>
             <a class="dropdown-item" href="blank.html">Clientes</a>
             <a class="dropdown-item active" href="userManagmentServlet">Usuarios</a>
@@ -90,11 +90,11 @@ pageEncoding="UTF-8"%>
                   </div>
                   <div class="card-body">
                     <div class="table-responsive">
-                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                      <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Seleccionar</th>
-                            <th>Id</th>
+                            <th></th>
+                            <th>#</th>
                             <th>Nombre de usuario</th>
                             <th>Email</th>
                             <th>Tipo de usuario</th>
