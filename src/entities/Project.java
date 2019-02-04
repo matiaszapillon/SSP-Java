@@ -32,30 +32,38 @@ public class Project implements Serializable{
 	public ArrayList<Stage> getStages() {
 		return stages;
 	}
+	
 	public void setStages(ArrayList<Stage> stages) {
 		this.stages = stages;
 	}
+	
 	public ArrayList<Supply> getSupplies() {
 		return supplies;
 	}
+	
 	public void setSupplies(ArrayList<Supply> supplies) {
 		this.supplies = supplies;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getDescription() {
 		return description;
 	}
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	public Client getClient() {
 		return client;
 	}
+	
 	public void setClient(Client client) {
 		this.client = client;
 	}
@@ -69,15 +77,17 @@ public class Project implements Serializable{
 		
 		return "Finalizado";		
 	}
+	
 	public Stage getCurrentStage() {
 		if(this.getStages()!=null) {
-		for (Stage stage : this.getStages()) {
-			if(stage.getIdState() == stage.EN_CURSO) {
-				return stage;
-			}
+			for (Stage stage : this.getStages()) {
+				if(stage.getIdState() == Stage.EN_CURSO) {
+					return stage;
+				}
 		}}
 	return null;
 	}
+	
 	public void calculateTotalCost(ArrayList<Supply> supplies) {
 		float total = 0 ;
 		for(Supply s: supplies) {
