@@ -24,9 +24,9 @@ hiddenId.value = idPerson ;
 console.log(hiddenId.value) ;	
 }
 
-function setTextPerson() {
-	
+function setTextPerson() {	
+	console.log(document.querySelector('#textIdPerson'));
 	var textPers = document.querySelector('#textIdPerson') ;
 	textPers.value = document.querySelector('#hiddenNameIdPerson').value ;
-
+	console.log(textPers.value) ;	
 }

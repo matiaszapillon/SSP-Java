@@ -85,7 +85,7 @@ public class projectManagmentServlet extends HttpServlet {
 			<input class="form-control" type="text" name="idProjectName" readonly <%if (project != null){ %>
 			value=<%=project.getId()%><%}else{%> value=<%=projectWithSupplies.getId()%><%} %>>
 			 */
-//			String idP = request.getParameter("idProjectName") ;
+			String idP = request.getParameter("idProjectName") ;
 //			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = pController.getProjectById(1);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
@@ -102,7 +102,7 @@ public class projectManagmentServlet extends HttpServlet {
    				(SOLO SE PODRA SELECCIONAR LOS PROVEEDORES QUE ESTAN APROBADOS)
 				 */
 			
-//			String idP = request.getParameter("idProjectName") ;  <<< retorna null - PReguntar porque.
+			String idP = request.getParameter("idProjectName") ;//  <<< retorna null - PReguntar porque.
 //			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = pController.getProjectById(1);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());

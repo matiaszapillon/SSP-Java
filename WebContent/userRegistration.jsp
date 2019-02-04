@@ -92,12 +92,11 @@
             </div>
             <div class="col-md-5">
               <input type="text" class="form-control" name="textPerson" id="textIdPerson" placeholder="Seleccionar cliente o empleado"
-                aria-label="Search" aria-describedby="basic-addon2" disabled="" <% if(u !=null) { if(u.getType()==User.CLIENT) {
-                	String business_name = u.getClient().getBusiness_name(); %> value ="<%= business_name %>"
+                aria-label="Search" aria-describedby="basic-addon2" disabled="" <% if(u !=null) { if(u.getType()==User.CLIENT) {%> value ="<%=u.getClient().getBusiness_name()%>"
               	<%
                 } else { String name = u.getEmployee().getSurname() + "," + u.getEmployee().getName();
                 %>
-              	value="<%= name %>" <% } } %> >
+              	value="<%=u.getEmployee().getSurname() + "," + u.getEmployee().getName()%>"<% } } %> >
             </div>
             <div class="col-md-1">
               <button class="btn btn-primary" type="button" id="buttonModal" data-toggle="modal" onclick="findPeople()"
@@ -105,9 +104,9 @@
                 <i class="fas fa-search"></i>
               </button>
             </div>
-            <input type="hidden" name="hiddenIdPerson" id="hiddenIdPerson" />
-            <input type="hidden" name="hiddenUser" id="hiddenIdUser" <% if (u!=null) { %> value ="<%= u.getId() %>" <% } %> />
-            <input type="hidden" name="hiddenNamePerson" id="hiddenNameIdPerson" />
+            <input type="hidden" name="hiddenIdPerson" id="hiddenIdPerson" >
+            <input type="hidden" name="hiddenUserToUpdate" <%if (u!=null) { %> value ="<%= u.getId()%>"<% }else {int a=0;}%> >
+            <input type="hidden" name="hiddenNamePerson" id="hiddenNameIdPerson" >
           </div>
           <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton">Guardar</button>
         </form>
@@ -155,7 +154,7 @@
               <tr>
                 <td> 
                 	<input type="radio" name="radioEmployee" 
-                		onclick="setHiddenValues(<%= e.getName() %>, <%= e.getSurname() %>, <%= e.getId() %>);" />
+                		onclick="setHiddenValues('<%= e.getName() + "," + e.getSurname() %>',<%= e.getId()%>)" >
                 </td>
                 <td>
                   <%= e.getDNI() %>
@@ -208,7 +207,7 @@
                 %>
               <tr>
                 <td> 
-                	<input type="radio" name="radioClient" onclick="setHiddenValues(<%= c.getBusiness_name() %>, <%= c.getId() %>);">
+                	<input type="radio" name="radioClient" onclick = "setHiddenValues('<%=c.getBusiness_name()%>',<%=c.getId()%>)">
                 </td>
                 <td>
                   <%= c.getCUIT_CUIL() %>

@@ -53,8 +53,9 @@ public class userRegistrationServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String typeUser = request.getParameter("typeUserSelect");
 
-		if (request.getParameter("hiddenUser") != "") {
-			int idUser = Integer.parseInt(request.getParameter("hiddenUser"));
+		if (request.getParameter("hiddenUserToUpdate") != "") {
+			String idUsuario = request.getParameter("hiddenUserToUpdate");
+			int idUser = Integer.parseInt(idUsuario);
 			User u = new User();
 			u.setEmail(email);
 			u.setId(idUser);

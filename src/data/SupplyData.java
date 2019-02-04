@@ -20,12 +20,11 @@ public class SupplyData {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select s.id_supply, s.name as 'name supply', s.description as 'description supply', s.unity, s.stock, sp.id_supply_provider,\n" + 
-					"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,\n" + 
-					"p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state,\n" + 
+					"sp.prize, sp.currency, sp.active, p.id_provider,p.business_name,p.address, p.email,p.phone, p.name as 'name provider', p.surname, p.state,\n" + 
 					"p.description as 'description provider', p.category, ps.quantity\n" + 
-					"from supply s inner join supply_provider sp on s.id_supply = sp.id_supply_provider\n" + 
-					"inner join project_supply ps on ps.id_supply = s.id_supply\n" + 
-					"inner join provider p on ps.id_provider = p.id_provider\n" + 
+					"from project_supply ps inner join supply s on ps.id_supply = s.id_supply\n" + 
+					"inner join supply_provider sp on sp.id_supply = s.id_supply and sp.id_provider = ps.id_provider\n" + 
+					"inner join provider p on p.id_provider = ps.id_provider\n" + 
 					"where ps.id_project = ?");
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
