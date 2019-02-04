@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import entities.Employee;
 
 public class Stage implements Serializable {
 
@@ -12,10 +13,11 @@ public class Stage implements Serializable {
     public final static int NO_INICIADA = 1;
 	public final static int EN_CURSO = 2;
 	public final static int FINALIZADA = 3;
-	private int id ;
+	private int id_stage;
 	private String name;
 	private String description;
 	private int state;
+	private Employee attendant;
 	
 	public void setState(int state) {
 		this.state = state;
@@ -35,11 +37,11 @@ public class Stage implements Serializable {
 	}
 	
 	public int getId() {
-		return id;
+		return id_stage;
 	}
 	
 	public void setId(int id) {
-		this.id = id;
+		this.id_stage = id;
 	}
 
 	public String getName() {
@@ -57,5 +59,13 @@ public class Stage implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
+	public void setEmployee(Employee employee) {
+		this.attendant = employee;
+	}
+	
+	public Employee getEmployee() {
+		return attendant;
+	}
+	
 }

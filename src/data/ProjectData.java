@@ -6,14 +6,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import entities.*;
 import entities.Client;
 import entities.Employee;
 import entities.Project;
-import entities.Provider;
 import entities.Stage;
-import entities.User;
+import entities.Project_stage;
 
-public class projectData {
+public class ProjectData {
 
 	public Project getProjectById(int idProject) throws SQLException {
 		// TODO Auto-generated method stub
@@ -117,6 +117,62 @@ public class projectData {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Project getProjectWithStages(int idProject) throws SQLException{
+		
+		Project proj = new Project();
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description, \r\n" + 
+						  "	ps.state as 'estado', e.id_employee, e.name as 'encargado'\r\n" + 
+						  "FROM stage s\r\n" + 
+						  "INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\r\n" + 
+						  "INNER JOIN project p ON p.id_project = ps.id_project\r\n" + 
+						  "LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n" + 
+						  "WHERE p.id_project = ?";
+		
+		// Armar statement
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+		
+		if(rs != null && rs.next()) {
+			proj.setId(rs.getInt("p.id_project"));
+			
+			do {
+								
+				Employee e = new Employee();
+				e.setId(rs.getInt("e.id_employee"));
+				e.setName(rs.getString("encargado"));
+				
+				Stage s = new Stage();
+				s.setId(rs.getInt("s.id_stage"));
+				s.setName(rs.getString("etapa"));
+				s.setDescription(rs.getString("s.description"));
+				s.setState(rs.getInt("estado"));
+				s.setEmployee(e);
+				
+				proj.getStages().add(s);				
+				
+			} while(rs.next());
+			
+		}
+		
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return proj;
 	}
 
 }

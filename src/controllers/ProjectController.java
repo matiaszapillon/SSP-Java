@@ -4,21 +4,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Project;
+import entities.Project_stage;
 
 public class ProjectController {
 	
-	private data.projectData projectData ;
+	private data.ProjectData projectData ;
 	
-	public data.projectData getProjectData() {
+	public data.ProjectData getProjectData() {
 		return projectData;
 	}
 
-	public void setProjectData(data.projectData projectData) {
+	public void setProjectData(data.ProjectData projectData) {
 		this.projectData = projectData;
 	}
 
 	public ProjectController() {
-		projectData = new data.projectData();
+		projectData = new data.ProjectData();
 	}
 
 	public Project getProjectById(int idProject) {
@@ -32,12 +33,12 @@ public class ProjectController {
 	}
 
 	public ArrayList<Project> getAll() {
-try {
-	return this.getProjectData().getAll();
-} catch (SQLException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+		try {
+			return this.getProjectData().getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
@@ -49,6 +50,16 @@ try {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public Project getProjectWithStages(int idProject) {
+		try {
+			return projectData.getProjectWithStages(idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
