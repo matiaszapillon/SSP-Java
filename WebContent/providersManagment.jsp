@@ -64,7 +64,7 @@ pageEncoding="UTF-8" %>
                         <a class="dropdown-item" href="forgot-password.html">Etapas</a>
                         <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
                         <a class="dropdown-item" href="404.html">Empleados</a>
-                        <a class="dropdown-item" href="blank.html">Clientes</a>
+                        <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
                         <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
                     </div>
                 </li>
@@ -93,7 +93,7 @@ pageEncoding="UTF-8" %>
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                                                 <thead>
-                                                    <tr>
+                                                    <tr class="table-info">
                                                         <th></th>
                                                         <th>#</th>
                                                         <th>Nombre de negocio</th>

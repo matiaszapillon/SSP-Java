@@ -20,12 +20,21 @@ public class ClientController {
 	public void setClientData(data.ClientData clientData) {
 		this.clientData = clientData;
 	}
+	
+	public ArrayList<Client> getAll(){
+		try {
+			return clientData.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public Client getClientByIdUser(int id) {
 
 		return this.getClientData().getClientByIdUser(id);
 	}
-
 
 	public ArrayList<Client> getClientsWithoutUser() {
 		try {
@@ -57,5 +66,42 @@ public class ClientController {
 		}
 
 	}
+	
+	public void createClient(Client c) {
+		try {
+			clientData.createClient(c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateClient(Client c) {
+		try {
+			clientData.updateClient(c);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
+	public void deleteClient(int id_cli) {
+		try {
+			clientData.deleteClient(id_cli);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteUser(int id_cli) {
+		try {
+			clientData.deleteUser(id_cli);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
