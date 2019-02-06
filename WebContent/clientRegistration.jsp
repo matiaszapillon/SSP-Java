@@ -1,4 +1,4 @@
-<%@page import="entities.Activity"%>
+<%@page import="entities.Client"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,10 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <!-- Imagen de logo -->
     <link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
 
-    <title>Registrar/ Modificar Actividad</title>
+    <title>Registrar/ Modificar Cliente</title>
 
     <!-- Bootstrap core CSS-->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,33 +31,51 @@
 </head>
 
 <body class="bg-dark">
-    <% Activity a = (Activity)request.getAttribute("actividad"); %>
+    <% Client c = (Client)request.getAttribute("cliente"); %>
     <div class="container">
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">
                 Registrar / Editar Actividad
             </div>
             <div class="card-body">
-                <form action="activityManagmentServlet" method="post">
+                <form action="clientsManagmentServlet" method="post">
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="idActivityDescription">Descripción</label>
-                                    <textarea class="form-control" id="idActivityDescription" name="activityDescription" 
-                                    	cols="40" rows="3" placeholder="Descripción"><% if(a != null) { %><%=a.getDescription()%><% } %></textarea>
-                                </div>                                
+                                    <label for="clientName">Nombre</label>
+                                    <input type="text" class="form-control" name="clientName" placeholder="Nombre"
+                                       <% if(c !=null) { %> value="<%= c.getBusiness_name() %>" <% } %> >
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="idActivityDuration">Duración</label>
-                                    <input type="text" class="form-control" id="idActivityDuration" name="activityDuration" placeholder="Duración"
-                                       <% if(a !=null) { %> value="<%= a.getDuration() %>" <% } %> >
+                                    <label for="clietnCuitCuil">CUIT/CUIL</label>
+                                    <input type="text" class="form-control" name="clietnCuitCuil" placeholder="CUIT/CUIL"
+                                       <% if(c !=null) { %> value="<%= c.getCUIT_CUIL() %>" <% } %> >
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="hiddenID" <% if (a != null) { %> value="<%= a.getId() %>" <% } %> />
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="clientDirection">Dirección</label>
+                                    <input type="text" class="form-control" name="clientDirection" placeholder="Dirección"
+                                       <% if(c !=null) { %> value="<%= c.getAddress() %>" <% } %> >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="clientEmail">Email</label>
+                                    <input type="text" class="form-control" name="clientEmail" placeholder="Email"
+                                       <% if(c !=null) { %> value="<%= c.getEmail() %>" <% } %> >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="hiddenID" <% if (c != null) { %> value="<%= c.getId() %>" <% } %> />
                     <button class="btn btn-primary btn-block" type="submit" name="saveButton" id="idSaveButton">
                         Guardar
                     </button>

@@ -1,17 +1,22 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="entities.Activity" %>
+<%@ page import="entities.Client" %>
 <%@ page import="entities.User" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8" %>
+        pageEncoding="UTF-8" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
-    <title>ABMC Activities</title>
+
+    <title>ABMC Client</title>
+
     <!-- Bootstrap core CSS-->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template-->
@@ -34,7 +39,6 @@ pageEncoding="UTF-8" %>
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-
                     <%=((User)session.getAttribute("usuario")).getUsername() %>
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
@@ -86,11 +90,11 @@ pageEncoding="UTF-8" %>
             <div class="container-fluid">
 
                 <!-- Formulario -->
-                <form action="activityManagmentServlet" method="POST" onsubmit="return validateForm()">
+                <form action="clientsManagmentServlet" method="POST" onsubmit="return validateForm()">
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Gestion de Actividades
+                            Gestion de Clientes
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -99,27 +103,35 @@ pageEncoding="UTF-8" %>
                                         <tr class="table-info">
                                             <th></th>
                                             <th>#</th>
-                                            <th>Descripción</th>
-                                            <th>Duración</th>
+                                            <th>Cliente</th>
+                                            <th>CUIT/CUIL</th>
+                                            <th>Dirección</th>
+                                            <th>Email</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                        ArrayList<Activity> activities = (ArrayList<Activity>) request.getAttribute("actividades");
-                                        for(Activity act : activities){
+                                        ArrayList<Client> clients = (ArrayList<Client>) request.getAttribute("clientes");
+                                        for(Client cliActual : clients){
                                         %>
                                         <tr>
                                             <td>
-                                                <input type="radio" name="radioABM" value="<%= act.getId() %>">
+                                                <input type="radio" name="radioABM" value="<%= cliActual.getId() %>">
                                             </td>
                                             <td>
-                                                <%= act.getId() %>
+                                                <%= cliActual.getId() %>
                                             </td>
                                             <td>
-                                                <%= act.getDescription() %>
+                                                <%= cliActual.getBusiness_name() %>
                                             </td>
                                             <td>
-                                                <%= act.getDuration() %>
+                                                <%= cliActual.getCUIT_CUIL() %>
+                                            </td>
+                                            <td>
+                                                <%= cliActual.getAddress() %>
+                                            </td>
+                                            <td>
+                                                <%= cliActual.getEmail() %>
                                             </td>
                                         </tr>
                                         <%

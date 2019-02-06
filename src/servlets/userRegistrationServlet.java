@@ -2,6 +2,8 @@ package servlets;
 
 import entities.*;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -105,5 +107,17 @@ public class userRegistrationServlet extends HttpServlet {
 				}
 			}
 		}
+		
+		this.redirectToManagment(request, response);
+	}
+	
+	public void redirectToManagment(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		UserController usController = new UserController();
+		ArrayList<User> usuarios = new ArrayList<User>();
+		usuarios = usController.getAll();
+		request.setAttribute("usuarios", usuarios);
+		request.getRequestDispatcher("userManagment.jsp").forward(request, response);
 	}
 }
