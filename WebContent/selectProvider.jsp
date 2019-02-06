@@ -33,8 +33,8 @@ pageEncoding="UTF-8"%>
 			<ul class="navbar-nav ml-auto ml-md-0">
 				<li class="nav-item dropdown no-arrow">
 					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						
-						<%=((User)session.getAttribute("usuario")).getUsername() %>
+						<%User u =(User)session.getAttribute("usuario") ; %>
+						<%=u.getUsername() %>
 						<i class="fas fa-user-circle fa-fw"></i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -86,7 +86,6 @@ pageEncoding="UTF-8"%>
 								<h4 align="center">Seleccion de Proveedores</h4>
 							</div>
 							<%ArrayList<Supply> suppliesProviders = (ArrayList<Supply>)request.getAttribute("suppliesProviders"); %>
-							<%Project project = (Project)request.getAttribute("project"); %>
 							<form action="projectManagmentServlet" method="post">
 								<div class="card mb-3">
 									<div class="card-header">
@@ -141,7 +140,6 @@ pageEncoding="UTF-8"%>
 											<div class="col-auto">
 												<button type="submit" name ="saveProviderName"  class="btn btn-success">Guardar</button>
 												<input type="hidden" name="numberSupplyName" value="<%=suppliesProviders.get(0).getId()%>">
-												<input type="hidden" name="numberProjectName" value="<%=project.getId()%>">
 											</div>
 											
 										</div>

@@ -18,7 +18,17 @@ import java.io.Serializable;
 	private int type;
 	private Employee employee = null;
 	private Client client = null;
-
+	private Project currentProject = new Project();
+	
+	
+	
+	
+	public Project getCurrentProject() {
+		return currentProject;
+	}
+	public void setCurrentProject(Project currentProject) {
+		this.currentProject = currentProject;
+	}
 	public User() {}
 	public User(String email, String username, String password, int type, Employee employee, Client client) {
 		this.email = email;

@@ -117,7 +117,7 @@ public class ProjectData {
 		}
 
 	}
-	
+
 	public Project getProjectWithStages(int idProject) throws SQLException{
 		
 		Project proj = new Project();
@@ -174,4 +174,5 @@ public class ProjectData {
 		return proj;
 	}
 
+	
 }

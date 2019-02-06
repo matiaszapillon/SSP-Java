@@ -36,7 +36,8 @@ pageEncoding="UTF-8"%>
 			<li class="nav-item dropdown no-arrow">
 				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
 				 aria-expanded="false">
-					<%= ((User)session.getAttribute("usuario")).getUsername() %>
+				 <%User u = (User)session.getAttribute("usuario"); %>
+					<%=u.getUsername() %>
 					<i class="fas fa-user-circle fa-fw"></i>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -91,7 +92,6 @@ pageEncoding="UTF-8"%>
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="container">
-				<% Project project = (Project)request.getAttribute("project"); %>
 				<% Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
 				<% Project projectWithStages = (Project)request.getAttribute("projectStages"); %>
 					<form method="post" action="projectManagmentServlet">						
@@ -103,18 +103,18 @@ pageEncoding="UTF-8"%>
 								<div class="row">
 									<div class="form-group col-2">
 										<label> ID </label>
-										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (project != null) { %>
-											value="<%=project.getId() %>" <% } else { %> value="<%= projectWithSupplies.getId() %>" <% } %> >
+										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
+											value="<%=u.getCurrentProject().getId() %>" <%}%>>
 									</div>
 									<div class="form-group col">
 										<label> Nombre </label>
-										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (project != null) { %>
-											value="<%= project.getName() %>" <% } else { %> value="<%= projectWithSupplies.getName() %>" <% } %> >
+										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
+											value="<%= u.getCurrentProject().getName() %>" <% }%> >
 									</div>
 									<div class="form-group col">
 										<label> Descripcion </label>
-										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (project != null) { %>
-											value="<%= project.getDescription() %>" <% } else { %> value="<%= projectWithSupplies.getDescription() %>" <% } %> >
+										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
+											value="<%=u.getCurrentProject().getDescription() %>" <% }%> >
 									</div>
 								</div>
 							</div>
@@ -132,7 +132,7 @@ pageEncoding="UTF-8"%>
 								<button type="submit" name="activitiesName" class="btn btn-primary form-group">Ver Actividades</button>
 							</div>
 						</div>
-					</form>
+					
 					
 					<!--  DIV para Stages -->
 					<div <% if(projectWithStages == null) { %> style="display:none"  <% } %> >
@@ -147,7 +147,7 @@ pageEncoding="UTF-8"%>
 							<div class="card-body">
 								<!-- Table -->
 								<div class="table-responsive">
-									<table class="table table-bordered" id="stageTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
 											<tr>
 												<th>#</th>
@@ -176,13 +176,16 @@ pageEncoding="UTF-8"%>
 										</tbody>                            
 									</table>
 								</div>
-								<!-- Formulario -->
-								<form action="">
-									<div class="card-footer small text-muted">
-										<button type="submit" class="btn btn-outline-success" name="addStage">Agregar Etapa</button>
-									</div>
-								</form>
 							</div>
+								<!-- Botones etapa -->
+
+									<div class="card-footer small text-muted">
+										<div class="row">
+											<div class="col-md-4">
+												<button type="submit" name="addStage" class="btn btn-success">Agregar Etapa</button>
+											</div>
+										</div>										
+									</div>						
 						</div>
 					</div>
 					<!-- Fin gestion de etapas  -->
@@ -251,7 +254,7 @@ pageEncoding="UTF-8"%>
 									</table>
 								</div>
 							</div>
-							<form action="projectManagmentServlet" method="post">
+								<!-- Botones insumos -->
 								<div class="card-footer small text-muted">
 									<div class="row">
 										<div class="col-md-4">
@@ -268,11 +271,11 @@ pageEncoding="UTF-8"%>
 										</div>
 									</div>
 								</div>
-							</form>
+
 						</div>
 					</div>
  					<!-- Fin gestion de insumos  -->
-					
+					</form>
 				</div>
 			</div>
 		</div>
