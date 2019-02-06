@@ -104,7 +104,7 @@ pageEncoding="UTF-8"%>
 									<div class="form-group col-2">
 										<label> ID </label>
 										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (project != null) { %>
-											value=" <%= project.getId() %>" <% } else { %> value="<%= projectWithSupplies.getId() %>" <% } %> >
+											value="<%=project.getId() %>" <% } else { %> value="<%= projectWithSupplies.getId() %>" <% } %> >
 									</div>
 									<div class="form-group col">
 										<label> Nombre </label>

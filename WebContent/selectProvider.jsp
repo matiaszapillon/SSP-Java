@@ -110,10 +110,11 @@ pageEncoding="UTF-8"%>
 													<%if(suppliesProviders != null) {
 													for(Supply s : suppliesProviders){
 													%>
-													<tr>
+													<tr <%if(s.getProvider().getState() == "DESAPROBADO") { %> class="table-danger" <%} %>>
 														
 														<td><input type="radio" name="radioSelectProvider" value=<%=s.getProvider().getId()%>
-														<%if(s.getProvider().getState() == "DESAPROBADO") { %> disabled <%} %> >  </td>
+														<%if(s.getProvider().getState() == "DESAPROBADO") { %> disabled <%} %> >  
+														</td>
 														<%if(s.getProvider().getBusiness_name() != null){ %>
 														<td><%=s.getProvider().getBusiness_name() %></td> <%}else{ %>
 														<td><%=s.getProvider().getName() + " " + s.getProvider().getSurname() %></td> <% } %>

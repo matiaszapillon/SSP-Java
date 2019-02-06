@@ -69,7 +69,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
 		}
 
-		/* Info de DetailsProject */
+		/* Info de ProjectDetails */
 		if(request.getParameter("suppliesName") != null) {
 			String idP = request.getParameter("idProjectName") ;
 			int idProject = Integer.parseInt(idP);			
@@ -82,13 +82,13 @@ public class projectManagmentServlet extends HttpServlet {
 		
 			// Manejo para ver etapas del proyecto
 		if(request.getParameter("stagesButton") != null) {
-			// int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+		 // int idProject = Integer.parseInt(request.getParameter("idProjectName"));
 			Project p = pController.getProjectWithStages(1);
 			request.setAttribute("projectStages", p);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
 		
-		/* FIN DetailsProject */
+		/* FIN ProjectDetails */
 		
 		if(request.getParameter("calculateCostName") != null) {
 			
@@ -97,7 +97,7 @@ public class projectManagmentServlet extends HttpServlet {
 			<input class="form-control" type="text" name="idProjectName" readonly <%if (project != null){ %>
 			value=<%=project.getId()%><%}else{%> value=<%=projectWithSupplies.getId()%><%} %>>
 			 */
-			String idP = request.getParameter("idProjectName") ;
+			String idP = request.getParameter("idProjectName");
 //			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = pController.getProjectById(1);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
