@@ -14,9 +14,9 @@ import controllers.ProjectController;
 import controllers.ProviderController;
 import controllers.SupplyController;
 import entities.Project;
-import entities.Provider;
 import entities.Supply;
 import entities.User;
+import entities.Stage;
 
 /**
  * Servlet implementation class projectManagmentServlet
@@ -24,12 +24,15 @@ import entities.User;
 @WebServlet("/projectManagmentServlet")
 public class projectManagmentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	ProjectController projController;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public projectManagmentServlet() {
 		super();
+		projController = new ProjectController();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -40,10 +43,8 @@ public class projectManagmentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProjectController pController = new ProjectController();
-		ArrayList<Project> projects = pController.getAll();
-		request.setAttribute("projects", projects);
-		request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
+		
+		this.redirectToProjectManagment(request, response);
 	}
 
 	/**
@@ -53,22 +54,21 @@ public class projectManagmentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		ProjectController pController = new ProjectController();
 		SupplyController sController = new SupplyController();
 		ProviderController provController = new ProviderController();
 
-		/* Info de ProjectManagment */
+		/* INFO de ProjectManagment */
 
 		if (request.getParameter("detallesName") != null) {
 			int idProj = Integer.parseInt(request.getParameter("idProjectName"));
-			Project project = pController.getProjectById(idProj);
+			Project project = projController.getProjectById(idProj);
 			request.setAttribute("project", project);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
 
 		if (request.getParameter("buttonProject") != null) {
 			int idProject = Integer.parseInt(request.getParameter("buttonProject"));
-			Project project = pController.getProjectById(idProject);
+			Project project = projController.getProjectById(idProject);
 			request.setAttribute("project", project);
 			HttpSession session = request.getSession(false);
 			if (session != null) {
@@ -78,19 +78,18 @@ public class projectManagmentServlet extends HttpServlet {
 				u.getCurrentProject().setDescription(project.getDescription());
 				session.setAttribute("usuario", u);
 			}
-			ArrayList<Project> projects = pController.getAll();
-			request.setAttribute("projects", projects);
-			request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
+			
+			this.redirectToProjectManagment(request, response);
 		}
 
 		/* FIN projectManagment.jsp */
 
-		/* Info de ProjectDetails */
+		/* INFO de ProjectDetails */
 
 		if (request.getParameter("suppliesName") != null) {
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);
-			Project projectWithSupplies = pController.getProjectById(idProject);
+			Project projectWithSupplies = projController.getProjectById(idProject);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
 			projectWithSupplies.setSupplies(supplies);
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
@@ -100,21 +99,29 @@ public class projectManagmentServlet extends HttpServlet {
 		// Manejo para ver etapas del proyecto
 		if (request.getParameter("stagesButton") != null) {
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
-			Project p = pController.getProjectWithStages(idProject);
+			Project p = projController.getProjectWithStages(idProject);
 			request.setAttribute("projectStages", p);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		}
+		// Manejo para redireccionar a "addStageToProject"
+		if(request.getParameter("addStageForm") != null) {
+			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			ArrayList<Stage> stagesOutOfProject = projController.getStagesOutOfProject(idProject);
+			// Agregar etapas sin proyectos
+			request.setAttribute("stagesOutOfProject", stagesOutOfProject);
+			// Redireccionar a formulario
+			request.getRequestDispatcher("addStageToProject.jsp").forward(request, response);			
 		}
 
 		if (request.getParameter("calculateCostName") != null) {
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);
-			Project projectWithSupplies = pController.getProjectById(idProject);
+			Project projectWithSupplies = projController.getProjectById(idProject);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
 			projectWithSupplies.setSupplies(supplies);
 			projectWithSupplies.calculateTotalCost(supplies);
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
-
 		}
 
 		if (request.getParameter("addSupplyName") != null) {
@@ -123,10 +130,9 @@ public class projectManagmentServlet extends HttpServlet {
 			 * AGREGAR Y LUEGO ELEGIR EL PROVEEDOR (SOLO SE PODRA SELECCIONAR LOS
 			 * PROVEEDORES QUE ESTAN APROBADOS)
 			 */
-
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);
-			Project projectWithSupplies = pController.getProjectById(idProject);
+			Project projectWithSupplies = projController.getProjectById(idProject);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
 			projectWithSupplies.setSupplies(supplies);
 			ArrayList<Supply> allSupplies = sController.getAllSupplies();
@@ -138,13 +144,13 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		/* FIN ProjectDetails */
 
-		/* Info de addSupplyToProject.jsp */
+		/* INFO de addSupplyToProject.jsp */
 		if (request.getParameter("selectProvider") != null) {
 
 			HttpSession session = request.getSession(false);
 			if (session != null) {
 				User u = (User) session.getAttribute("usuario");
-				Project project = pController.getProjectById(u.getCurrentProject().getId());
+				Project project = projController.getProjectById(u.getCurrentProject().getId());
 				String idSup = request.getParameter("radioAddSupply");
 				int idSupply = Integer.parseInt(idSup);
 				ArrayList<Supply> suppliesProviders = provController.getProvidersByIdSupply(idSupply);
@@ -156,23 +162,50 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 
 		/* FIN addSupplyToProject */
+		
+		/* INFO de addStageToProject.jsp */
+		// Manejo para agregar etapa al proyecto
+		if(request.getParameter("addStageToProject") != null) {
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				User u = (User) session.getAttribute("usuario");
+				Project p = projController.getProjectById(u.getCurrentProject().getId());
+				int idStage = Integer.parseInt(request.getParameter("radioAddStage"));
+				projController.addStageToProject(p.getId(), idStage);
+				
+				// Volver a projectDetails con las etapas pertenecientes al proyecto actual
+				Project projectWithStages = projController.getProjectWithStages(p.getId());
+				request.setAttribute("projectStages", projectWithStages);
+				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+			}
+			
+		}
+		/* FIN addStageToProject */
 
-		/* info de selectProvider.jsp */
+		/* INFO de selectProvider.jsp */
 
 		if (request.getParameter("saveProviderName") != null) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
-			User u = (User) session.getAttribute("usuario");
-			int quantity = Integer.parseInt(request.getParameter("quantityName"));
-			int idProvider = Integer.parseInt(request.getParameter("radioSelectProvider"));
-			int idSupply = Integer.parseInt(request.getParameter("numberSupplyName"));
-			int idProject = u.getCurrentProject().getId();
-			pController.addSupplyToProject(idProject, idSupply, idProvider, quantity);
-			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+				User u = (User) session.getAttribute("usuario");
+				int quantity = Integer.parseInt(request.getParameter("quantityName"));
+				int idProvider = Integer.parseInt(request.getParameter("radioSelectProvider"));
+				int idSupply = Integer.parseInt(request.getParameter("numberSupplyName"));
+				int idProject = u.getCurrentProject().getId();
+				projController.addSupplyToProject(idProject, idSupply, idProvider, quantity);
+				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 			}
 		}
 		/* FIN selectProvider */
 
+	}
+	
+	public void redirectToProjectManagment(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		ArrayList<Project> projects = projController.getAll();
+		request.setAttribute("projects", projects);
+		request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
 	}
 
 }

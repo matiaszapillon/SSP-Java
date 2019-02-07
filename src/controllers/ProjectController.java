@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Project;
+import entities.Stage;
 
 public class ProjectController {
 	
@@ -59,6 +60,25 @@ public class ProjectController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public ArrayList<Stage> getStagesOutOfProject(int idProject){
+		try {
+			return projectData.getStagesOutOfProject(idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void addStageToProject(int idProject, int idStage) {
+		try {
+			projectData.addStageToProject(idProject, idStage);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

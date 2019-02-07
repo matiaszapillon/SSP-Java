@@ -33,8 +33,8 @@ pageEncoding="UTF-8"%>
 			<ul class="navbar-nav ml-auto ml-md-0">
 				<li class="nav-item dropdown no-arrow">
 					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<%User u = (User)session.getAttribute("usuario"); %>
-						<%=u.getUsername() %>
+						<% User u = (User)session.getAttribute("usuario"); %>
+						<%= u.getUsername() %>
 						<i class="fas fa-user-circle fa-fw"></i>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -105,9 +105,9 @@ pageEncoding="UTF-8"%>
 													</tr>
 												</thead>
 												<tbody>
-													<%ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("allSupplies"); %>
-													<%if(supplies != null) {
-													for(Supply s : supplies){
+													<% ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("allSupplies"); %>
+													<% if(supplies != null) {
+														for(Supply s : supplies){
 													%>
 													<tr>
 														<td> <input type="radio" name="radioAddSupply"  value= <%=s.getId()%>></td>
@@ -122,8 +122,8 @@ pageEncoding="UTF-8"%>
 										</div>
 									</div>
 									<div class="card-footer small text-muted">
-										<button type="submit" name ="selectProvider"  class="btn btn-success">Seleccionar proveedor</button>
-										<input type="hidden" name="hiddenId" value="<%=currentProject.getId()%>">
+										<button type="submit" name="selectProvider" class="btn btn-success">Seleccionar proveedor</button>
+										<input type="hidden" name="hiddenId" value="<%= currentProject.getId() %>" >
 									</div>
 								</div>
 							</form>

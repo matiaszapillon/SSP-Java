@@ -35,9 +35,9 @@ pageEncoding="UTF-8"%>
 		<ul class="navbar-nav ml-auto ml-md-0">
 			<li class="nav-item dropdown no-arrow">
 				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-				 aria-expanded="false">
-				 <%User u = (User)session.getAttribute("usuario"); %>
-					<%=u.getUsername() %>
+				 	aria-expanded="false">
+				 <% User u = (User)session.getAttribute("usuario"); %>
+					<%= u.getUsername() %>
 					<i class="fas fa-user-circle fa-fw"></i>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -60,17 +60,17 @@ pageEncoding="UTF-8"%>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-				 aria-expanded="false">
+				 	aria-expanded="false">
 					<span>ABM</span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 					<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-					<a class="dropdown-item" href="register.html">Insumos</a>
+					<a class="dropdown-item" href="404.html">Insumos</a>
 					<a class="dropdown-item" href="forgot-password.html">Proyectos</a>
 					<a class="dropdown-item" href="forgot-password.html">Etapas</a>
 					<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
 					<a class="dropdown-item" href="404.html">Empleados</a>
-					<a class="dropdown-item" href="blank.html">Clientes</a>
+					<a class="dropdown-item" href="404.html">Clientes</a>
 					<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
 				</div>
 			</li>
@@ -104,7 +104,7 @@ pageEncoding="UTF-8"%>
 									<div class="form-group col-2">
 										<label> ID </label>
 										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
-											value="<%=u.getCurrentProject().getId() %>" <%}%>>
+											value="<%= u.getCurrentProject().getId() %>" <%}%>>
 									</div>
 									<div class="form-group col">
 										<label> Nombre </label>
@@ -114,7 +114,7 @@ pageEncoding="UTF-8"%>
 									<div class="form-group col">
 										<label> Descripcion </label>
 										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
-											value="<%=u.getCurrentProject().getDescription() %>" <% }%> >
+											value="<%= u.getCurrentProject().getDescription() %>" <% }%> >
 									</div>
 								</div>
 							</div>
@@ -149,7 +149,7 @@ pageEncoding="UTF-8"%>
 								<div class="table-responsive">
 									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
-											<tr>
+											<tr class="table-warning">
 												<th>#</th>
 												<th>Etapa</th>
 												<th>Descripción</th>
@@ -160,13 +160,13 @@ pageEncoding="UTF-8"%>
 										<tbody>
 											<!-- Hacer for -->
 											<% if(projectWithStages != null) { 
-												for(Stage stageActu: projectWithStages.getStages()) { %>
+												for(Stage stageAct: projectWithStages.getStages()) { %>
 											<tr>
-												<td><%= stageActu.getId() %></td>
-												<td><%= stageActu.getName() %></td>
-												<td><%= stageActu.getDescription() %></td>
-												<td><%= stageActu.getState() %></td>
-												<td><%= stageActu.getEmployee().getName() %></td>
+												<td><%= stageAct.getId() %></td>
+												<td><%= stageAct.getName() %></td>
+												<td><%= stageAct.getDescription() %></td>
+												<td><%= stageAct.getState() %></td>
+												<td><%= stageAct.getEmployee().getName() %></td>
 											</tr>
 											<!-- Cerrar for -->
 											<% 
@@ -177,15 +177,16 @@ pageEncoding="UTF-8"%>
 									</table>
 								</div>
 							</div>
-								<!-- Botones etapa -->
-
-									<div class="card-footer small text-muted">
-										<div class="row">
-											<div class="col-md-4">
-												<button type="submit" name="addStage" class="btn btn-success">Agregar Etapa</button>
-											</div>
-										</div>										
-									</div>						
+							<!-- Botones etapa -->
+							<div class="card-footer small text-muted">
+								<div class="row">
+									<div class="col-md-4">
+										<button type="submit" name="addStageForm" class="btn btn-success">Agregar Etapa</button>
+										<button type="submit" name="addAttendant" class="btn btn-info">Agregar Encargado</button>
+									</div>
+								</div>										
+							</div>	
+												
 						</div>
 					</div>
 					<!-- Fin gestion de etapas  -->

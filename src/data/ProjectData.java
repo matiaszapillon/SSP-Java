@@ -92,11 +92,10 @@ public class ProjectData {
 
 	public void addSupplyToProject(int idProject, int idSupply, int idProvider, int quantity) throws SQLException {
 		PreparedStatement prepStmt = null;
-		ResultSet keyResultSet = null;
 		String SqlQuery = "INSERT INTO project_supply (id_project, id_supply, quantity, id_provider) values (?,?,?,?)";
 
 		// Crear el PreparedStatement de la conexi�n
-		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery,PreparedStatement.RETURN_GENERATED_KEYS);
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
 		prepStmt.setInt(2, idSupply);
 		prepStmt.setFloat(3, quantity);
@@ -106,9 +105,7 @@ public class ProjectData {
 		prepStmt.executeUpdate();
 	
 		// Cerrar conexion
-		try {
-			if (keyResultSet != null)
-				keyResultSet.close();
+		try {			
 			if (prepStmt != null)
 				prepStmt.close();
 			FactoryConexion.getInstancia().releaseConn();
@@ -116,6 +113,29 @@ public class ProjectData {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void addStageToProject(int idProject, int idStage) throws SQLException {
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "INSERT INTO project_stage (id_project, id_stage, state) values (?,?,?)";
+
+		// Crear el PreparedStatement de la conexi�n
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		prepStmt.setInt(2, idStage);
+		prepStmt.setInt(3, 1);		
+	
+		// Ejecutar Query
+		prepStmt.executeUpdate();
+	
+		// Cerrar conexion
+		try {
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Project getProjectWithStages(int idProject) throws SQLException{
@@ -162,7 +182,7 @@ public class ProjectData {
 		
 		// Cerrar conexion
 		try {
-			if (rs != null)
+			if(rs != null)
 				rs.close();
 			if (prepStmt != null)
 				prepStmt.close();
@@ -174,5 +194,51 @@ public class ProjectData {
 		return proj;
 	}
 
+	// Consulta que devuelve las etapas que no se encuentran en un proyecto especifico
+	public ArrayList<Stage> getStagesOutOfProject(int idProject) throws SQLException{
+		ArrayList<Stage> stagesOutOfProject = new ArrayList<Stage>();
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		String SqlQuery = "SELECT id_stage, name, description \r\n" + 
+				"FROM stage\r\n" + 
+				"WHERE id_stage NOT IN (\r\n" + 
+				"					SELECT ps.id_stage \r\n" + 
+				"					FROM project p \r\n" + 
+				"					INNER JOIN project_stage ps ON p.id_project = ps.id_project\r\n" + 
+				"					WHERE p.id_project = ?\r\n" + 
+				"					);";
+		
+		// Armar statement
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+		
+		if(rs != null) {
+			while (rs.next()) {
+				Stage s = new Stage();
+				
+				s.setId(rs.getInt("id_stage"));
+				s.setName(rs.getString("name"));
+				s.setDescription(rs.getString("description"));
+				
+				stagesOutOfProject.add(s);
+			}
+		}
+		
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return stagesOutOfProject;
+	}
 	
 }

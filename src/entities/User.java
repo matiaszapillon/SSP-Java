@@ -23,13 +23,8 @@ import java.io.Serializable;
 	
 	
 	
-	public Project getCurrentProject() {
-		return currentProject;
-	}
-	public void setCurrentProject(Project currentProject) {
-		this.currentProject = currentProject;
-	}
 	public User() {}
+	
 	public User(String email, String username, String password, int type, Employee employee, Client client) {
 		this.email = email;
 		this.username = username;
@@ -38,15 +33,25 @@ import java.io.Serializable;
 		this.employee = employee;
 		this.client = client;
 	}
+	
+	public Project getCurrentProject() {
+		return currentProject;
+	}
+	
+	public void setCurrentProject(Project currentProject) {
+		this.currentProject = currentProject;
+	}
+	
 	public int getId() {
 		return id;
 	}
+	
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public String getEmail() {
 		return this.email;
-
 	}
 
 	public void setEmail(String em) {
