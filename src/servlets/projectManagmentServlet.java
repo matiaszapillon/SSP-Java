@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import controllers.EmployeeController;
 import controllers.ProjectController;
 import controllers.ProviderController;
 import controllers.SupplyController;
+import entities.Employee;
 import entities.Project;
 import entities.Supply;
 import entities.User;
@@ -103,6 +105,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.setAttribute("projectStages", p);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
+		
 		// Manejo para redireccionar a "addStageToProject"
 		if(request.getParameter("addStageForm") != null) {
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
@@ -112,7 +115,25 @@ public class projectManagmentServlet extends HttpServlet {
 			// Redireccionar a formulario
 			request.getRequestDispatcher("addStageToProject.jsp").forward(request, response);			
 		}
-
+		
+		// Manejo para redireccionar a "updateProjectStage"
+		if(request.getParameter("modifyStageForm") != null) {
+			int idStage = Integer.parseInt(request.getParameter("radioSelectedStage"));		
+			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			// Buscar etapa a modificar
+			Stage stageToUpdate = projController.getProjectSage(idProject, idStage);
+			// Traer todos los empleados para poder seleccionarlos despues
+			EmployeeController eController = new EmployeeController();
+			ArrayList<Employee> employees = eController.getAll();
+			// Agregar etapa como parametro a la proxima pagina
+			request.setAttribute("stageToUpdate", stageToUpdate);
+			// Agregar empleados
+			request.setAttribute("empleados", employees);			
+			// Redireccionar
+			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
+		}
+		
+		// Metodo que calcula el costo del proyecto
 		if (request.getParameter("calculateCostName") != null) {
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);

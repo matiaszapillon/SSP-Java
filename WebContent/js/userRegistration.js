@@ -16,17 +16,17 @@ function findPeople() {
 }
 
 function setHiddenValues(namePerson, idPerson) {
-var hiddenText = document.querySelector('#hiddenNameIdPerson') ;
-hiddenText.value = namePerson ;
-console.log(hiddenText.value) ;
-var hiddenId = document.querySelector('#hiddenIdPerson') ;
-hiddenId.value = idPerson ;
-console.log(hiddenId.value) ;	
+	var hiddenText = document.querySelector('#hiddenNameIdPerson') ;
+	hiddenText.value = namePerson;
+	console.log(hiddenText.value);
+	var hiddenId = document.querySelector('#hiddenIdPerson') ;
+	hiddenId.value = idPerson ;
+	console.log(hiddenId.value) ;	
 }
 
 function setTextPerson() {	
 	console.log(document.querySelector('#textIdPerson'));
-	var textPers = document.querySelector('#textIdPerson') ;
-	textPers.value = document.querySelector('#hiddenNameIdPerson').value ;
-	console.log(textPers.value) ;	
+	var textPers = document.querySelector('#textIdPerson');
+	textPers.value = document.querySelector('#hiddenNameIdPerson').value;
+	console.log(textPers.value);	
 }

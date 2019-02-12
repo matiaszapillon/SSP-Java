@@ -21,7 +21,17 @@ public class EmployeeController {
 	public void setEmployeeData(data.EmployeeData employeeData) {
 		this.employeeData = employeeData;
 	}
-
+	
+	public ArrayList<Employee> getAll(){
+		try {
+			return employeeData.getAll();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public Employee getEmployeeByIdUser(int id) {
 		return getEmployeeData().getEmployeeByIdUser(id);
 	}

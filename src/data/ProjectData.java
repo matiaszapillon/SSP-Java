@@ -143,13 +143,13 @@ public class ProjectData {
 		Project proj = new Project();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description, \r\n" + 
-						  "	ps.state as 'estado', e.id_employee, e.name as 'encargado'\r\n" + 
-						  "FROM stage s\r\n" + 
-						  "INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\r\n" + 
-						  "INNER JOIN project p ON p.id_project = ps.id_project\r\n" + 
-						  "LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n" + 
-						  "WHERE p.id_project = ?";
+		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description,\r\n" + 
+							"	  	ps.state as 'estado', e.id_employee, e.name, e.surname\r\n" + 
+							"FROM stage s\r\n" + 
+							"INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\r\n" + 
+							"INNER JOIN project p ON p.id_project = ps.id_project\r\n" + 
+							"LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n" + 
+							"WHERE p.id_project = ? ";
 		
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
@@ -165,7 +165,8 @@ public class ProjectData {
 								
 				Employee e = new Employee();
 				e.setId(rs.getInt("e.id_employee"));
-				e.setName(rs.getString("encargado"));
+				e.setName(rs.getString("e.name"));
+				e.setSurname(rs.getString("e.surname"));
 				
 				Stage s = new Stage();
 				s.setId(rs.getInt("s.id_stage"));
@@ -194,6 +195,49 @@ public class ProjectData {
 		return proj;
 	}
 
+	public Stage getProjectSage(int idProject, int idStage) throws SQLException{
+		Stage s = new Stage();
+		PreparedStatement  prepStmt = null;
+		ResultSet rs = null;
+		String SqlQuery = "SELECT * \r\n" + 
+						  "FROM project_stage ps\r\n" + 
+						  "INNER JOIN stage s ON ps.id_stage = s.id_stage\r\n" + 
+						  "WHERE ps.id_project = ? AND ps.id_stage = ?";
+		
+		// Armar statement
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		prepStmt.setInt(2, idStage);
+		
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+		
+		if(rs != null && rs.next()) {
+			s.setId(idStage);
+			s.setName(rs.getString("name"));
+			s.setDescription(rs.getString("description"));
+			s.setState(rs.getInt("state"));
+			
+			Employee e = new Employee();
+			e.setId(rs.getInt("id_employee"));
+			
+			s.setEmployee(e);
+		}
+		
+		// Cerrar conexion
+		try {
+			if(rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return s;
+	}
+	
 	// Consulta que devuelve las etapas que no se encuentran en un proyecto especifico
 	public ArrayList<Stage> getStagesOutOfProject(int idProject) throws SQLException{
 		ArrayList<Stage> stagesOutOfProject = new ArrayList<Stage>();
@@ -240,5 +284,43 @@ public class ProjectData {
 		
 		return stagesOutOfProject;
 	}
+	
+	// Update que modifica la etapa de un proyecto
+	public void updateProjectStage(int idProject, int idStage, int state, int idEmployee) throws SQLException{
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "UPDATE project_stage SET state = ?, id_employee = ? \r\n" + 
+							"WHERE id_project = ? AND id_stage = ?";
+		
+		// Armar statement 
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		switch(state) {
+			case 1:
+				prepStmt.setInt(1, Stage.NO_INICIADA); 
+				break;
+			case 2: 
+				prepStmt.setInt(1, Stage.EN_CURSO); 
+				break;
+			case 3: 
+				prepStmt.setInt(1, Stage.FINALIZADA); 
+				break;
+		}
+		prepStmt.setInt(2, idEmployee);
+		prepStmt.setInt(3, idProject);
+		prepStmt.setInt(4, idStage);
+		
+		// Ejecutar query
+		prepStmt.executeUpdate();
+		
+		// Cerrar conexion
+		try {
+			if(prepStmt != null) {
+				prepStmt.close();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

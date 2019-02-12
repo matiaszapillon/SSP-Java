@@ -11,6 +11,54 @@ import entities.Employee;
 import entities.User;
 
 public class EmployeeData {
+	
+	public ArrayList<Employee> getAll() throws SQLException{
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String SQLQuery = "SELECT * FROM employee";
+		
+		// Armar statement
+		stmt = FactoryConexion.getInstancia().getConn().createStatement();
+		
+		// Ejecutar query
+		rs = stmt.executeQuery(SQLQuery);
+		if(rs != null) {
+			while(rs.next()) {
+				Employee e = new Employee();
+				
+				e.setId(rs.getInt("id_employee"));
+				e.setDNI(rs.getString("DNI"));
+				e.setName(rs.getString("name"));
+				e.setSurname(rs.getString("surname"));
+				e.setAddress(rs.getString("address"));
+				e.setPhone(rs.getString("phone"));
+				e.setEmail(rs.getString("email"));
+				
+				User u = new User();
+				u.setId(rs.getInt("id_user"));
+				
+				e.setUser(u);
+				
+				employees.add(e);
+			}
+		}
+		
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException ex) {
+
+			ex.printStackTrace();
+		}
+
+		return employees;
+
+	}
 
 	public Employee getEmployeeByIdUser(int id) {
 		Employee e = null;

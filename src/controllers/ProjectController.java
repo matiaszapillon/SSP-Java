@@ -72,9 +72,28 @@ public class ProjectController {
 		return null;
 	}
 	
+	public Stage getProjectSage(int idProject, int idStage) {
+		try {
+			return projectData.getProjectSage(idProject, idStage);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public void addStageToProject(int idProject, int idStage) {
 		try {
 			projectData.addStageToProject(idProject, idStage);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateProjectStage(int idProject, int idStage, int state, int idEmployee) {
+		try {
+			projectData.updateProjectStage(idProject, idStage, state, idEmployee);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -64,14 +64,14 @@ pageEncoding="UTF-8"%>
 					<span>ABM</span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-					<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-					<a class="dropdown-item" href="404.html">Insumos</a>
-					<a class="dropdown-item" href="forgot-password.html">Proyectos</a>
-					<a class="dropdown-item" href="forgot-password.html">Etapas</a>
-					<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
-					<a class="dropdown-item" href="404.html">Empleados</a>
-					<a class="dropdown-item" href="404.html">Clientes</a>
-					<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+                    <a class="dropdown-item active" href="providersManagmentServlet">Proveedores</a>
+                    <a class="dropdown-item" href="register.html">Insumos</a>
+                    <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
+                    <a class="dropdown-item" href="forgot-password.html">Etapas</a>
+                    <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
+                    <a class="dropdown-item" href="404.html">Empleados</a>
+                    <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
+                    <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
 				</div>
 			</li>
 			<li class="nav-item">
@@ -150,6 +150,7 @@ pageEncoding="UTF-8"%>
 									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
 											<tr class="table-warning">
+												<th></th>
 												<th>#</th>
 												<th>Etapa</th>
 												<th>Descripción</th>
@@ -162,11 +163,14 @@ pageEncoding="UTF-8"%>
 											<% if(projectWithStages != null) { 
 												for(Stage stageAct: projectWithStages.getStages()) { %>
 											<tr>
+												<td>
+													<input type="radio" name="radioSelectedStage" value=<%= stageAct.getId() %> >
+												</td>
 												<td><%= stageAct.getId() %></td>
 												<td><%= stageAct.getName() %></td>
 												<td><%= stageAct.getDescription() %></td>
 												<td><%= stageAct.getState() %></td>
-												<td><%= stageAct.getEmployee().getName() %></td>
+												<td><%= stageAct.getEmployee().getSurname() + " " + stageAct.getEmployee().getName() %></td>
 											</tr>
 											<!-- Cerrar for -->
 											<% 
@@ -182,7 +186,7 @@ pageEncoding="UTF-8"%>
 								<div class="row">
 									<div class="col-md-4">
 										<button type="submit" name="addStageForm" class="btn btn-success">Agregar Etapa</button>
-										<button type="submit" name="addAttendant" class="btn btn-info">Agregar Encargado</button>
+										<button type="submit" name="modifyStageForm" class="btn btn-info">Modificar Etapa</button>
 									</div>
 								</div>										
 							</div>	
