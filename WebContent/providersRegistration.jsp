@@ -50,7 +50,7 @@
                                 <div class="form-label-group">
                                     <input type="text" class="form-control" id="idProviderBssName" name="providerBssName"
                                         placeholder="Proveedor" required="required" <% if(p !=null) { %> value="<%=p.getBusiness_name() %>"<% } %> >
-                                    <label for="BssName">Proveedor</label>
+                                    <label for="idProviderBssName">Proveedor</label>
                                 </div>
                             </div>
                         </div>

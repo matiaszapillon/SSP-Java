@@ -60,14 +60,8 @@ public class projectManagmentServlet extends HttpServlet {
 		ProviderController provController = new ProviderController();
 
 		/* INFO de ProjectManagment */
-
-		if (request.getParameter("detallesName") != null) {
-			int idProj = Integer.parseInt(request.getParameter("idProjectName"));
-			Project project = projController.getProjectById(idProj);
-			request.setAttribute("project", project);
-			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
-		}
-
+		
+		// Mostrar datos proyecto
 		if (request.getParameter("buttonProject") != null) {
 			int idProject = Integer.parseInt(request.getParameter("buttonProject"));
 			Project project = projController.getProjectById(idProject);
@@ -82,6 +76,20 @@ public class projectManagmentServlet extends HttpServlet {
 			}
 			
 			this.redirectToProjectManagment(request, response);
+		}
+		
+		// Ir a detalles de proyecto
+		if (request.getParameter("detallesName") != null) {
+			int idProj = Integer.parseInt(request.getParameter("idProjectName"));
+			Project project = projController.getProjectById(idProj);
+			request.setAttribute("project", project);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		}
+		
+		// Crear nuevo proyecto
+		if(request.getParameter("btnCreateProject") != null) {
+			// Redireccionar a projectRegistration.jsp
+			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);
 		}
 
 		/* FIN projectManagment.jsp */

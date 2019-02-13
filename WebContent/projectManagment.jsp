@@ -89,25 +89,33 @@ pageEncoding="UTF-8"%>
                 <div class="row">
                   <!-- Columna con primer form -->
                   <div class="col-md-4">
-                    <form method="post" action="projectManagmentServlet">
-                      <div class="form-group">
-                        <input class="form-control" type="text" name="" placeholder="Buscar proyecto">
-                      </div>
+                  	<form method="post" action="projectManagmentServlet">
+                    	<div class="form-group">
+                      		<input class="form-control" type="text" name="" placeholder="Buscar proyecto">
+                      	</div>
+                      	<!--  Boton crear proyecto -->                      	
+                      	<div class="input-group mb-3">
+                      		<label class="input-group-text form-control" for="btnCreateProject">Crear Proyecto</label>							
+						  	<div class="input-group-append">
+						  	   	<button class="btn btn-outline-success" type="submit" id="btnCreateProject" name="btnCreateProject">+</button>
+						  	</div>
+						</div>
                       
-                      <div class="form-group">
-                        <%ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
-                          for(Project p: projects){
-                          %>
-                          <button type="submit" id=<%=p.getId()%> name="buttonProject"
-                          <%if(clickedProject != null) {
-                          if(clickedProject.getId() == p.getId()){
-                          %> class="list-group-item list-group-item-action btn btn-light active"
-                          <%}else {%>class="list-group-item list-group-item-action btn btn-light" <% }} else { %> class="list-group-item list-group-item-action btn btn-light"
-                          <%}%> value=<%=p.getId()%> > <%=p.getName() %> </button>
-                          <%} %>
+                      	<div class="form-group">
+	                        <%ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
+	                          for(Project p: projects){
+	                        %>
+	                        <button type="submit" id=<%=p.getId()%> name="buttonProject"
+	                        <%if(clickedProject != null) {
+	                        	if(clickedProject.getId() == p.getId()){
+	                        %> class="list-group-item list-group-item-action btn btn-light active"
+	                        	<%}else {%>class="list-group-item list-group-item-action btn btn-light" <% }} else { %> class="list-group-item list-group-item-action btn btn-light"
+	                        	<%}%> value=<%=p.getId()%> > <%=p.getName() %> 
+	                        </button>
+	                        <% } %>
                         </div>
-                      </form>
-                    </div>
+                 	</form>
+             	 </div>
                     <!-- Columna con segundo form -->
                     <div class="col-md-8">
                       <form method="post" action="projectManagmentServlet">
