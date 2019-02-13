@@ -196,13 +196,14 @@ public class ProjectData {
 	}
 
 	public Stage getProjectSage(int idProject, int idStage) throws SQLException{
-		Stage s = new Stage();
+		Stage s = null;
 		PreparedStatement  prepStmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT * \r\n" + 
-						  "FROM project_stage ps\r\n" + 
-						  "INNER JOIN stage s ON ps.id_stage = s.id_stage\r\n" + 
-						  "WHERE ps.id_project = ? AND ps.id_stage = ?";
+		String SqlQuery = "SELECT s.name, s.description, ps.state, ps.id_employee, e.name, e.surname\r\n" + 
+				"FROM project_stage ps\r\n" + 
+				"INNER JOIN stage s ON ps.id_stage = s.id_stage\r\n" + 
+				"LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n" + 
+				"WHERE ps.id_project = ? AND ps.id_stage = ?";
 		
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
@@ -213,13 +214,16 @@ public class ProjectData {
 		rs = prepStmt.executeQuery();
 		
 		if(rs != null && rs.next()) {
+			s = new Stage();
 			s.setId(idStage);
-			s.setName(rs.getString("name"));
-			s.setDescription(rs.getString("description"));
-			s.setState(rs.getInt("state"));
+			s.setName(rs.getString("s.name"));
+			s.setDescription(rs.getString("s.description"));
+			s.setState(rs.getInt("ps.state"));
 			
 			Employee e = new Employee();
-			e.setId(rs.getInt("id_employee"));
+			e.setId(rs.getInt("ps.id_employee"));
+			e.setName(rs.getString("e.name"));
+			e.setSurname(rs.getString("e.surname"));
 			
 			s.setEmployee(e);
 		}

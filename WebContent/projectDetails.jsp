@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
 										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
 											value="<%= u.getCurrentProject().getId() %>" <%}%>>
 									</div>
-									<div class="form-group col">
+									<div class="form-group col-2">
 										<label> Nombre </label>
 										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
 											value="<%= u.getCurrentProject().getName() %>" <% }%> >
@@ -147,7 +147,7 @@ pageEncoding="UTF-8"%>
 							<div class="card-body">
 								<!-- Table -->
 								<div class="table-responsive">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered" width="100%" cellspacing="0">
 										<thead>
 											<tr class="table-warning">
 												<th></th>
@@ -170,7 +170,11 @@ pageEncoding="UTF-8"%>
 												<td><%= stageAct.getName() %></td>
 												<td><%= stageAct.getDescription() %></td>
 												<td><%= stageAct.getState() %></td>
-												<td><%= stageAct.getEmployee().getSurname() + " " + stageAct.getEmployee().getName() %></td>
+												<td>
+													<% if(stageAct.getEmployee().getId() != 0) { %>
+													<%= stageAct.getEmployee().getSurname() + " " + stageAct.getEmployee().getName() %>
+													<% } else { %>Sin encargado<% } %> 													
+												</td>
 											</tr>
 											<!-- Cerrar for -->
 											<% 

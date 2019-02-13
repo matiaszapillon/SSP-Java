@@ -88,11 +88,11 @@
                     <span>Gestion Proyectos</span></a>
             </li>
         </ul>
-        <!-- Traer etapas que no esten en este proyecto -->
-        <% Stage stageToUpdate = (Stage) request.getAttribute("stageToUpdate"); %>
         <!--  Traer empleados -->
         <% ArrayList<Employee> employees = (ArrayList<Employee>) request.getAttribute("empleados"); %>
-
+        <!-- Traer encargado -->
+		<% Employee attendant = (Employee) request.getAttribute("attendant"); %>
+		
         <div id="content-wrapper">
             <div class="container">
                 <div class="card card-register mx-auto mt-5">
@@ -108,13 +108,13 @@
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" class="form-control" name="stageName" readonly="readonly" value="<%= stageToUpdate.getName() %>" >
+                                                <input type="text" class="form-control" name="stageName" readonly="readonly" value="<%= u.getCurrentStage().getName() %>" >
                                                 <label for="stageName">Etapa</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-label-group">
-                                                <input type="text" class="form-control" name="stageDescription" readonly="readonly" value="<%= stageToUpdate.getDescription() %>" >
+                                                <input type="text" class="form-control" name="stageDescription" readonly="readonly" value="<%= u.getCurrentStage().getDescription() %>" >
                                                 <label for="stageDescription">Descripción</label>
                                             </div>
                                         </div>
@@ -124,100 +124,106 @@
                                 <!-- Fila 2-->
                                 <div class="form-group">
                                     <div class="form-row">
+                                    	<!-- Select group  -->
                                         <div class="col-md-6 input-group">
                                             <select class="custom-select" id="inputStateGroup" name="stageState">
-                                                <option value="<%= Stage.NO_INICIADA %>" <% if(stageToUpdate != null && stageToUpdate.getState().equalsIgnoreCase("NO INICIADA")){ %> selected <% } %> >
+                                                <option value="<%= Stage.NO_INICIADA %>" <% if(u.getCurrentStage().getState().equalsIgnoreCase("NO INICIADA")){ %> selected <% } %> >
                                                     No Iniciada
                                                 </option>
-                                                <option value="<%= Stage.EN_CURSO %>" <% if(stageToUpdate != null && stageToUpdate.getState().equalsIgnoreCase("EN CURSO")){ %> selected <% } %> >
+                                                <option value="<%= Stage.EN_CURSO %>" <% if(u.getCurrentStage().getState().equalsIgnoreCase("EN CURSO")){ %> selected <% } %> >
                                                     En Curso
                                                 </option>
-                                                <option value="<%= Stage.FINALIZADA %>" <% if(stageToUpdate != null && stageToUpdate.getState().equalsIgnoreCase("FINALIZADA")){ %> selected <% } %> >
+                                                <option value="<%= Stage.FINALIZADA %>" <% if(u.getCurrentStage().getState().equalsIgnoreCase("FINALIZADA")){ %> selected <% } %> >
                                                     Finalizada
                                                 </option>
                                             </select>
-                                        </div>                            
-                                        <div class="col-md-6">                                
-                                            <!-- Modal Empleado -->   
-                                            <div class="col-auto">
-								            	<input type="text" class="form-control" name="textPerson" id="textIdPerson" placeholder="Seleccione empleado"
-									                aria-label="Search" aria-describedby="basic-addon2" disabled="disabled"> 									                
-								            </div> 
-								            <div class="col-md-1">
-								            	<button class="btn btn-primary" type="button" id="buttonModal" data-toggle="modal" data-target="#modalEmployee">							                	
-								                	<i class="fas fa-search"></i>
+                                        </div> 
+                                        <!--  Button addons for employee -->
+                                        <div class="col-md-6 input-group"> 
+											<input type="text" class="form-control" disabled="disabled" aria-label="Recipient's username" aria-describedby="butttonTableEmployee" 
+												placeholder="<% if(u.getCurrentStage().getEmployee().getId() == 0) { %>Seleccione Empleado<% } %>"
+												value="<% if(u.getCurrentStage().getEmployee().getId() != 0) { %><%= u.getCurrentStage().getEmployee().getSurname() + ' ' + u.getCurrentStage().getEmployee().getName() %><% } %>" >
+											<div class="input-group-append">
+												<button class="btn btn-primary" type="submit" name="btnCollapseAttendant" data-toggle="collapse" data-target="#collapseEmployeeTable" 
+													<%if(employees == null) { %> aria-expanded="false" <% } else { %> aria-expanded="true" <% } %> 
+													aria-controls="collapseEmployeeTable">
+													<i class="fas fa-search"></i>
 								              	</button>
-								            </div>
-                                        </div>
-                                        <input type="hidden" name="hiddenIdPerson" id="hiddenIdPerson" >
-							            <input type="hidden" name="hiddenNamePerson" id="hiddenNameIdPerson" >
+										  	</div>
+										</div>                 
                                     </div>                                
                                 </div>
                                 
                                 <!-- Botones -->
                                <button type="submit" name="updateStage" class="btn btn-success">Guardar Cambios</button>
                                <button type="submit" name="goBack" class="btn btn-warning">Volver</button>
-                        </form>
+                        
+                
+			                	<!--  DIV para Employee -->
+								<div <%if(employees == null) { %> class="collapse mt-3" <% } else { %> class="collapse show mt-3" <% } %> id="collapseEmployeeTable" >
+									<div class="card mb-3">
+										<!-- Header -->
+										<div class="card-header bg-secondary">
+											<i class="fas fa-table text-white">
+												Empleados
+											</i>
+										</div>
+										<!-- Body -->
+										<div class="card-body">
+											<!-- Table -->
+											<div class="table-responsive">
+												<table class="table table-striped" width="100%" cellspacing="0">
+													<thead>
+														<tr class="table-info">
+															<th scope="col"></th>
+											                <th scope="col">DNI</th>
+											                <th scope="col">Nombre</th>
+											                <th scope="col">Apellido</th>
+														</tr>										
+													</thead>
+													<tbody>
+														<!-- Hacer for -->
+														<%										
+														if(employees != null) {
+										                	for(Employee e : employees){
+										                %>
+										            	<tr>
+										              		<td> 
+										                		<input type="radio" name="radioEmployee" value="<%= e.getId() %>" >
+										                	</td>
+										                	<td>
+										                  		<%= e.getDNI() %>
+										                	</td>
+											                <td>
+											                	<%= e.getName() %>
+											                </td>
+											                <td>
+											                	<%= e.getSurname() %>
+											                </td>
+										              </tr>
+										              <% 
+										              	} 
+										              } 
+										              %>
+										        	</tbody>														                  
+												</table>
+											</div>
+										</div>
+										<div class="card-footer small text-muted">
+											<div class="row">
+												<div class="col-md-4">
+													<button type="submit" name="addSelectedEmployee" class="btn btn-success">Seleccionar</button>
+												</div>
+											</div>										
+										</div>	
+															
+									</div>
+								</div>
+								<!-- Fin DIV employee  -->
+					
+						</form>
                     </div>
-                </div>
-                <!--  Modal Employee -->
-                <div class="modal fade" id="modalEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-				    aria-hidden="true">
-				    <div class="modal-dialog modal-dialog-centered" role="document">
-				    	<div class="modal-content">
-				        	<div class="modal-header">
-				          		<h5 class="modal-title">
-				          			Empleados	
-				          		</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						        	<span aria-hidden="true">&times;</span>
-						        </button>
-					        </div>
-					        <div class="modal-body" style="overflow-y: auto;">
-					        	<table class="table table-striped">
-					            	<thead>
-					              		<tr>
-							                <th scope="col"></th>
-							                <th scope="col">DNI</th>
-							                <th scope="col">Nombre</th>
-							                <th scope="col">Apellido</th>
-					              		</tr>
-					            	</thead>
-					            	<tbody>
-						            	<%										
-										if(employees != null) {
-						                	for(Employee e : employees){
-						                %>
-						            	<tr>
-						              		<td> 
-						                		<input type="radio" name="radioEmployee" 
-						                			onclick="setHiddenValues('<%= e.getName() + ", " + e.getSurname() %>',<%= e.getId()%>)" >
-						                	</td>
-						                	<td>
-						                  		<%= e.getDNI() %>
-						                	</td>
-							                <td>
-							                	<%= e.getName() %>
-							                </td>
-							                <td>
-							                	<%= e.getSurname() %>
-							                </td>
-						              </tr>
-						              <% 
-						              	} 
-						              } 
-						              %>
-						        	</tbody>
-					        	</table>
-					        </div>
-					        <div class="modal-footer">
-					          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					          <button type="button" class="btn btn-primary" onclick="setTextPerson()" data-dismiss="modal">Seleccionar</button>
-					        </div>
-				    	</div>
-					</div>
-				</div>   
-				               
+                </div>				               
 
                 <!-- Sticky Footer -->
                 <footer class="sticky-footer">

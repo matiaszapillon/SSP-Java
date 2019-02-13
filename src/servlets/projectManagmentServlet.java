@@ -122,13 +122,12 @@ public class projectManagmentServlet extends HttpServlet {
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
 			// Buscar etapa a modificar
 			Stage stageToUpdate = projController.getProjectSage(idProject, idStage);
-			// Traer todos los empleados para poder seleccionarlos despues
-			EmployeeController eController = new EmployeeController();
-			ArrayList<Employee> employees = eController.getAll();
-			// Agregar etapa como parametro a la proxima pagina
-			request.setAttribute("stageToUpdate", stageToUpdate);
-			// Agregar empleados
-			request.setAttribute("empleados", employees);			
+			// Agregar etapa a la sesion
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				User u = (User) session.getAttribute("usuario");
+				u.setCurrentStage(stageToUpdate);
+			}			
 			// Redireccionar
 			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
 		}
@@ -202,6 +201,67 @@ public class projectManagmentServlet extends HttpServlet {
 			
 		}
 		/* FIN addStageToProject */
+		
+		/* INFO de updateProjectStage */
+		if(request.getParameter("btnCollapseAttendant") != null) {
+			// Traer todos los empleados para poder seleccionarlos despues
+			EmployeeController eController = new EmployeeController();
+			ArrayList<Employee> employees = eController.getAll();
+			// Agregar empleados
+			request.setAttribute("empleados", employees);	
+			// Redireccionar
+			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("addSelectedEmployee") != null) {
+			int idEmp = Integer.parseInt(request.getParameter("radioEmployee"));
+			// Traer encargado
+			EmployeeController eController = new EmployeeController();
+			Employee attendant = eController.getEmployeeById(idEmp);
+			// Cargar encargado nuevo a la sesion
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				User u = (User) session.getAttribute("usuario");
+				u.getCurrentStage().getEmployee().setId(attendant.getId());
+				u.getCurrentStage().getEmployee().setName(attendant.getName());
+				u.getCurrentStage().getEmployee().setSurname(attendant.getSurname());
+			}
+			// Redireccionar
+			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("updateStage") != null) {
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				User u = (User) session.getAttribute("usuario");
+				int idProject = u.getCurrentProject().getId();
+				int idStage = u.getCurrentStage().getId();
+				int state = Integer.parseInt(request.getParameter("stageState"));
+				int idEmployee = u.getCurrentStage().getEmployee().getId();
+				projController.updateProjectStage(idProject, idStage, state, idEmployee); 
+				
+				// Redireccionar 
+				// Volver a projectDetails con las etapas pertenecientes al proyecto actual
+				Project projectWithStages = projController.getProjectWithStages(idProject);
+				request.setAttribute("projectStages", projectWithStages);
+				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+			}
+		}
+		
+		// Setear datos a null
+		if(request.getParameter("goBack") != null) {
+			HttpSession session = request.getSession(false);
+			if(session != null) {
+				User u = (User) session.getAttribute("usuario");
+				u.setCurrentStage(null);
+				// Volver a projectDetails con las etapas pertenecientes al proyecto actual
+				Project projectWithStages = projController.getProjectWithStages(u.getCurrentProject().getId());
+				request.setAttribute("projectStages", projectWithStages);
+				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+			}
+		}
+				
+		/* FIN de updateProjectStage */
 
 		/* INFO de selectProvider.jsp */
 

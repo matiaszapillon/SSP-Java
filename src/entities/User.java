@@ -19,6 +19,7 @@ import java.io.Serializable;
 	private Employee employee = null;
 	private Client client = null;
 	private Project currentProject = new Project();
+	private Stage currentStage = new Stage();
 	
 	
 	
@@ -110,4 +111,13 @@ import java.io.Serializable;
 		this.type = type;
 	}
 
+	public Stage getCurrentStage() {
+		return currentStage;
+	}
+
+	public void setCurrentStage(Stage currentStage) {
+		this.currentStage = currentStage;
+	}
+	
+	
 }
