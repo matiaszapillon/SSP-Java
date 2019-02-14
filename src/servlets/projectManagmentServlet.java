@@ -10,15 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import controllers.EmployeeController;
-import controllers.ProjectController;
-import controllers.ProviderController;
-import controllers.SupplyController;
-import entities.Employee;
-import entities.Project;
-import entities.Supply;
-import entities.User;
-import entities.Stage;
+import controllers.*;
+import entities.*;
 
 /**
  * Servlet implementation class projectManagmentServlet
@@ -94,6 +87,7 @@ public class projectManagmentServlet extends HttpServlet {
 
 		/* FIN projectManagment.jsp */
 
+		
 		/* INFO de ProjectDetails */
 
 		if (request.getParameter("suppliesName") != null) {
@@ -172,6 +166,7 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		/* FIN ProjectDetails */
 
+		
 		/* INFO de addSupplyToProject.jsp */
 		if (request.getParameter("selectProvider") != null) {
 
@@ -190,6 +185,7 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 
 		/* FIN addSupplyToProject */
+		
 		
 		/* INFO de addStageToProject.jsp */
 		// Manejo para agregar etapa al proyecto
@@ -210,7 +206,9 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		/* FIN addStageToProject */
 		
+		
 		/* INFO de updateProjectStage */
+		
 		if(request.getParameter("btnCollapseAttendant") != null) {
 			// Traer todos los empleados para poder seleccionarlos despues
 			EmployeeController eController = new EmployeeController();
@@ -270,7 +268,49 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 				
 		/* FIN de updateProjectStage */
+		
+		
+		/* INFO de projectRegistration */
+		
+		if(request.getParameter("btnCollapseClients") != null) {
+			// Buscar todos los clientes para seleccionar luego
+			ClientController cController = new ClientController();
+			ArrayList<Client> clients = cController.getAll();
+			// Mandar como parámetros
+			request.setAttribute("clientes", clients);
+			// Redireccionar
+			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("addSelectedClient") != null) {
+			// Recupero el id del cliente y lo busco
+			int idCliSelected = Integer.parseInt(request.getParameter("radioClientID"));
+			ClientController cController = new ClientController();
+			Client cliSelected = cController.getClientById(idCliSelected);
+			// Enviar cliente
+			request.setAttribute("clienteSeleccionado", cliSelected);
+			// Redireccionar
+			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);
+		}
+		
+		if(request.getParameter("saveNewProject") != null) {
+			// Recupero el id del cliente y lo busco
+			int idCliSelected = Integer.parseInt(request.getParameter("hiddenIdClient"));
+			ClientController cController = new ClientController();
+			Client c = cController.getClientById(idCliSelected);
+			// Creo proyecto y asigno datos
+			Project p = new Project();
+			p.setName(request.getParameter("projectName"));
+			p.setDescription(request.getParameter("projectDescription"));
+			p.setClient(c);
+			// Enviar consulta  a DB
+			projController.createProject(p);
+			// Redireccionar
+			this.redirectToProjectManagment(request, response);
+		}
+		/* FIN de projectRegistration */
 
+		
 		/* INFO de selectProvider.jsp */
 
 		if (request.getParameter("saveProviderName") != null) {

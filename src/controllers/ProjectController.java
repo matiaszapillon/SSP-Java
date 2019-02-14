@@ -99,5 +99,14 @@ public class ProjectController {
 			e.printStackTrace();
 		}
 	}
+	
+	public void createProject(Project p) {
+		try {
+			projectData.createProject(p);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -90,8 +90,6 @@
         </ul>
         <!--  Traer empleados -->
         <% ArrayList<Employee> employees = (ArrayList<Employee>) request.getAttribute("empleados"); %>
-        <!-- Traer encargado -->
-		<% Employee attendant = (Employee) request.getAttribute("attendant"); %>
 		
         <div id="content-wrapper">
             <div class="container">
@@ -140,7 +138,7 @@
                                         </div> 
                                         <!--  Button addons for employee -->
                                         <div class="col-md-6 input-group"> 
-											<input type="text" class="form-control" disabled="disabled" aria-label="Recipient's username" aria-describedby="butttonTableEmployee" 
+											<input type="text" class="form-control" disabled="disabled" aria-label="" aria-describedby="butttonTableEmployee" 
 												placeholder="<% if(u.getCurrentStage().getEmployee().getId() == 0) { %>Seleccione Empleado<% } %>"
 												value="<% if(u.getCurrentStage().getEmployee().getId() != 0) { %><%= u.getCurrentStage().getEmployee().getSurname() + ' ' + u.getCurrentStage().getEmployee().getName() %><% } %>" >
 											<div class="input-group-append">
