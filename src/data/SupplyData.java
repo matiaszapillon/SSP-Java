@@ -102,4 +102,60 @@ public class SupplyData {
 		
 	}
 
+	public void deleteSupplyFromProject(int idSupply, int idProject) throws SQLException {
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "delete from project_supply\n" + 
+				"where id_project = ? and id_supply = ? ";
+		
+		// Armar statement 
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		prepStmt.setInt(2, idSupply);
+
+		
+		// Ejecutar query
+		prepStmt.executeUpdate();
+		
+		// Cerrar conexion
+		try {
+			if(prepStmt != null) {
+				prepStmt.close();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateQuantityFromProject(int idProject, int idSupply, int quantity) throws SQLException {
+		// TODO Auto-generated method stub
+
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "UPDATE project_supply SET quantity = ? WHERE id_project = ? AND id_supply = ?";
+		
+		// Armar statement 
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, quantity);
+		prepStmt.setInt(2, idProject);
+		prepStmt.setInt(3, idSupply);
+
+		
+		// Ejecutar query
+		prepStmt.executeUpdate();
+		
+		// Cerrar conexion
+		try {
+			if(prepStmt != null) {
+				prepStmt.close();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

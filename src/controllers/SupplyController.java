@@ -48,6 +48,28 @@ public class SupplyController {
 		}
 		return null;
 	}
+
+
+	public void deleteSupplyFromProject(int idSupply, int idProject) {
+		// TODO Auto-generated method stubpublic
+		try { this.supplyData.deleteSupplyFromProject(idSupply,idProject);
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public void updateQuantityFromProject(int idProject, int idSupply, int quantity) {
+		// TODO Auto-generated method stub
+		try { this.supplyData.updateQuantityFromProject(idProject,idSupply, quantity);
+		
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 }
