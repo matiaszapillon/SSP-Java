@@ -135,7 +135,7 @@ pageEncoding="UTF-8"%>
 												<label class="col-form-label">Cantidad</label>
 											</div>
 											<div class="col-auto">
-												<input type="text" name="quantityName" >
+												<input type="text" name="quantityName" required >
 											</div>
 											<div class="col-auto">
 												<button type="submit" name ="saveProviderName"  class="btn btn-success">Guardar</button>

@@ -99,7 +99,59 @@ public class projectManagmentServlet extends HttpServlet {
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
+		if(request.getParameter("updateButton") != null) {
+			int idSupply = Integer.parseInt((request.getParameter("radioSelectedSupply")));
+			int quantity = Integer.parseInt(request.getParameter(("updateQuantity")));
+			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			sController.updateQuantityFromProject(idProject,idSupply,quantity);
+			Project projectWithSupplies = projController.getProjectById(idProject);
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		}
+		if(request.getParameter("deleteSupplyName") != null) {
+			int idSupply = Integer.parseInt((request.getParameter("radioSelectedSupply")));
+			String idP = request.getParameter("idProjectName");
+			int idProject = Integer.parseInt(idP);
+			sController.deleteSupplyFromProject(idSupply,idProject);
+			Project projectWithSupplies = projController.getProjectById(idProject);
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+			
+		}
+		// Metodo que calcula el costo del proyecto
+		if (request.getParameter("calculateCostName") != null) {
+			String idP = request.getParameter("idProjectName");
+			int idProject = Integer.parseInt(idP);
+			Project projectWithSupplies = projController.getProjectById(idProject);
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			projectWithSupplies.calculateTotalCost(supplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
+		}
 
+		if (request.getParameter("addSupplyName") != null) {
+			/*
+			 * MUESTRO INSUMOS QUE NO ESTEN EN EL PROYECTO SE DEBE SELECCIONAR EL QUE DESEE
+			 * AGREGAR Y LUEGO ELEGIR EL PROVEEDOR (SOLO SE PODRA SELECCIONAR LOS
+			 * PROVEEDORES QUE ESTAN APROBADOS)
+			 */
+			String idP = request.getParameter("idProjectName");
+			int idProject = Integer.parseInt(idP);
+			Project projectWithSupplies = projController.getProjectById(idProject);
+			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
+			projectWithSupplies.setSupplies(supplies);
+			ArrayList<Supply> allSupplies = sController.getAllSupplies();
+			allSupplies.removeAll(supplies);
+			request.setAttribute("allSupplies", allSupplies);
+			request.setAttribute("projectWithSupplies", projectWithSupplies);
+			request.getRequestDispatcher("addSupplyToProject.jsp").forward(request, response);
+
+		}
 		// Manejo para ver etapas del proyecto
 		if (request.getParameter("stagesButton") != null) {
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
@@ -134,36 +186,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
 		}
 		
-		// Metodo que calcula el costo del proyecto
-		if (request.getParameter("calculateCostName") != null) {
-			String idP = request.getParameter("idProjectName");
-			int idProject = Integer.parseInt(idP);
-			Project projectWithSupplies = projController.getProjectById(idProject);
-			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
-			projectWithSupplies.setSupplies(supplies);
-			projectWithSupplies.calculateTotalCost(supplies);
-			request.setAttribute("projectWithSupplies", projectWithSupplies);
-			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
-		}
 
-		if (request.getParameter("addSupplyName") != null) {
-			/*
-			 * MUESTRO INSUMOS QUE NO ESTEN EN EL PROYECTO SE DEBE SELECCIONAR EL QUE DESEE
-			 * AGREGAR Y LUEGO ELEGIR EL PROVEEDOR (SOLO SE PODRA SELECCIONAR LOS
-			 * PROVEEDORES QUE ESTAN APROBADOS)
-			 */
-			String idP = request.getParameter("idProjectName");
-			int idProject = Integer.parseInt(idP);
-			Project projectWithSupplies = projController.getProjectById(idProject);
-			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
-			projectWithSupplies.setSupplies(supplies);
-			ArrayList<Supply> allSupplies = sController.getAllSupplies();
-			allSupplies.removeAll(supplies);
-			request.setAttribute("allSupplies", allSupplies);
-			request.setAttribute("projectWithSupplies", projectWithSupplies);
-			request.getRequestDispatcher("addSupplyToProject.jsp").forward(request, response);
-
-		}
 		/* FIN ProjectDetails */
 
 		
@@ -276,7 +299,7 @@ public class projectManagmentServlet extends HttpServlet {
 			// Buscar todos los clientes para seleccionar luego
 			ClientController cController = new ClientController();
 			ArrayList<Client> clients = cController.getAll();
-			// Mandar como parámetros
+			// Mandar como parï¿½metros
 			request.setAttribute("clientes", clients);
 			// Redireccionar
 			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);

@@ -212,6 +212,7 @@ pageEncoding="UTF-8"%>
 									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 										<thead>
 											<tr>
+												<th>#</th>
 												<th>Nombre</th>
 												<th>Descripcion</th>
 												<th>Cantidad</th>
@@ -229,13 +230,24 @@ pageEncoding="UTF-8"%>
 											%>
 											<tr>
 												<td>
+													<input type="radio" name="radioSelectedSupply" value=<%= s.getId() %> >
+
+												</td>
+												<td>
 													<%= s.getName() %>
 												</td>
 												<td>
-													<%= s.getDescription() %>
+												<%= s.getDescription() %>	
 												</td>
-												<td>
-													<%= s.getQuantity() %>
+												<td> <div class="form-row">
+													<div class="col">
+														<input type="text" name="updateQuantity"  size="3" value="<%= s.getQuantity() %>">													
+													</div>		
+													<div class="col">
+														<button  name="updateButton"><img src="images/save.ico" height="25" width="20">
+														</button>				
+													</div>
+													</div>
 												</td>
 												<td>
 													<%=s.getUnity()   %>
@@ -244,8 +256,8 @@ pageEncoding="UTF-8"%>
 													<%= s.getStock() %>
 												</td>
 												<%if(s.getProvider().getBusiness_name() != null){ %>
-												<td>"
-													<%= s.getProvider().getBusiness_name() %>"</td>
+												<td>
+													<%= s.getProvider().getBusiness_name() %></td>
 												<%} else { %>
 												<td>
 													<%= s.getProvider().getName() + " " + s.getProvider().getSurname() %>
@@ -254,6 +266,7 @@ pageEncoding="UTF-8"%>
 												<td>
 													<%= s.getProvider().getCategory() %>
 												</td>
+												
 											</tr>
 											<%
 												}
@@ -266,8 +279,12 @@ pageEncoding="UTF-8"%>
 								<!-- Botones insumos -->
 								<div class="card-footer small text-muted">
 									<div class="row">
-										<div class="col-md-4">
-											<button type="submit" name="addSupplyName" class="btn btn-success">Agregar insumos</button>
+										<div class="col-auto">
+											<button type="submit" name="addSupplyName" class="btn btn-success">Agregar</button>
+										</div>
+
+										<div class="col-auto">
+											<button type="submit" name="deleteSupplyName" class="btn btn-danger">Eliminar</button>
 										</div>
 										<div class="col-md-4">
 											<button type="submit" name="calculateCostName" class="btn btn-info float-right">Calcular costo total</button>
@@ -336,6 +353,8 @@ pageEncoding="UTF-8"%>
 	<!-- Demo scripts for this page-->
 	<script src="js/demo/datatables-demo.js"></script>
 	<script src="js/demo/chart-area-demo.js"></script>
+		<!-- Own scripts-->
+	<script src="js/projectManagment.js"></script>
 </body>
 
 </html>
