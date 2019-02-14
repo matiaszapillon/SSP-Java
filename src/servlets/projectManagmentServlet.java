@@ -331,10 +331,25 @@ public class projectManagmentServlet extends HttpServlet {
 	
 	public void redirectToProjectManagment(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			User u = (User) session.getAttribute("usuario");
+			if(u.getClient() != null) {
+				//Trae los proyecto de el cliente especifico
+				ArrayList<Project> projects = projController.getProjectsByClient(u.getClient().getId());
+				request.setAttribute("projects", projects);
+				request.getRequestDispatcher("projectManagmentClient.jsp").forward(request, response);
+			
+				
+			}else {
+				ArrayList<Project> projects = projController.getAll();
+				request.setAttribute("projects", projects);
+				request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
+				// Trae todos los proyectos (Es un empleado)
+			}
+		}
 		
-		ArrayList<Project> projects = projController.getAll();
-		request.setAttribute("projects", projects);
-		request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
+
 	}
 
 }

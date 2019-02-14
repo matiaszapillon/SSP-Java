@@ -326,6 +326,44 @@ public class ProjectData {
 			e.printStackTrace();
 		}
 	}
+
+	public ArrayList<Project> getProjectsByClient(int id) throws SQLException {
+
+		ArrayList<Project> projects = new ArrayList<Project>();
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		String SQLQuery = "select * \n" + 
+				"from project p inner join client c\n" + 
+				"on p.id_client = c.id_client\n" + 
+				"where c.id_client = ?";
+		
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
+		prepStmt.setInt(1, id);
+		
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+
+		if (rs != null) {
+			while (rs.next()) {
+				Project p = new Project();
+				p.setDescription(rs.getString("description"));
+				p.setName(rs.getString("name"));
+				p.setId(rs.getInt("id_project"));
+				projects.add(p);
+			}
+		}
+		try {
+			if (rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return projects;
+	
+	}
 	
 	public void createProject(Project p) throws SQLException {
 		PreparedStatement prepStmt = null;

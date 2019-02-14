@@ -59,21 +59,9 @@ pageEncoding="UTF-8"%>
             <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-            <a class="dropdown-item" href="register.html">Insumos</a>
-            <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
-            <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-            <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
-            <a class="dropdown-item" href="404.html">Empleados</a>
-            <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
-            <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+            <a class="dropdown-item" >Etapas</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="userManagmentServlet">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Gestion Capacitaciones</span></a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="projectManagmentServlet">
               <i class="fas fa-fw fa-table"></i>
@@ -89,41 +77,25 @@ pageEncoding="UTF-8"%>
                 <div class="row">
                   <!-- Columna con primer form -->
                   <div class="col-md-4">
-                  	<form method="post" action="projectManagmentServlet">
-                    	<div class="form-group">
-                      		<input class="form-control" type="text" name="" placeholder="Buscar proyecto">
-                      	</div>
-                      	<!--  Boton crear proyecto -->                      	
-                      	<div class="input-group mb-3">
-                      		<label class="input-group-text form-control" for="btnCreateProject">Crear Proyecto</label>							
-						  	<div class="input-group-append">
-						  	   	<button class="btn btn-outline-success" type="submit" id="btnCreateProject" name="btnCreateProject">+</button>
-						  	</div>
-						</div>
+                    <form method="post" action="projectManagmentServlet">
+                      <div class="form-group">
+                        <input class="form-control" type="text" name="" placeholder="Buscar proyecto">
+                      </div>
                       
-                      	<div class="form-group">
-	                        <%
-	                        ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
-	                        for(Project p: projects) {
-	                        %>
-	                        <button type="submit" id=<%=p.getId()%> name="buttonProject"
-	                        <%
-	                        	if(clickedProject != null) {
-	                        		if(clickedProject.getId() == p.getId()) {
-	                        %> 			class="list-group-item list-group-item-action btn btn-light active"
-	                        <%		} else { %>
-	                        			class="list-group-item list-group-item-action btn btn-light" 
-	                        <% 		}
-	                        	} else { %> 
-	                        		class="list-group-item list-group-item-action btn btn-light"
-	                        <%	} %> 
-	                        value="<%= p.getId() %>" > 
-	                        	<%= p.getName() %> 
-	                        </button>
-	                        <% } %>
+                      <div class="form-group">
+                        <%ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects");
+                          for(Project p: projects){
+                          %>
+                          <button type="submit" id=<%=p.getId()%> name="buttonProject"
+                          <%if(clickedProject != null) {
+                          if(clickedProject.getId() == p.getId()){
+                          %> class="list-group-item list-group-item-action btn btn-light active"
+                          <%}else {%>class="list-group-item list-group-item-action btn btn-light" <% }} else { %> class="list-group-item list-group-item-action btn btn-light"
+                          <%}%> value=<%=p.getId()%> > <%=p.getName() %> </button>
+                          <%} %>
                         </div>
-                 	</form>
-             	 </div>
+                      </form>
+                    </div>
                     <!-- Columna con segundo form -->
                     <div class="col-md-8">
                       <form method="post" action="projectManagmentServlet">
@@ -133,49 +105,44 @@ pageEncoding="UTF-8"%>
                         <div class="row">
                           <div class="form-group col-2">
                             <label>ID</label>
-                            <input class="form-control" type="text" name="idProjectName" readonly <% if (clickedProject != null) { %>
-                            	value="<%= clickedProject.getId() %>" <% } %> >
+                            <input class="form-control" type="text" name="idProjectName" readonly <%if (clickedProject != null){ %>
+                            value= "<%= clickedProject.getId()%>"<%} %>>
                           </div>
                           <div class="form-group col">
                             <label> Descripcion </label>
-                            <input class="form-control" type="text" name="descriptionName" readonly <% if (clickedProject != null) { %>
-                            	value= "<%=clickedProject.getDescription() %><% } %>">
+                            <input class="form-control" type="text" name="descriptionName"  readonly <%if (clickedProject != null){ %>
+                            value= "<%=clickedProject.getDescription() %><% } %>">
                           </div>
                           <div class="form-group col">
                             <label> Nombre del Proyecto </label>
-                            <input class="form-control" type="text" name="nameName" readonly <% if (clickedProject != null) { %>
-                            	value="<%= clickedProject.getName() %>" <% } %> >
+                            <input class="form-control" type="text" name="nameName" readonly <%if (clickedProject != null){ %>
+                            value= "<%=clickedProject.getName() %>" <% } %>>
                           </div>
                         </div>
                         <div class= "row">
                           <div class="form-group col">
                             <label>Cliente</label>
-                            <input class="form-control" type="text" name="clientName" readonly<% if (clickedProject != null) { if(clickedProject.getClient() != null) { %>
-                            	value="<%= clickedProject.getClient().getBusiness_name() %>" <% } }%>>
+                            <input class="form-control" type="text" name="clientName" readonly<%if (clickedProject != null) {if(clickedProject.getClient() != null){ %>
+                            value= "<%= clickedProject.getClient().getBusiness_name() %>"  <% }}%>>
                           </div>
                           <div class="form-group col">
                             <label>CUIT / CUIL</label>
-                            <input class="form-control" type="text" name="CUIT_CUILName" readonly <% if (clickedProject != null) { if(clickedProject.getClient() != null) {%>
-                            	value="<%= clickedProject.getClient().getCUIT_CUIL() %>" <% } } %>>
+                            <input class="form-control" type="text" name="CUIT_CUILName" readonly <%if (clickedProject != null) { if(clickedProject.getClient() != null){%>
+                            value= "<%= clickedProject.getClient().getCUIT_CUIL() %>" <% }} %>>
                           </div>
                         </div>
                         <div class="row">
                           <div class="form-group col">
                             <label>Estado proyecto</label>
-                            <input class="form-control" type="text" name="stateName" readonly 
-                            	<% if (clickedProject != null) { %> value="<% if(clickedProject.getStages().isEmpty()) { %>No iniciado<% } else { %>
-                            	<%= clickedProject.getState() %><% } %>">
+                            <input class="form-control" type="text" name="stateName" readonly <%if (clickedProject != null) { %>
+                            value = " <%= clickedProject.getState()%><% } %>">
                           </div>
                           <div class="form-group col">
                             <label>Etapa actual</label>
-                            <input class="form-control" type="text" name="currentStageName" readonly <% if (clickedProject != null) {
-                            	if(clickedProject.getCurrentStage() != null) { %> value="<%= clickedProject.getCurrentStage().getName() %>"
-                            	<% } else { %> value=" - " <% } } %> >
+                            <input class="form-control" type="text" name="currentStageName" readonly <%if (clickedProject != null) {
+                            if(clickedProject.getCurrentStage() != null){ %> value = "<%=clickedProject.getCurrentStage().getName() %>"
+                            <%} else { %> value =  "<%=" - " %><% } } %>">
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <input type="submit" class="btn btn-outline-info" name="detallesName" value="Detalles"
-                          <% if(clickedProject == null) { %> disabled <% } %> >
                         </div>
                       </form>
                     </div>

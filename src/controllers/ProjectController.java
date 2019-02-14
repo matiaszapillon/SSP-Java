@@ -109,4 +109,14 @@ public class ProjectController {
 		}
 	}
 
+	public ArrayList<Project> getProjectsByClient(int id) {
+	try {
+		return this.getProjectData().getProjectsByClient(id);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+	}
+
 }
