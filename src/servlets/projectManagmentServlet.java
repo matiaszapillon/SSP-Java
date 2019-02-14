@@ -84,6 +84,16 @@ public class projectManagmentServlet extends HttpServlet {
 			// Redireccionar a projectRegistration.jsp
 			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);
 		}
+		
+		// Eliminar proyecto
+		if(request.getParameter("btnDeleteProject") != null) {
+			// Traer ID de proyecto a eliminar
+			int idProjecToDelete = Integer.parseInt(request.getParameter("idProjectName"));
+			// Enviar consulta
+			projController.deleteProject(idProjecToDelete);
+			// Redireccionar
+			this.redirectToProjectManagment(request, response);
+		}
 
 		/* FIN projectManagment.jsp */
 
@@ -162,7 +172,19 @@ public class projectManagmentServlet extends HttpServlet {
 			request.setAttribute("allSupplies", allSupplies);
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
 			request.getRequestDispatcher("addSupplyToProject.jsp").forward(request, response);
-
+		}
+		
+		// Eliminar etapa de un proyecto especifico
+		if(request.getParameter("deleteStage") != null) {
+			// Traer ids
+			int idStageToDelete = Integer.parseInt(request.getParameter("radioSelectedStage"));
+			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
+			// Ejecutar consulta
+			projController.deleteStageFromProject(idStageToDelete, idProject);
+			// Redireccionar
+			Project p = projController.getProjectWithStages(idProject);
+			request.setAttribute("projectStages", p);
+			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
 		/* FIN ProjectDetails */
 

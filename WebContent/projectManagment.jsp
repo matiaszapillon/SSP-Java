@@ -163,8 +163,7 @@ pageEncoding="UTF-8"%>
                           <div class="form-group col">
                             <label>Estado proyecto</label>
                             <input class="form-control" type="text" name="stateName" readonly 
-                            	<% if (clickedProject != null) { %> value="<% if(clickedProject.getStages().isEmpty()) { %>No iniciado<% } else { %>
-                            	<%= clickedProject.getState() %><% } %>">
+                            	<% if (clickedProject != null) { %> value="<%= clickedProject.getState() %><% } %>">
                           </div>
                           <div class="form-group col">
                             <label>Etapa actual</label>
@@ -175,8 +174,11 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="form-group">
                           <input type="submit" class="btn btn-outline-info" name="detallesName" value="Detalles"
-                          <% if(clickedProject == null) { %> disabled <% } %> >
-                        </div>
+                          	<% if(clickedProject == null) { %> disabled <% } %> >
+                          <button type="submit" class="btn btn-outline-danger float-right" name="btnDeleteProject" 
+                         	 data-toggle="tooltip" data-placement="left" title="Eliminar Proyecto"
+                         	 <% if(clickedProject == null) { %> disabled <% } %> >X</button>
+                        </div>                    
                       </form>
                     </div>
                   </div>
@@ -217,6 +219,7 @@ pageEncoding="UTF-8"%>
               </div>
             </div>
           </div>
+          
           <!-- Bootstrap core JavaScript-->
           <script src="bootstrap/jquery/jquery.min.js"></script>
           <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -232,7 +235,12 @@ pageEncoding="UTF-8"%>
           <script src="js/demo/datatables-demo.js"></script>
           <script src="js/demo/chart-area-demo.js"></script>
           
-          <!-- Own JavaScript-->
-          <script src="js/projectManagment.js"></script>
+          <!-- Initialize Bootstrap's tooltips --> 
+	     <script>
+		     $(function () {
+		    	  $('[data-toggle="tooltip"]').tooltip()
+		    	})
+		 </script> 
+		  
         </body>
       </html>

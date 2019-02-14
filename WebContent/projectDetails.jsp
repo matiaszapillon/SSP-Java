@@ -187,14 +187,19 @@ pageEncoding="UTF-8"%>
 							</div>
 							<!-- Botones etapa -->
 							<div class="card-footer small text-muted">
-								<div class="row">
-									<div class="col-md-4">
-										<button type="submit" name="addStageForm" class="btn btn-success">Agregar Etapa</button>
-										<button type="submit" name="modifyStageForm" class="btn btn-info">Modificar Etapa</button>
+								<div class="form-row">
+									<div class="form-group col-auto">
+										<button type="submit" name="addStageForm" class="btn form-group btn-success ">Agregar Etapa</button>										
+									</div>	
+									<div class="form-group col-auto">
+										<button type="submit" name="modifyStageForm" class="btn form-group btn-info">Modificar Etapa</button>	
 									</div>
+									<div class="form-group col">
+										<button type="submit" name="deleteStage" class="btn form-group btn-danger float-right"
+											data-toggle="tooltip" data-placement="left" title="Eliminar Etapa">X</button>		
+									</div>																	
 								</div>										
-							</div>	
-												
+							</div>													
 						</div>
 					</div>
 					<!-- Fin gestion de etapas  -->
@@ -322,6 +327,8 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 	</div>
+	
+	
 	<!-- Bootstrap core JavaScript-->
 	<script src="bootstrap/jquery/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -336,6 +343,13 @@ pageEncoding="UTF-8"%>
 	<!-- Demo scripts for this page-->
 	<script src="js/demo/datatables-demo.js"></script>
 	<script src="js/demo/chart-area-demo.js"></script>
+	
+	 <!-- Own JavaScript-->
+     <script>
+	     $(function () {
+	    	  $('[data-toggle="tooltip"]').tooltip()
+	    	})
+	 </script>
 </body>
 
 </html>

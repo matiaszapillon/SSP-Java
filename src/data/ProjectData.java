@@ -40,15 +40,19 @@ public class ProjectData {
 			c.setEmail(rs.getString("email"));
 			c.setId(rs.getInt("id_client"));
 			p.setClient(c);
-			do {
-				Stage stage = new Stage();
-				stage.setDescription(rs.getString("description_stage"));
-				stage.setId(rs.getInt("id_stage"));
-				stage.setName(rs.getString("name_stage"));
-				stage.setState(rs.getInt("state"));
-				p.getStages().add(stage);
-			} while (rs.next());
+			
+			if(rs.getInt("s.id_stage") != 0) {
+				do {
+					Stage stage = new Stage();
+					stage.setDescription(rs.getString("description_stage"));
+					stage.setId(rs.getInt("id_stage"));
+					stage.setName(rs.getString("name_stage"));
+					stage.setState(rs.getInt("state"));
+					p.getStages().add(stage);
+				} while (rs.next());
+			}			
 		}
+		// Cerrar conexion
 		try {
 			if (rs != null)
 				rs.close();
@@ -394,6 +398,36 @@ public class ProjectData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	// Eliminar etapa de un proyecto especifico
+	public void deleteStageFromProject(int idStage, int idProject) throws SQLException {
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "DELETE FROM project_stage WHERE id_project = ? AND id_stage = ?";
+		
+		// Armar statement 
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		
+		prepStmt.setInt(1, idProject);
+		prepStmt.setInt(2, idStage);
+		
+		// Ejecutar query
+		prepStmt.executeUpdate();
+		
+		// Cerrar conexion
+		try {
+			if(prepStmt != null) {
+				prepStmt.close();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Eliminar proyecto con todas sus dependencias
+	public void deleteProject(int idProject) throws SQLException{
 		
 	}
 }

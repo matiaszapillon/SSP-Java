@@ -110,13 +110,31 @@ public class ProjectController {
 	}
 
 	public ArrayList<Project> getProjectsByClient(int id) {
-	try {
-		return this.getProjectData().getProjectsByClient(id);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		try {
+			return this.getProjectData().getProjectsByClient(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
-	return null;
+	
+	public void deleteStageFromProject(int idStage, int idProject) {
+		try {
+			projectData.deleteStageFromProject(idStage, idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteProject(int idProject) {
+		try {
+			projectData.deleteProject(idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 }

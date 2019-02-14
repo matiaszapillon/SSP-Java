@@ -68,14 +68,31 @@ public class Project implements Serializable{
 		this.client = client;
 	}
 	
-	public String getState() {
-		for (Stage stage : getStages()) {
-			if(stage.getIdState() == Stage.EN_CURSO) {
-				return "En curso";
+	public String getState() {	
+		boolean flag = false;
+		
+		// Validar si hay etapas cargadas
+		if(this.getStages().isEmpty()) {
+			return "No Iniciado";
+		} 
+		// Validar si todas las etapas estan finalizadas 
+		// Caso verdadero --> Proyecto Finalizado
+		// Sino --> Proyecto en Curso
+		for(Stage stage : getStages()) {			
+			if(stage.getIdState() == Stage.FINALIZADA) {
+				flag = true;
+			} else {
+				flag = false;
+				break;				
 			}
 		}
 		
-		return "Finalizado";		
+		if(flag) {
+			return "Finalizado";
+		} else {
+			return "En Curso";
+		}
+			
 	}
 	
 	public Stage getCurrentStage() {
