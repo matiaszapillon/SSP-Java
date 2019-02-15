@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -253,24 +254,43 @@ public class ClientData {
 	
 	// Eliminar cliente
 	public void deleteClient(int id_cli) throws SQLException {
-		PreparedStatement prepStmt = null;
-		String SqlQuery = "DELETE FROM client WHERE id_client = ?";
-		
-		// Armar statement
-		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
-		prepStmt.setInt(1, id_cli);
-		
-		// Ejecutar query
-		prepStmt.executeUpdate();
+		PreparedStatement updateProject = null;
+		PreparedStatement deleteClient = null;
+		Connection con = FactoryConexion.getInstancia().getConn();
 		
 		try {
-			if(prepStmt != null)
-				prepStmt.close();
-			FactoryConexion.getInstancia().releaseConn();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}		
-
+			con.setAutoCommit(false);
+			// Armar update query statement
+			// Setear null el id_client en los proyectos del cliente que se elimina
+			updateProject = con.prepareStatement("UPDATE project SET id_client = ? WHERE id_client = ?");
+			updateProject.setNull(1, java.sql.Types.INTEGER);
+			updateProject.setInt(2, id_cli);
+			updateProject.executeUpdate();
+			// Armar delete query statement
+			deleteClient = con.prepareStatement("DELETE FROM client WHERE id_client = ?");
+			deleteClient.setInt(1, id_cli);
+			deleteClient.executeUpdate();
+			
+			con.commit();
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			if (con != null) {
+				try {
+					con.rollback();
+				} catch (SQLException sqlex) {
+					sqlex.printStackTrace();
+				}
+			}
+		} finally {
+			if(updateProject != null) {
+				updateProject.close();
+			}
+			if(deleteClient != null) {
+				deleteClient.close();
+			}
+			con.setAutoCommit(true);
+		}
 	}
 	
 	// Eliminar usuario de un cliente

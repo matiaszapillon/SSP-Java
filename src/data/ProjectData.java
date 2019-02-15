@@ -22,9 +22,9 @@ public class ProjectData {
 		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("SELECT p.id_project, p.description, p.name as 'name_project' , c.*, s.description as 'description_stage', \r\n" + 
 				"	s.id_stage, s.name as 'name_stage', ps.state\r\n" + 
 				"FROM project p \r\n" + 
-				"INNER JOIN client c ON p.id_client = c.id_client \r\n" + 
+				"LEFT JOIN client c ON p.id_client = c.id_client \r\n" + 
 				"LEFT JOIN project_stage ps ON p.id_project = ps.id_project \r\n" + 
-				"LEFT JOIN stage s ON ps.id_stage = s.id_stage \r\n" + 
+				"LEFT JOIN stage s ON ps.id_stage = s.id_stage  \r\n" + 
 				"WHERE p.id_project = ?");
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
@@ -33,13 +33,16 @@ public class ProjectData {
 			p.setDescription(rs.getString("description"));
 			p.setId(rs.getInt("id_project"));	
 			p.setName(rs.getString("name_project"));
-			Client c = new Client();
-			c.setAddress(rs.getString("address"));
-			c.setBusiness_name(rs.getString("business_name"));
-			c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
-			c.setEmail(rs.getString("email"));
-			c.setId(rs.getInt("id_client"));
-			p.setClient(c);
+			
+			if(rs.getInt("id_client") != 0) {
+				Client c = new Client();
+				c.setAddress(rs.getString("address"));
+				c.setBusiness_name(rs.getString("business_name"));
+				c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
+				c.setEmail(rs.getString("email"));
+				c.setId(rs.getInt("id_client"));
+				p.setClient(c);
+			}			
 			
 			if(rs.getInt("s.id_stage") != 0) {
 				do {
