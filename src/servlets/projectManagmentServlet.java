@@ -87,6 +87,7 @@ public class projectManagmentServlet extends HttpServlet {
 		
 		// Eliminar proyecto
 		if(request.getParameter("btnDeleteProject") != null) {
+			
 			// Traer ID de proyecto a eliminar
 			int idProjecToDelete = Integer.parseInt(request.getParameter("idProjectName"));
 			// Enviar consulta
@@ -111,6 +112,11 @@ public class projectManagmentServlet extends HttpServlet {
 		}
 		if(request.getParameter("updateButton") != null) {
 			int idSupply = Integer.parseInt((request.getParameter("radioSelectedSupply")));
+			//PREGUNTAR A MECA: COMO HAGO PARA OBTENER EL VALOR DEL INPUT EN UNA TABLA? (SE MODIFICA DINAMICAMENTE)
+			//LA FILA ENTERA SIN EDITAR LA OBTENGO MEDIANTE ID EN UN RADIOBUTTON
+			//PERO SI YO EDITO UNA COLUMNA DE LA TABLA Y QUIERO OBTENER ESE VALOR COMO HAGO?
+			//AHORA LO SOLUCIONO MEDIANTE JAVASCRIPT INSERTANDO EL VALOR ACTUALIZADO A UN HIDDEN.
+			
 			int quantity = Integer.parseInt(request.getParameter(("updateQuantity")));
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
 			sController.updateQuantityFromProject(idProject,idSupply,quantity);

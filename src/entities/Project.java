@@ -75,6 +75,11 @@ public class Project implements Serializable{
 		if(this.getStages().isEmpty()) {
 			return "No Iniciado";
 		} 
+		// Caso especial que se cree un proyecto se cree las etapas y se comience el proyecto mas adelante.
+	
+		if(this.getStages().get(0).getIdState() == Stage.NO_INICIADA) {
+			return "No iniciado";
+		}
 		// Validar si todas las etapas estan finalizadas 
 		// Caso verdadero --> Proyecto Finalizado
 		// Sino --> Proyecto en Curso

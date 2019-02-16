@@ -69,11 +69,12 @@ public class logInServlet extends HttpServlet {
 				HttpSession session = request.getSession(true); 
 				session.setAttribute("usuario", u);
 				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
-				// VER CUAL ES LA DIFERENCIA ENTRE LO DE ARRIBA Y LO DE ABAJO (LO DE ARRIBA ES MEJOR )
-				//response.sendRedirect("index.jsp");
+	
+				
+				//response.sendRedirect("index.jsp"); > NO USAR.
 			}
 		} else {
-			response.sendRedirect("logIn.html");			
+			request.getRequestDispatcher("logIn.html").forward(request, response);		
 		}
 	}
 

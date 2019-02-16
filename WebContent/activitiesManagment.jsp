@@ -61,18 +61,17 @@ pageEncoding="UTF-8" %>
                     <span>ABM</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-                    <a class="dropdown-item" href="404.html">Insumos</a>
-                    <a class="dropdown-item" href="404.html">Proyectos</a>
-                    <a class="dropdown-item" href="404.html">Etapas</a>
-                    <a class="dropdown-item active" href="activityManagmentServlet">Actividades</a>
-                    <a class="dropdown-item" href="404.html">Empleados</a>
-                    <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
-                    <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+						<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
+						<a class="dropdown-item">Insumos</a>
+						<a class="dropdown-item">Etapas</a>
+						<a class="dropdown-item active" href="activityManagmentServlet">Actividades</a>
+						<a class="dropdown-item">Empleados</a>
+						<a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
+						<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="userManagmentServlet">
+                <a class="nav-link" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Gestion Capacitaciones</span></a>
             </li>

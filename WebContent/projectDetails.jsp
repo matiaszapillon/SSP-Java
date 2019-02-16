@@ -64,18 +64,17 @@ pageEncoding="UTF-8"%>
 					<span>ABM</span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item active" href="providersManagmentServlet">Proveedores</a>
-                    <a class="dropdown-item" href="register.html">Insumos</a>
-                    <a class="dropdown-item" href="forgot-password.html">Proyectos</a>
-                    <a class="dropdown-item" href="forgot-password.html">Etapas</a>
-                    <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
-                    <a class="dropdown-item" href="404.html">Empleados</a>
-                    <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
-                    <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+						<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
+						<a class="dropdown-item">Insumos</a>
+						<a class="dropdown-item">Etapas</a>
+						<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
+						<a class="dropdown-item">Empleados</a>
+						<a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
+						<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
 				</div>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="userManagmentServlet">
+				<a class="nav-link" >
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>Gestion Capacitaciones</span>
 				</a>
@@ -94,7 +93,8 @@ pageEncoding="UTF-8"%>
 				<div class="container">
 				<% Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
 				<% Project projectWithStages = (Project)request.getAttribute("projectStages"); %>
-					<form method="post" action="projectManagmentServlet">						
+					<form method="post" action="projectManagmentServlet" onsubmit="return validateForm()">	
+					      <input type="hidden" name="clickedButton" id="idClickedButton" />					
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group">
@@ -123,13 +123,10 @@ pageEncoding="UTF-8"%>
 						
 						<div class="row">
 							<div class="col-auto">
-								<button type="submit" name="suppliesName" class="btn btn-primary form-group">Ver insumos</button>
+								<button type="submit" name="suppliesName" id="suppliesId" class="btn btn-primary form-group" onclick = "setHiddenValue(this.id)">Ver insumos</button>
 							</div>
 							<div class="col-auto">
-								<button type="submit" name="stagesButton" class="btn btn-primary form-group">Ver Etapas</button>
-							</div>
-							<div class="col-auto">
-								<button type="submit" name="activitiesName" class="btn btn-primary form-group">Ver Actividades</button>
+								<button type="submit" name="stagesButton" id="stagesButtonId" class="btn btn-primary form-group" onclick = "setHiddenValue(this.id)">Ver Etapas</button>
 							</div>
 						</div>
 					
@@ -189,14 +186,14 @@ pageEncoding="UTF-8"%>
 							<div class="card-footer small text-muted">
 								<div class="form-row">
 									<div class="form-group col-auto">
-										<button type="submit" name="addStageForm" class="btn form-group btn-success ">Agregar Etapa</button>										
+										<button type="submit" name="addStageForm" id="addStageFormId" class="btn form-group btn-success" onclick = "setHiddenValue(this.id)">Agregar Etapa</button>										
 									</div>	
 									<div class="form-group col-auto">
-										<button type="submit" name="modifyStageForm" class="btn form-group btn-info">Modificar Etapa</button>	
+										<button type="submit" name="modifyStageForm" id="modifyStageId" class="btn form-group btn-info" onclick = "setHiddenValue(this.id)">Modificar Etapa</button>	
 									</div>
 									<div class="form-group col">
-										<button type="submit" name="deleteStage" class="btn form-group btn-danger float-right"
-											data-toggle="tooltip" data-placement="left" title="Eliminar Etapa">X</button>		
+										<button type="submit" name="deleteStage" id="deleteStageId" class="btn form-group btn-danger float-right"
+											data-toggle="tooltip" data-placement="left" title="Eliminar Etapa" onclick = "setHiddenValue(this.id)">X</button>		
 									</div>																	
 								</div>										
 							</div>													
@@ -249,7 +246,7 @@ pageEncoding="UTF-8"%>
 														<input type="text" name="updateQuantity"  size="3" value="<%= s.getQuantity() %>">													
 													</div>		
 													<div class="col">
-														<button  name="updateButton"><img src="images/save.ico" height="25" width="20">
+														<button  name="updateButton" id="updateButtonId" onclick = "setHiddenValue(this.id)"><img src="images/save.ico" height="25" width="20">
 														</button>				
 													</div>
 													</div>
@@ -285,14 +282,14 @@ pageEncoding="UTF-8"%>
 								<div class="card-footer small text-muted">
 									<div class="row">
 										<div class="col-auto">
-											<button type="submit" name="addSupplyName" class="btn btn-success">Agregar</button>
+											<button type="submit" name="addSupplyName" id="addSupplyId" class="btn btn-success" onclick = "setHiddenValue(this.id)">Agregar</button>
 										</div>
 
 										<div class="col-auto">
-											<button type="submit" name="deleteSupplyName" class="btn btn-danger">Eliminar</button>
+											<button type="submit" name="deleteSupplyName" id="deleteSupplyId" class="btn btn-danger" onclick = "setHiddenValue(this.id)">Eliminar</button>
 										</div>
 										<div class="col-md-4">
-											<button type="submit" name="calculateCostName" class="btn btn-info float-right">Calcular costo total</button>
+											<button type="submit" name="calculateCostName" id="calculateCostId" class="btn btn-info float-right" onclick = "setHiddenValue(this.id)" >Calcular costo total</button>
 										</div>
 										<div class="col">
 											<input type="text" class="form-control float-right" name="costName" 
@@ -361,6 +358,10 @@ pageEncoding="UTF-8"%>
 	<script src="js/demo/datatables-demo.js"></script>
 	<script src="js/demo/chart-area-demo.js"></script>
 	
+	    
+        <!-- Own scripts-->
+        
+     <script src="js/projectManagment.js"></script>
 	 <!-- Own JavaScript-->
      <script>
 	     $(function () {

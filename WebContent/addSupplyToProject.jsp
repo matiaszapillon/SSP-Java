@@ -110,7 +110,7 @@ pageEncoding="UTF-8"%>
 														for(Supply s : supplies){
 													%>
 													<tr>
-														<td> <input type="radio" name="radioAddSupply"  value= <%=s.getId()%>></td>
+														<td> <input type="radio" name="radioAddSupply"  required value= <%=s.getId()%>></td>
 														<td><%=s.getName()%></td>
 														<td><%=s.getDescription() %></td>
 													</tr>

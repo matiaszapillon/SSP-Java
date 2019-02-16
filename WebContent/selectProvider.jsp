@@ -60,17 +60,16 @@ pageEncoding="UTF-8"%>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 						<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-						<a class="dropdown-item" href="register.html">Insumos</a>
-						<a class="dropdown-item" href="forgot-password.html">Proyectos</a>
-						<a class="dropdown-item" href="forgot-password.html">Etapas</a>
-						<a class="dropdown-item" href="forgot-password.html">Actividades</a>
-						<a class="dropdown-item" href="404.html">Empleados</a>
-						<a class="dropdown-item" href="blank.html">Clientes</a>
+						<a class="dropdown-item">Insumos</a>
+						<a class="dropdown-item">Etapas</a>
+						<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
+						<a class="dropdown-item">Empleados</a>
+						<a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
 						<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="userManagmentServlet">
+					<a class="nav-link">
 						<i class="fas fa-fw fa-chart-area"></i>
 						<span>Gestion Capacitaciones</span></a>
 					</li>
@@ -111,7 +110,7 @@ pageEncoding="UTF-8"%>
 													%>
 													<tr <%if(s.getProvider().getState() == "DESAPROBADO") { %> class="table-danger" <%} %>>
 														
-														<td><input type="radio" name="radioSelectProvider" value=<%=s.getProvider().getId()%>
+														<td><input type="radio" name="radioSelectProvider" required value=<%=s.getProvider().getId()%>
 														<%if(s.getProvider().getState() == "DESAPROBADO") { %> disabled <%} %> >  
 														</td>
 														<%if(s.getProvider().getBusiness_name() != null){ %>
