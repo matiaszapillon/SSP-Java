@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
   <body id="page-top">
     
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-      <a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Administrador</a>
+      <a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Cliente</a>
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       </form>
@@ -50,7 +50,7 @@ pageEncoding="UTF-8"%>
       
       <ul class="sidebar navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="indexAdmin.jsp">
+          <a class="nav-link" href="indexClient.jsp">
             SSP
           </a>
         </li>
@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
           <li class="nav-item active">
             <a class="nav-link" href="projectManagmentServlet">
               <i class="fas fa-fw fa-table"></i>
-              <span>Gestion Proyectos</span></a>
+              <span>Seguimiento de Proyectos</span></a>
             </li>
           </ul>
           <div id="content-wrapper">
