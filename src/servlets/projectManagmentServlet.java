@@ -111,15 +111,12 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
 		if(request.getParameter("updateButton") != null) {
-			int idSupply = Integer.parseInt((request.getParameter("radioSelectedSupply")));
-			//PREGUNTAR A MECA: COMO HAGO PARA OBTENER EL VALOR DEL INPUT EN UNA TABLA? (SE MODIFICA DINAMICAMENTE)
-			//LA FILA ENTERA SIN EDITAR LA OBTENGO MEDIANTE ID EN UN RADIOBUTTON
-			//PERO SI YO EDITO UNA COLUMNA DE LA TABLA Y QUIERO OBTENER ESE VALOR COMO HAGO?
-			//AHORA LO SOLUCIONO MEDIANTE JAVASCRIPT INSERTANDO EL VALOR ACTUALIZADO A UN HIDDEN.
-			
-			int quantity = Integer.parseInt(request.getParameter(("updateQuantity")));
+			String idSup = request.getParameter("radioSelectedSupply");
+			int idSupply = Integer.parseInt(idSup);
+			String quantity = request.getParameter(idSup);
+			int quantityId = Integer.parseInt(quantity);
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
-			sController.updateQuantityFromProject(idProject,idSupply,quantity);
+			sController.updateQuantityFromProject(idProject,idSupply,quantityId);
 			Project projectWithSupplies = projController.getProjectById(idProject);
 			ArrayList<Supply> supplies = sController.getSuppliesByProject(projectWithSupplies.getId());
 			projectWithSupplies.setSupplies(supplies);
@@ -156,6 +153,7 @@ public class projectManagmentServlet extends HttpServlet {
 			 * AGREGAR Y LUEGO ELEGIR EL PROVEEDOR (SOLO SE PODRA SELECCIONAR LOS
 			 * PROVEEDORES QUE ESTAN APROBADOS)
 			 */
+
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = projController.getProjectById(idProject);
@@ -299,6 +297,11 @@ public class projectManagmentServlet extends HttpServlet {
 				// Redireccionar 
 				// Volver a projectDetails con las etapas pertenecientes al proyecto actual
 				Project projectWithStages = projController.getProjectWithStages(idProject);
+				
+				if(projectWithStages.isFinished()) {
+					Client c = projController.getClientByIdProject(projectWithStages.getId());
+					projectWithStages.sendEmailToClient(c,projectWithStages);
+				}
 				request.setAttribute("projectStages", projectWithStages);
 				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 			}

@@ -243,7 +243,7 @@ pageEncoding="UTF-8"%>
 												</td>
 												<td> <div class="form-row">
 													<div class="col">
-														<input type="text" name="updateQuantity"  size="3" value="<%= s.getQuantity() %>">													
+														<input type="text" name="<%=s.getId()%>"  size="3" value="<%= s.getQuantity() %>">													
 													</div>		
 													<div class="col">
 														<button  name="updateButton" id="updateButtonId" onclick = "setHiddenValue(this.id)"><img src="images/save.ico" height="25" width="20">

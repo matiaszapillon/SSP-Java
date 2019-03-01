@@ -3,6 +3,7 @@ package controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entities.Client;
 import entities.Project;
 import entities.Stage;
 
@@ -135,6 +136,16 @@ public class ProjectController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+
+	public Client getClientByIdProject(int id) {
+		try {
+			return projectData.getClientByIdProject(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;	
 	}
 
 }

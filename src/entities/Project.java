@@ -117,4 +117,27 @@ public class Project implements Serializable{
 		}
 		this.setTotalCost(total);
 	}
+	public boolean isFinished() {
+		// TODO Auto-generated method stub
+		boolean flag = false;
+		for(Stage stage : getStages()) {			
+			if(stage.getIdState() == Stage.FINALIZADA) {
+				flag = true;
+			} else {
+				flag = false;
+				break;				
+			}
+		}
+		
+		return flag;
+			
+		
+	}
+	public void sendEmailToClient(Client c,Project p) {
+		String to =  "matiaszapillon@gmail.com" ; //c.getEmail();
+		String subject = "The project has finished";
+		String body = "Dear "+ c.getBusiness_name()+"your project "+ p.getName() + "has already finished, you can"
+				+"check the state in the Web www.http://localhost:8080/SSP/logIn.html , cheers";
+		util.Emailer.getInstance().send(to, subject, body);
+	}
 }

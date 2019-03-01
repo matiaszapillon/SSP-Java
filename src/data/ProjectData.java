@@ -151,12 +151,12 @@ public class ProjectData {
 		Project proj = new Project();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description,\r\n"
-				+ "	  	ps.state as 'estado', e.id_employee, e.name, e.surname\r\n" + "FROM stage s\r\n"
-				+ "INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\r\n"
-				+ "INNER JOIN project p ON p.id_project = ps.id_project\r\n"
-				+ "LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n" + "WHERE p.id_project = ? ";
-
+		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description,\n" + 
+				"ps.state as 'estado', e.id_employee, e.name, e.surname, p.name as 'name_project',\n" + 
+				"p.description as 'description_project' FROM stage s\n" + 
+				"INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\n" + 
+				"INNER JOIN project p ON p.id_project = ps.id_project\n" + 
+				"LEFT JOIN employee e ON ps.id_employee = e.id_employee WHERE p.id_project = ?" ;
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
@@ -166,7 +166,8 @@ public class ProjectData {
 
 		if (rs != null && rs.next()) {
 			proj.setId(rs.getInt("p.id_project"));
-
+			proj.setName(rs.getString("p.name_project"));
+			proj.setDescription(rs.getString("p.description_project"));
 			do {
 
 				Employee e = new Employee();
@@ -473,5 +474,39 @@ public class ProjectData {
 			conecction.setAutoCommit(true);
 		}
 
+	}
+
+	public Client getClientByIdProject(int id) throws SQLException {
+		Client c = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select c.*\n" + 
+				"from project p inner join client c on c.id_client = p.id_client\n" + 
+				"where p.id_project = ?");
+		stmt.setInt(1, id);
+		rs = stmt.executeQuery();
+		if (rs != null && rs.next()) {
+			if (rs.getInt("id_client") != 0) {
+				c = new Client();
+				c.setAddress(rs.getString("address"));
+				c.setBusiness_name(rs.getString("business_name"));
+				c.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
+				c.setEmail(rs.getString("email"));
+				c.setId(rs.getInt("id_client"));
+			}
+		}
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (stmt != null)
+				stmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return c;
+		
 	}
 }

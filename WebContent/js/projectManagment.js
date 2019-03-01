@@ -2,20 +2,9 @@
 function setHiddenValue(idButton) {
 	document.querySelector('#idClickedButton').value = idButton;
 }
-/*
-function setHiddenIdAndQuantity(idButton){
-	document.querySelector('#idClickedButton').value = idButton;
-	radioElements = document.querySelectorAll('input[name="radioSelectedStage"]')
-	for(var x=0; x < radioElements.length ; x++ ) {
-		if(radioElements[x].checked) {
-			
-FALTA TERMINAR. > UNA VEZ OBTENIDA LA FILA SELECCIONADA,
-				SELECCIONAR EL VALOR DE LA COLUMNA CANTIDAD Y SETEARLO A UN CAMPO HIDDEN
-		}		
-	}
-}
 
-*/
+
+
 function validateForm() {  
 	if(document.querySelector('#idClickedButton').value == "addStageFormId"){
 		return true;
@@ -81,5 +70,7 @@ function validateForm() {
 	}
 
 } 
+
+
 
 	
