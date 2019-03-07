@@ -3,6 +3,7 @@ package servlets;
 import entities.*;
 import java.util.ArrayList;
 import controllers.ActivityController;
+import controllers.StageController;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ public class activityManagmentServlet extends HttpServlet {
 	// Variables 
 	ActivityController aController;
 	Activity a;
+	StageController sController;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,6 +30,7 @@ public class activityManagmentServlet extends HttpServlet {
     public activityManagmentServlet() {
         super();
         aController = new ActivityController();
+        sController = new StageController();
         a = null;
         // TODO Auto-generated constructor stub
     }
@@ -45,11 +48,13 @@ public class activityManagmentServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
+
+		
 		
 		// Manejo de Create
 		if(request.getParameter("addButton") != null) {
+			ArrayList<Stage> stages = sController.getAll();
+			request.setAttribute("stages",stages);
 			request.getRequestDispatcher("activitiesRegistration.jsp").forward(request, response);
 		}
 		
@@ -59,6 +64,8 @@ public class activityManagmentServlet extends HttpServlet {
 			int idActividad = Integer.parseInt(IdRow);
 			
 			a = aController.getActivityById(idActividad);
+			ArrayList<Stage> stages = sController.getAll();
+			request.setAttribute("stages",stages);
 			// Pasar la actividad a la pagina redireccionada 
 			request.setAttribute("actividad", a);
 			request.getRequestDispatcher("activitiesRegistration.jsp").forward(request, response);
@@ -80,7 +87,9 @@ public class activityManagmentServlet extends HttpServlet {
 			
 			a.setDescription(request.getParameter("activityDescription"));
 			a.setDuration(request.getParameter("activityDuration"));
-			
+			String nameStage = request.getParameter("stageName");
+			Stage stage = sController.getStageByName(nameStage);
+			a.setStage(stage);
 			if(request.getParameter("hiddenID").equals("")) {
 				// Create
 				aController.createActivity(a);

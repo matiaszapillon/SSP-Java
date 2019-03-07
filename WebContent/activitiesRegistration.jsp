@@ -1,3 +1,4 @@
+<%@page import="entities.Stage"%>
 <%@page import="entities.Activity"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -31,6 +32,7 @@
 
 <body class="bg-dark">
     <% Activity a = (Activity)request.getAttribute("actividad"); %>
+    <% ArrayList<Stage> stages = (ArrayList<Stage>)request.getAttribute("stages"); %>
     <div class="container">
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">
@@ -52,6 +54,22 @@
                                     <label for="idActivityDuration">Duración</label>
                                     <input type="text" class="form-control" id="idActivityDuration" name="activityDuration" placeholder="Duración"
                                        <% if(a !=null) { %> value="<%= a.getDuration() %>" <% } %> >
+                                </div>
+                                <div class="form-group">
+                                	<label for="idActivityStage">Etapa</label>
+                                	<select class="form-control" name="stageName">
+                                	<option >
+                                	Etapa..
+                                	</option>
+                                <!--NO ME ANDA EL SELECTED-->
+                                	<%for(Stage s: stages){ %>
+									<option <%if(a != null && a.getStage().getName() == s.getName()) {%> selected <%}%> >
+									 <%=s.getName()%>
+									 </option>                            	
+                                	<%
+                                	}
+                                	%>
+                                	</select>
                                 </div>
                             </div>
                         </div>

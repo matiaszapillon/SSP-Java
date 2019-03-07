@@ -11,7 +11,8 @@ public class ActivityData  {
 		ArrayList<Activity> activities = new ArrayList<Activity>();
 		Statement stmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT * FROM activity";
+		String SqlQuery = "SELECT a.*, s.description as 'description stage', s.name as 'name stage'\n" + 
+				" FROM activity a INNER JOIN stage s ON a.id_stage = s.id_stage";
 		// Armar statement
 		stmt = FactoryConexion.getInstancia().getConn().createStatement();
 		// Ejecutar query
@@ -20,10 +21,16 @@ public class ActivityData  {
 		if(rs != null) {
 			while(rs.next()) {
 				Activity a = new Activity();
+				Stage s = new Stage();
 				
 				a.setId(rs.getInt("id_activity"));
 				a.setDescription(rs.getString("description"));
-				a.setDuration(rs.getString("duration"));		
+				a.setDuration(rs.getString("duration"));
+				
+				s.setId(rs.getInt("id_stage"));
+				s.setDescription(rs.getString("description stage"));
+				s.setName(rs.getString("name stage"));
+				a.setStage(s);
 				
 				activities.add(a);
 			}
@@ -48,7 +55,8 @@ public class ActivityData  {
 		Activity a = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT * FROM activity WHERE id_activity = ?";
+		String SqlQuery = "SELECT a.*, s.description as 'description stage', s.name as 'name stage'\n" + 
+				" FROM activity a INNER JOIN stage s ON a.id_stage = s.id_stage WHERE a.id_activity = ?";
 		
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
@@ -62,7 +70,14 @@ public class ActivityData  {
 				a = new Activity();
 				a.setId(id);
 				a.setDescription(rs.getString("description"));
-				a.setDuration(rs.getString("duration"));		
+				a.setDuration(rs.getString("duration"));	
+			
+				Stage s = new Stage();
+
+				s.setId(rs.getInt("id_stage"));
+				s.setDescription(rs.getString("description stage"));
+				s.setName(rs.getString("name stage"));
+				a.setStage(s);
 			}
 		}
 		
@@ -118,13 +133,14 @@ public class ActivityData  {
 	public void createActivity(Activity a) throws SQLException {
 		PreparedStatement prepStmt = null;
 		ResultSet keyResultSet = null;
-		String SqlQUery = "INSERT INTO activity (description, duration) VALUES (?, ?)";
+		String SqlQUery = "INSERT INTO activity (description, duration, id_stage) VALUES (?, ?,?)";
 		
 		// Crear el PreparedStatement de la conexion
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQUery,
 				PreparedStatement.RETURN_GENERATED_KEYS);
 		prepStmt.setString(1, a.getDescription());
 		prepStmt.setString(2, a.getDuration());
+		prepStmt.setInt(3, a.getStage().getId());
 
 		// Ejecutar Query
 		prepStmt.executeUpdate();
@@ -149,13 +165,14 @@ public class ActivityData  {
 	
 	public void updateActivity(Activity a) throws SQLException {
 		PreparedStatement prepStmt = null;
-		String SqlQuery = "UPDATE activity SET description=?, duration=? WHERE id_activity=?";
+		String SqlQuery = "UPDATE activity SET description=?, duration=? , id_stage=? WHERE id_activity=?";
 		
 		// Armar el statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setString(1, a.getDescription());
 		prepStmt.setString(2, a.getDuration());
-		prepStmt.setInt(3, a.getId());
+		prepStmt.setInt(3, a.getStage().getId());
+		prepStmt.setInt(4, a.getId());
 		
 		// Ejecutar query
 		prepStmt.executeUpdate();
