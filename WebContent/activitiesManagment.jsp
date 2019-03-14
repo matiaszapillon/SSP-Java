@@ -118,7 +118,7 @@ pageEncoding="UTF-8" %>
                                                 <%= act.getDescription() %>
                                             </td>
                                             <td>
-                                                <%= act.getDuration() %>
+                                                <%= act.getDuration() %> semanas
                                             </td>
                                         </tr>
                                         <%
