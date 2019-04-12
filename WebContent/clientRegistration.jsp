@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="clientName">Nombre</label>
-                                    <input type="text" class="form-control" name="clientName" placeholder="Nombre"
+                                    <input type="text" class="form-control" name="clientName" autofocus placeholder="Nombre"
                                        <% if(c !=null) { %> value="<%= c.getBusiness_name() %>" <% } %> >
                                 </div>
                             </div>

@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" class="form-control" id="idProviderBssName" name="providerBssName"
+                                    <input type="text" class="form-control" id="idProviderBssName" name="providerBssName" autofocus
                                         placeholder="Proveedor" required="required" <% if(p !=null) { %> value="<%=p.getBusiness_name() %>"<% } %> >
                                     <label for="idProviderBssName">Proveedor</label>
                                 </div>

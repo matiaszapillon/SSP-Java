@@ -41,7 +41,7 @@
             <div class="form-row">
               <div class="col-md-6">
                 <div class="form-label-group">
-                  <input type="text" id="idUsername" class="form-control" name="username" placeholder="Username"
+                  <input type="text" id="idUsername" class="form-control" name="username" autofocus placeholder="Username"
                     required="required" <% if(u !=null) { %> value ="<%= u.getUsername() %>" <% } %> >
                   <label for="firstName">Nombre de usuario</label>
                 </div>
