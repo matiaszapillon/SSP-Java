@@ -38,6 +38,8 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String mensaje_customizado = "No se ha podido cerrar la conexion a DB";
+			System.out.println(mensaje_customizado);
 		}
 		return u;
 
@@ -75,6 +77,8 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String mensaje_customizado = "No se ha podido cerrar la conexion a DB";
+			System.out.println(mensaje_customizado);
 		}
 		return users;
 	}
@@ -110,6 +114,8 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String mensaje_customizado = "No se ha podido cerrar la conexion a DB";
+			System.out.println(mensaje_customizado);
 		}
 		return u;
 
@@ -140,6 +146,8 @@ public class UserData {
 					con.rollback();
 				} catch (SQLException sqlex) {
 					sqlex.printStackTrace();
+					String mensaje_customizado = "No se ha podido realizar el rollback";
+					System.out.println(mensaje_customizado);
 				}
 			}
 		} finally {
@@ -223,6 +231,8 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String mensaje_customizado = "No se ha podido cerrar la conexion a DB";
+			System.out.println(mensaje_customizado);
 		}
 	}
 
@@ -248,6 +258,8 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String mensaje_customizado = "No se ha podido cerrar la conexion a DB";
+			System.out.println(mensaje_customizado);
 		}
 	}
 

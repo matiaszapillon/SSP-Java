@@ -7,7 +7,7 @@ public class FactoryConexion {
 	private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String password="";
+	private String password="root";
 	private String db="ssp_db";
 	
 	private static FactoryConexion instancia;
@@ -17,6 +17,10 @@ public class FactoryConexion {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			String mensaje_error = e.getMessage();
+			System.out.println(mensaje_error);
+			String mensaje_customizado = "No se ha encontrado el driver correspondiente";
+			System.out.println(mensaje_customizado);
 		}
 		
 	}
@@ -52,6 +56,8 @@ public class FactoryConexion {
 				conn.close();
 			}
 		} catch (SQLException e) {
+			String mensaje_customizado = "Error al cerrar la conexion a DB. \nSe lanzara un error";
+			System.out.println(mensaje_customizado);
 			throw e;
 		}
 	}
