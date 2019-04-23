@@ -1,5 +1,6 @@
 package util;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -20,23 +21,20 @@ public class Emailer {
 	}
 	
 	private Emailer() {
-		//TIRA ERROR CREO POR EL JAR JAVAX MAIL
-		
-		InputStream inputStream=getClass().getClassLoader().getResourceAsStream("app.properties");
-		try {
-			props = new Properties();
-			props.load(inputStream);
-			 props.put("mail.smtp.auth", "true");
-			 props.put("mail.smtp.starttls.enable", "true");
-			 props.put("mail.smtp.host", "smtp.gmail.com");
-			 props.put("mail.smtp.port", "587");
-			 props.put("mail.username", "ortecnologiassp@gmail.com");
-			 props.put("mail.password","OR123456789");
+		//TIRA ERROR INPUT STREAM NULL Y TAMBIEN OTRO ERROR DE CREDENCIALES INCORRECTAS
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		props = new Properties();
+//	if(inputStream != null) {
+//			props.load(inputStream);	
+//			}
+
+		 props.put("mail.smtp.auth","true");
+		 props.put("mail.smtp.starttls.enable","true");
+		 props.put("mail.smtp.host","smtp.gmail.com");
+		 props.put("mail.smtp.port","587");
+		 props.put("mail.username","ortecnologiassp");
+		 props.put("mail.password","OR123456789");
 		
 
 	}
@@ -45,16 +43,18 @@ public class Emailer {
 
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {protected PasswordAuthentication getPasswordAuthentication() {
-				//return new PasswordAuthentication(username, password);
-			  return new PasswordAuthentication(props.getProperty("mail.username"), props.getProperty("mail.password"));
+				return new PasswordAuthentication("ortecnologiassp@gmail.com","OR123456789");
+			//  return new PasswordAuthentication(props.getProperty("mail.username"), props.getProperty("mail.password"));
 			}
 		  });
 
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(props.getProperty("mail.username")));
-			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to)); //"matiaszapillon@gmail.com"
+			//message.setFrom(new InternetAddress(props.getProperty("mail.username")));
+			message.setFrom(new InternetAddress("ortecnologiassp@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse("matiaszapillon@gmail.com")); //"matiaszapillon@gmail.com"
+			//message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to)); //"matiaszapillon@gmail.com"
 			message.setSubject(subject); //"The project has finished
 			message.setText(body); //"Dear *NombreCliente, your project *NombreProyecto has already finished, you can 
 									// check the state in the Web www.http://localhost:8080/SSP/logIn.html , cheers."
