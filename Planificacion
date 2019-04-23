@@ -1,13 +1,18 @@
 Planificacion para entrega Final del TP
 
 Requisitos:
-    Arreglar mails automaticos
-    Arreglar la parte de actividad (no reconoce la etapa a la que pertenece la actividad cuando se la quiere editar)
-    Modificar exceptions basicos (try-catch basicos) y poner customized exceptions
-    Realizar reportes (consultar a Meca)
-    Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
-    Eliminar cards de pagina de inicio
-    Agregar cards distintivas del proyecto
-    Realizar mejoras visuales (si hay ganas)
+    MISSGIN:
+        Arreglar mails automaticos
+        Modificar exceptions basicos (try-catch basicos) y poner customized exceptions
+        Realizar reportes (consultar a Meca)
+        Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
+        Agregar cards distintivas del proyecto
+        Realizar mejoras visuales (si hay ganas)
 
+    DOING:
+        Eliminar cards de pagina de inicio
+    
+    DONE:
+        Arreglar la parte de actividad (no reconoce la etapa a la que pertenece la actividad cuando se la quiere editar)
+        
 Tiempo estimado de entrega: MAY/JUL

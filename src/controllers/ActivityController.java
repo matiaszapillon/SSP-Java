@@ -21,6 +21,10 @@ public class ActivityController {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			// Prueba
+			String mensaje_error = e.getMessage();
+			System.out.println(mensaje_error);
+			
 		}
 		return null;
 	}

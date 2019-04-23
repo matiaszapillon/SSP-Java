@@ -31,8 +31,8 @@
 </head>
 
 <body class="bg-dark">
-    <% Activity a = (Activity)request.getAttribute("actividad"); %>
-    <% ArrayList<Stage> stages = (ArrayList<Stage>)request.getAttribute("stages"); %>
+    <% Activity a = (Activity) request.getAttribute("actividad"); %>
+    <% ArrayList<Stage> stages = (ArrayList<Stage>) request.getAttribute("stages"); %>
     <div class="container">
         <div class="card card-register mx-auto mt-5">
             <div class="card-header">
@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="idActivityDescription">Descripción</label>
                                     <textarea class="form-control" id="idActivityDescription" name="activityDescription" 
-                                    	cols="40" rows="3" placeholder="Descripción"><% if(a != null) { %><%=a.getDescription()%><% } %></textarea>
+                                    	cols="40" rows="3" placeholder="Descripción" autofocus><% if(a != null) { %><%=a.getDescription()%><% } %></textarea>
                                 </div>                                
                             </div>
                             <div class="col-md-6">
@@ -58,17 +58,24 @@
                                 <div class="form-group">
                                 	<label for="idActivityStage">Etapa</label>
                                 	<select class="form-control" name="stageName">
-                                	<option >
-                                	Etapa..
-                                	</option>
-                                <!--NO ME ANDA EL SELECTED-->
-                                	<%for(Stage s: stages){ %>
-									<option <%if(a != null && a.getStage().getName() == s.getName()) {%> selected <%}%> >
-									 <%=s.getName()%>
-									 </option>                            	
-                                	<%
-                                	}
-                                	%>
+	                                	<!--NO ME ANDA EL SELECTED-->
+	                                	<option>
+	                                		Etapa ..
+	                                	</option>
+	                                	<% 
+	                                	for(Stage s : stages) { 
+	                                		if(a != null && a.getStage().getName().equalsIgnoreCase(s.getName())){ 
+	                                	%>
+	                                		<option selected>
+	                                			<%= s.getName() %>
+	                                		</option>
+	                                	<% } else { %>
+	                                		<option>
+	                                			<%= s.getName() %>
+	                                		</option>
+	                                	<% 		
+	                                		}
+	                                	} %>
                                 	</select>
                                 </div>
                             </div>

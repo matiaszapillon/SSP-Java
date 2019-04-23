@@ -90,7 +90,7 @@ pageEncoding="UTF-8"%>
                   <div class="col-md-4">
                   	<form method="post" action="projectManagmentServlet">
                     	<div class="form-group">
-                      		<input class="form-control" type="text" name="" placeholder="Buscar proyecto">
+                      		<input class="form-control" type="text" autofocus placeholder="Buscar proyecto">
                       	</div>
                       	<!--  Boton crear proyecto -->                      	
                       	<div class="input-group mb-3">
