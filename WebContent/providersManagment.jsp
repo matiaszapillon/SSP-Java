@@ -154,10 +154,10 @@ pageEncoding="UTF-8" %>
                                             </div>
                                         </div>
                                         <div class="card-footer small text-muted">
-                                            <button type="submit" name="addButton" class="btn btn-success" id="addButton" onclick="setHiddenValue(this.id)">Nuevo</button>
-                                            <button type="submit" name="editButton" class="btn btn-info" id="editButton" onclick="setHiddenValue(this.id)">Editar</button>
+                                            <button type="submit" name="addButton" class="btn btn-success" id="addButton" onclick="setHiddenValue(this.id)"><i class="fas fa-plus"></i></button>
+                                            <button type="submit" name="editButton" class="btn btn-info" id="editButton" onclick="setHiddenValue(this.id)"><i class="fas fa-edit"></i></button>
                                             <button type="submit" name="deleteButton" class="btn btn-danger float-right" id="deleteButton"
-                                            onclick="setHiddenValue(this.id)">Eliminar</button>
+                                            onclick="setHiddenValue(this.id)"><i class="fas fa-trash"></i></button>
                                         </div>
                                         <input type="hidden" name="rowValue" id="rowIdValue" />
                                         <input type="hidden" name="clickedButton" id="idClickedButton" />
