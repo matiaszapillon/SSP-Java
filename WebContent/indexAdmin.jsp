@@ -12,9 +12,14 @@ pageEncoding="UTF-8"%>
 		<link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
 		<title>Bienvenido </title>
 		<!-- Bootstrap core CSS-->
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+	
 		<!-- Custom fonts for this template-->
 		<link href="bootstrap/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		
+		
+		
+		
 		<!-- Page level plugin CSS-->
 		<link href="bootstrap/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 		<!-- Custom styles for this template-->
@@ -68,9 +73,9 @@ pageEncoding="UTF-8"%>
 					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" >
+					<a class="nav-link" href="reportsServlet">
 						<i class="fas fa-fw fa-chart-area"></i>
-						<span>Gestion Capacitaciones</span></a>
+						<span>Reportes</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="projectManagmentServlet">

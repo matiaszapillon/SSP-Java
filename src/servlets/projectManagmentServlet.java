@@ -293,12 +293,14 @@ public class projectManagmentServlet extends HttpServlet {
 				int state = Integer.parseInt(request.getParameter("stageState"));
 				int idEmployee = u.getCurrentStage().getEmployee().getId();
 				projController.updateProjectStage(idProject, idStage, state, idEmployee); 
-				
+
 				// Redireccionar 
 				// Volver a projectDetails con las etapas pertenecientes al proyecto actual
 				Project projectWithStages = projController.getProjectWithStages(idProject);
 				
 				if(projectWithStages.isFinished()) {
+					//Setear fecha fin project.
+					projController.updateEndDate(idProject);
 					Client c = projController.getClientByIdProject(projectWithStages.getId());
 					projectWithStages.sendEmailToClient(c,projectWithStages);
 				}

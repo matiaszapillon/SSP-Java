@@ -148,4 +148,15 @@ public class ProjectController {
 		return null;	
 	}
 
+	public void updateEndDate(int idProject) {
+		
+		try {
+			projectData.updateEndDate(idProject);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		
+	}
+
+
 }
