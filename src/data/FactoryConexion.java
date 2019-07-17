@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.*;
+import util.customizedEceptions.*;
 
 public class FactoryConexion {
 	private String driver="com.mysql.cj.jdbc.Driver";
@@ -16,11 +17,9 @@ public class FactoryConexion {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			String mensaje_error = e.getMessage();
-			System.out.println(mensaje_error);
-			String mensaje_customizado = "No se ha encontrado el driver correspondiente";
-			System.out.println(mensaje_customizado);
+			AppDataException customizedException = new AppDataException(e,"No se ha encontrado el driver correspondiente");
+			customizedException.getInnerException();
+			customizedException.getMessage();
 		}
 		
 	}
@@ -37,12 +36,15 @@ public class FactoryConexion {
 	private int cantConn=0;
 	
 	public Connection getConn() throws SQLException {
-		{
+		try{
 			if(conn==null || conn.isClosed()){	
 				conn = DriverManager.getConnection(
 			        "jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 				     //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 			}
+		} catch(SQLException e) {			
+			AppDataException customizedException = new AppDataException(e, "Error al conectarse a la DB");
+			System.out.println("Customized: " + customizedException.getMessage());
 		}
 		cantConn++;
 		return conn;
@@ -56,8 +58,8 @@ public class FactoryConexion {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			String mensaje_customizado = "Error al cerrar la conexion a DB. \nSe lanzara un error";
-			System.out.println(mensaje_customizado);
+			// AppDataException customizedException = new AppDataException(e, "Error al cerrar la conexion a DB. \nSe lanzara un error");
+			// System.out.println("Customized: " + customizedException.getMessage());
 			throw e;
 		}
 	}
