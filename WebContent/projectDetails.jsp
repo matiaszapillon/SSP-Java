@@ -34,9 +34,9 @@ pageEncoding="UTF-8"%>
 
 		<ul class="navbar-nav ml-auto ml-md-0">
 			<li class="nav-item dropdown no-arrow">
-				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-				 	aria-expanded="false">
-				 <% User u = (User)session.getAttribute("usuario"); %>
+				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					<% User u = (User)session.getAttribute("usuario"); %>
 					<%= u.getUsername() %>
 					<i class="fas fa-user-circle fa-fw"></i>
 				</a>
@@ -59,29 +59,30 @@ pageEncoding="UTF-8"%>
 				</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-				 	aria-expanded="false">
+				<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-archive"></i>
 					<span>ABM</span>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-						<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-						<a class="dropdown-item">Insumos</a>
-						<a class="dropdown-item">Etapas</a>
-						<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
-						<a class="dropdown-item">Empleados</a>
-						<a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
-						<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
+					<a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
+					<a class="dropdown-item">Insumos</a>
+					<a class="dropdown-item">Etapas</a>
+					<a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
+					<a class="dropdown-item">Empleados</a>
+					<a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
+					<a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
 				</div>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" >
+				<a class="nav-link" href="reportsServlet">
 					<i class="fas fa-fw fa-chart-area"></i>
-					<span>Gestion Capacitaciones</span>
+					<span>Reportes</span>
 				</a>
 			</li>
 			<li class="nav-item active">
 				<a class="nav-link" href="projectManagmentServlet">
-					<i class="fas fa-fw fa-table"></i>
+					<i class="fas fa-project-diagram"></i>
 					<span>Gestion Proyectos</span>
 				</a>
 			</li>
@@ -91,10 +92,10 @@ pageEncoding="UTF-8"%>
 		<div id="content-wrapper">
 			<div class="container-fluid">
 				<div class="container">
-				<% Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
-				<% Project projectWithStages = (Project)request.getAttribute("projectStages"); %>
-					<form method="post" action="projectManagmentServlet" onsubmit="return validateForm()">	
-					      <input type="hidden" name="clickedButton" id="idClickedButton" />					
+					<% Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
+					<% Project projectWithStages = (Project)request.getAttribute("projectStages"); %>
+					<form method="post" action="projectManagmentServlet" onsubmit="return validateForm()">
+						<input type="hidden" name="clickedButton" id="idClickedButton" />
 						<div class="row">
 							<div class="col-md-8">
 								<div class="form-group">
@@ -103,206 +104,230 @@ pageEncoding="UTF-8"%>
 								<div class="row">
 									<div class="form-group col-2">
 										<label> ID </label>
-										<input class="form-control" type="text" name="idProjectName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
-											value="<%= u.getCurrentProject().getId() %>" <%}%>>
+										<input class="form-control" type="text" name="idProjectName" readonly="readonly"
+											<% if (u.getCurrentProject() != null) { %>
+											value="<%= u.getCurrentProject().getId() %>"
+											<%}%>>
 									</div>
 									<div class="form-group col-2">
 										<label> Nombre </label>
 										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
-											value="<%= u.getCurrentProject().getName() %>" <% }%> >
+											value="<%= u.getCurrentProject().getName() %>" <% }%>>
 									</div>
 									<div class="form-group col">
 										<label> Descripcion </label>
-										<input class="form-control" type="text" name="descriptionName" readonly="readonly" <% if (u.getCurrentProject() != null) { %>
-											value="<%= u.getCurrentProject().getDescription() %>" <% }%> >
+										<input class="form-control" type="text" name="descriptionName"
+											readonly="readonly" <% if (u.getCurrentProject() != null) { %>
+											value="<%= u.getCurrentProject().getDescription() %>" <% }%>>
 									</div>
 								</div>
 							</div>
 						</div>
-						
-						
+
+
 						<div class="row">
 							<div class="col-auto">
-								<button type="submit" name="suppliesName" id="suppliesId" class="btn btn-primary form-group" onclick = "setHiddenValue(this.id)">Ver insumos</button>
+								<button type="submit" name="suppliesName" id="suppliesId"
+									class="btn btn-primary form-group"
+									onclick="setHiddenValue(this.id)">Insumos</button>
 							</div>
 							<div class="col-auto">
-								<button type="submit" name="stagesButton" id="stagesButtonId" class="btn btn-primary form-group" onclick = "setHiddenValue(this.id)">Ver Etapas</button>
+								<button type="submit" name="stagesButton" id="stagesButtonId"
+									class="btn btn-primary form-group" onclick="setHiddenValue(this.id)">Etapas</button>
 							</div>
 						</div>
-					
-					
-					<!--  DIV para Stages -->
-					<div <% if(projectWithStages == null) { %> style="display:none"  <% } %> >
-						<div class="card mb-3">
-							<!-- Header -->
-							<div class="card-header">
-								<i class="fas fa-table">
-									Gestion de etapas
-								</i>
-							</div>
-							<!-- Body -->
-							<div class="card-body">
-								<!-- Table -->
-								<div class="table-responsive">
-									<table class="table table-bordered" width="100%" cellspacing="0">
-										<thead>
-											<tr class="table-warning">
-												<th></th>
-												<th>#</th>
-												<th>Etapa</th>
-												<th>Descripción</th>
-												<th>Estado</th>
-												<th>Encargado</th>
-											</tr>										
-										</thead>
-										<tbody>
-											<!-- Hacer for -->
-											<% if(projectWithStages != null) { 
+
+
+						<!--  DIV para Stages -->
+						<div <% if(projectWithStages == null) { %> style="display:none" <% } %>>
+							<div class="card mb-3">
+								<!-- Header -->
+								<div class="card-header">
+									<i class="fas fa-table">
+										Gestion de etapas
+									</i>
+								</div>
+								<!-- Body -->
+								<div class="card-body">
+									<!-- Table -->
+									<div class="table-responsive">
+										<table class="table table-bordered" width="100%" cellspacing="0">
+											<thead>
+												<tr class="table-warning">
+													<th></th>
+													<th>#</th>
+													<th>Etapa</th>
+													<th>Descripción</th>
+													<th>Estado</th>
+													<th>Encargado</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!-- Hacer for -->
+												<% if(projectWithStages != null) { 
 												for(Stage stageAct: projectWithStages.getStages()) { %>
-											<tr>
-												<td>
-													<input type="radio" name="radioSelectedStage" value=<%= stageAct.getId() %> >
-												</td>
-												<td><%= stageAct.getId() %></td>
-												<td><%= stageAct.getName() %></td>
-												<td><%= stageAct.getDescription() %></td>
-												<td><%= stageAct.getState() %></td>
-												<td>
-													<% if(stageAct.getEmployee().getId() != 0) { %>
-													<%= stageAct.getEmployee().getSurname() + " " + stageAct.getEmployee().getName() %>
-													<% } else { %>Sin encargado<% } %> 													
-												</td>
-											</tr>
-											<!-- Cerrar for -->
-											<% 
+												<tr>
+													<td>
+														<input type="radio" name="radioSelectedStage"
+															value=<%= stageAct.getId() %>>
+													</td>
+													<td><%= stageAct.getId() %></td>
+													<td><%= stageAct.getName() %></td>
+													<td><%= stageAct.getDescription() %></td>
+													<td><%= stageAct.getState() %></td>
+													<td>
+														<% if(stageAct.getEmployee().getId() != 0) { %>
+														<%= stageAct.getEmployee().getSurname() + " " + stageAct.getEmployee().getName() %>
+														<% } else { %>Sin encargado<% } %>
+													</td>
+												</tr>
+												<!-- Cerrar for -->
+												<% 
 												}
 											}
 											%>
-										</tbody>                            
-									</table>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- Botones etapa -->
+								<div class="card-footer small text-muted">
+									<div class="form-row">
+										<div class="form-group col-auto">
+											<button type="submit" name="addStageForm" id="addStageFormId"
+												class="btn form-group btn-success" onclick="setHiddenValue(this.id)"><i
+													class="fas fa-plus"></i></button>
+										</div>
+										<div class="form-group col-auto">
+											<button type="submit" name="modifyStageForm" id="modifyStageId"
+												class="btn form-group btn-info" onclick="setHiddenValue(this.id)"><i
+													class="fas fa-edit"></i></button>
+										</div>
+										<div class="form-group col">
+											<button type="submit" name="deleteStage" id="deleteStageId"
+												class="btn form-group btn-danger float-right" data-toggle="tooltip"
+												data-placement="left" title="Eliminar Etapa"
+												onclick="setHiddenValue(this.id)"><i class="fas fa-trash"></i></button>
+										</div>
+									</div>
 								</div>
 							</div>
-							<!-- Botones etapa -->
-							<div class="card-footer small text-muted">
-								<div class="form-row">
-									<div class="form-group col-auto">
-										<button type="submit" name="addStageForm" id="addStageFormId" class="btn form-group btn-success" onclick = "setHiddenValue(this.id)">Agregar Etapa</button>										
-									</div>	
-									<div class="form-group col-auto">
-										<button type="submit" name="modifyStageForm" id="modifyStageId" class="btn form-group btn-info" onclick = "setHiddenValue(this.id)">Modificar Etapa</button>	
-									</div>
-									<div class="form-group col">
-										<button type="submit" name="deleteStage" id="deleteStageId" class="btn form-group btn-danger float-right"
-											data-toggle="tooltip" data-placement="left" title="Eliminar Etapa" onclick = "setHiddenValue(this.id)">X</button>		
-									</div>																	
-								</div>										
-							</div>													
 						</div>
-					</div>
-					<!-- Fin gestion de etapas  -->
+						<!-- Fin gestion de etapas  -->
 
-					<!--  DIV para Supplies -->
-					<div <% if(projectWithSupplies == null) { %> style="display:none" <% } %> >
-						<div class="card mb-3">
-							<div class="card-header">
-								<i class="fas fa-table">
-									Gestion de insumos
-								</i>								
-							</div>
-							<div class="card-body">
-								<div class="table-responsive">
-									<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Nombre</th>
-												<th>Descripcion</th>
-												<th>Cantidad</th>
-												<th>Unidad</th>
-												<th>Stock</th>
-												<th>Proveedor</th>
-												<th>Categoria Prov</th>
-											</tr>
-										</thead>
-										<tbody>
-											<%
+						<!--  DIV para Supplies -->
+						<div <% if(projectWithSupplies == null) { %> style="display:none" <% } %>>
+							<div class="card mb-3">
+								<div class="card-header">
+									<i class="fas fa-table">
+										Gestion de insumos
+									</i>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Nombre</th>
+													<th>Descripcion</th>
+													<th>Cantidad</th>
+													<th>Unidad</th>
+													<th>Stock</th>
+													<th>Proveedor</th>
+													<th>Categoria Prov</th>
+												</tr>
+											</thead>
+											<tbody>
+												<%
 											if(projectWithSupplies != null) {
 												ArrayList<Supply> supplies = projectWithSupplies.getSupplies();
 												for(Supply s : supplies) {
 											%>
-											<tr>
-												<td>
-													<input type="radio" name="radioSelectedSupply" value=<%= s.getId() %> >
+												<tr>
+													<td>
+														<input type="radio" name="radioSelectedSupply"
+															value=<%= s.getId() %>>
 
-												</td>
-												<td>
-													<%= s.getName() %>
-												</td>
-												<td>
-												<%= s.getDescription() %>	
-												</td>
-												<td> <div class="form-row">
-													<div class="col">
-														<input type="text" name="<%=s.getId()%>"  size="3" value="<%= s.getQuantity() %>">													
-													</div>		
-													<div class="col">
-														<button  name="updateButton" id="updateButtonId" onclick = "setHiddenValue(this.id)"><img src="images/save.ico" height="25" width="20">
-														</button>				
-													</div>
-													</div>
-												</td>
-												<td>
-													<%=s.getUnity()   %>
-												</td>
-												<td>
-													<%= s.getStock() %>
-												</td>
-												<%if(s.getProvider().getBusiness_name() != null){ %>
-												<td>
-													<%= s.getProvider().getBusiness_name() %></td>
-												<%} else { %>
-												<td>
-													<%= s.getProvider().getName() + " " + s.getProvider().getSurname() %>
-												</td>
-												<%} %>
-												<td>
-													<%= s.getProvider().getCategory() %>
-												</td>
-												
-											</tr>
-											<%
+													</td>
+													<td>
+														<%= s.getName() %>
+													</td>
+													<td>
+														<%= s.getDescription() %>
+													</td>
+													<td>
+														<div class="form-row">
+															<div class="col">
+																<input type="text" name="<%=s.getId()%>" size="3"
+																	value="<%= s.getQuantity() %>">
+															</div>
+															<div class="col">
+																<button name="updateButton" id="updateButtonId"
+																	onclick="setHiddenValue(this.id)"><img
+																		src="images/save.ico" height="25" width="20">
+																</button>
+															</div>
+														</div>
+													</td>
+													<td>
+														<%=s.getUnity()   %>
+													</td>
+													<td>
+														<%= s.getStock() %>
+													</td>
+													<%if(s.getProvider().getBusiness_name() != null){ %>
+													<td>
+														<%= s.getProvider().getBusiness_name() %></td>
+													<%} else { %>
+													<td>
+														<%= s.getProvider().getName() + " " + s.getProvider().getSurname() %>
+													</td>
+													<%} %>
+													<td>
+														<%= s.getProvider().getCategory() %>
+													</td>
+
+												</tr>
+												<%
 												}
 											}
 											%>
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
 								<!-- Botones insumos -->
 								<div class="card-footer small text-muted">
 									<div class="row">
 										<div class="col-auto">
-											<button type="submit" name="addSupplyName" id="addSupplyId" class="btn btn-success" onclick = "setHiddenValue(this.id)">Agregar</button>
+											<button type="submit" name="addSupplyName" id="addSupplyId"
+												class="btn btn-success"
+												onclick="setHiddenValue(this.id)">Agregar</button>
 										</div>
 
 										<div class="col-auto">
-											<button type="submit" name="deleteSupplyName" id="deleteSupplyId" class="btn btn-danger" onclick = "setHiddenValue(this.id)">Eliminar</button>
+											<button type="submit" name="deleteSupplyName" id="deleteSupplyId"
+												class="btn btn-danger"
+												onclick="setHiddenValue(this.id)">Eliminar</button>
 										</div>
 										<div class="col-md-4">
-											<button type="submit" name="calculateCostName" id="calculateCostId" class="btn btn-info float-right" onclick = "setHiddenValue(this.id)" >Calcular costo total</button>
+											<button type="submit" name="calculateCostName" id="calculateCostId"
+												class="btn btn-info float-right"
+												onclick="setHiddenValue(this.id)">Calcular costo total</button>
 										</div>
 										<div class="col">
-											<input type="text" class="form-control float-right" name="costName" 
+											<input type="text" class="form-control float-right" name="costName"
 												<% if(projectWithSupplies != null && projectWithSupplies.getTotalCost() != 0) { %>
-												value="<%= projectWithSupplies.getTotalCost() %>" />	
-												<% } %>
+												value="<%= projectWithSupplies.getTotalCost() %>" />
+											<% } %>
 										</div>
 									</div>
 								</div>
 
+							</div>
 						</div>
-					</div>
- 					<!-- Fin gestion de insumos  -->
+						<!-- Fin gestion de insumos  -->
 					</form>
 				</div>
 			</div>
@@ -324,7 +349,8 @@ pageEncoding="UTF-8"%>
 		<i class="fas fa-angle-up"></i>
 	</a>
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -341,8 +367,8 @@ pageEncoding="UTF-8"%>
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- Bootstrap core JavaScript-->
 	<script src="bootstrap/jquery/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -357,17 +383,17 @@ pageEncoding="UTF-8"%>
 	<!-- Demo scripts for this page-->
 	<script src="js/demo/datatables-demo.js"></script>
 	<script src="js/demo/chart-area-demo.js"></script>
-	
-	    
-        <!-- Own scripts-->
-        
-     <script src="js/projectManagment.js"></script>
-	 <!-- Own JavaScript-->
-     <script>
-	     $(function () {
-	    	  $('[data-toggle="tooltip"]').tooltip()
-	    	})
-	 </script>
+
+
+	<!-- Own scripts-->
+
+	<script src="js/projectManagment.js"></script>
+	<!-- Own JavaScript-->
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 
 </body>
 

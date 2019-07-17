@@ -2,16 +2,17 @@ Planificacion para entrega Final del TP
 
 Requisitos:
     MISSGIN:
-        Arreglar mails automaticos 
         Realizar reportes (consultar a Meca)
         Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
         Agregar cards distintivas del proyecto
-        Realizar mejoras visuales (si hay ganas)
+        Realizar mejoras visuales
 
     DOING:
         Eliminar cards de pagina de inicio
       	Modificar exceptions basicos (try-catch basicos) y poner customized exceptions
+      	
     DONE:
+    	Mail automatizado 
         Arreglar la parte de actividad (no reconoce la etapa a la que pertenece la actividad cuando se la quiere editar)    
         
 Tiempo estimado de entrega: MAY/JUL
@@ -19,9 +20,14 @@ Tiempo estimado de entrega: MAY/JUL
 
 Consultas:
 	Preguntar si el FactoryConexion.getInstancia().releaseConn(); no deberia ir siempre en una clausula finally.
+	
 	Cuando se usa la sentencia "throw e;" ?
+	
 	Realizar reportes (consultar a Meca)
+	
 	Las excepciones son para el usuario o para el usuario o para el programador?	
+	
+	Cuando utilizar la clase de excepcion customizada?
 	
 	Preguntar por el throw:
 	public void releaseConn() throws SQLException{

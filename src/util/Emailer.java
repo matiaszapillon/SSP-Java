@@ -21,13 +21,13 @@ public class Emailer {
 	}
 	
 	private Emailer() {
-		//TIRA ERROR INPUT STREAM NULL Y TAMBIEN OTRO ERROR DE CREDENCIALES INCORRECTAS
-
+		// TIRA ERROR INPUT STREAM NULL Y TAMBIEN OTRO ERROR DE CREDENCIALES INCORRECTAS
+		// El error de credenciales incorrectas se debia a la configuracion de Google contra aplicaciones desconocidas
 
 		props = new Properties();
-//	if(inputStream != null) {
-//			props.load(inputStream);	
-//			}
+	//	if(inputStream != null) {
+	//			props.load(inputStream);	
+	//			}
 
 		 props.put("mail.smtp.auth","true");
 		 props.put("mail.smtp.starttls.enable","true");
@@ -42,7 +42,7 @@ public class Emailer {
 	public void send(String to,String subject,String body){
 
 		Session session = Session.getInstance(props,
-		  new javax.mail.Authenticator() {protected PasswordAuthentication getPasswordAuthentication() {
+		  new javax.mail.Authenticator() { protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication("ortecnologiassp@gmail.com","OR123456789");
 			//  return new PasswordAuthentication(props.getProperty("mail.username"), props.getProperty("mail.password"));
 			}

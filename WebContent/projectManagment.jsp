@@ -61,6 +61,7 @@ pageEncoding="UTF-8"%>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-archive"></i>
           <span>ABM</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -74,13 +75,14 @@ pageEncoding="UTF-8"%>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link">
+        <a class="nav-link" href="reportsServlet">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Gestion Capacitaciones</span></a>
+          <span>Reportes</span>
+        </a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="projectManagmentServlet">
-          <i class="fas fa-fw fa-table"></i>
+          <i class="fas fa-project-diagram"></i>
           <span>Gestion Proyectos</span></a>
       </li>
     </ul>
@@ -95,9 +97,9 @@ pageEncoding="UTF-8"%>
             <div class="col-md-4">
               <form method="post" action="projectManagmentServlet">
 
-                <!--  Boton crear proyecto -->
+                <!-- Boton crear proyecto -->
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control" id="btnCP" placeholder="Search" autofocus>
+                  <input type="text" class="form-control" id="btnCP" placeholder="Search">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-outline-success" id="btnCP" name="btnCreateProject"><i
                         class="fas fa-plus"></i></button>

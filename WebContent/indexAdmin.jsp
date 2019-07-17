@@ -59,7 +59,9 @@ pageEncoding="UTF-8"%>
 					</a>
 				</li>
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-archive"></i>
 						<span>ABM</span>
 					</a>
 					<div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -75,111 +77,126 @@ pageEncoding="UTF-8"%>
 				<li class="nav-item">
 					<a class="nav-link" href="reportsServlet">
 						<i class="fas fa-fw fa-chart-area"></i>
-						<span>Reportes</span></a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="projectManagmentServlet">
-							<i class="fas fa-fw fa-table"></i>
-							<span>Gestion Proyectos</span></a>
-						</li>
-					</ul>
-					<div id="content-wrapper">
-						<div class="container-fluid">
-							<!-- Breadcrumbs-->
+						<span>Reportes</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="projectManagmentServlet">
+						<i class="fas fa-project-diagram"></i>
+						<span>Gestion Proyectos</span>
+					</a>
+				</li>
+			</ul>
+			<div id="content-wrapper">
+				<div class="container-fluid">
+					<!-- Fila de Titulo -->
+					<div class="jumbotron text-center">
+						<h2 class="display-4">UTN FRRo</h2>
+						<p class="lead">TPI Final - Lenguaje de Programacion JAVA</p>
+						<hr class="my-4">
+						<p>Este trabajo presenta conocimientos basicos del lenguaje de programacion Java, orientando a cumplir los
+							requisitos necesarios para aprobar la materia de dicho nombre dictada en la Universidad Tecnologica
+							Nacional Regional Rosario.</p>
+						<p>Este trabajo contiene contenido de Java, HTML, CSS y Bootstrap 4.</p>
+						<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseAlumnos"
+							aria-expanded="false" aria-controls="collapseAlumnos">
+							Alumnos
+						</button>
+						<div class="collapse mt-3" id="collapseAlumnos">
+							<!-- Collapse de Alumnos -->
+							<div class="card-deck">
+								<!-- Nico -->
+								<div class="card col-6 mb-3 bg-dark text-white w-50">
+									<div class="row no-gutters">
+										<div class="col-md-4">
+											<img src="images/nico-photo.jpg" class="card-img" alt="Gomez Nicolas">
+										</div>
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Gomez Nicolas J.</h5>
+												<p class="card-text">Legajo: 42114</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Mati -->
+								<div class="card col-6 mb-3 bg-dark text-white w-50">
+									<div class="row no-gutters">
+										<div class="col-md-4">
+											<img src="images/mati-photo.jpg" class="card-img" alt="Matias Zapillon">
+										</div>
+										<div class="col-md-8">
+											<div class="card-body">
+												<h5 class="card-title">Zapillon Matias</h5>
+												<p class="card-text">Legajo: 41795</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			
+					</div>
+					<!-- Fila de Logos -->
+					<div class="row m-3">
+						<img src="images/java-logo.jpg" class="img-thumbnail rounded mx-auto" alt="Logo Java">
+						<img src="images/utn-logo.png" class="img-thumbnail rounded mx-auto" alt="Logo UTN">
+						<img src="images/bootstrap-logo.png" class="img-thumbnail rounded mx-auto" alt="Logo Bootstrap">
+					</div>
+				</div>
+			</div>
 							
-							<!-- Icon Cards-->
-							<div class="row">
-								<div class="col-xl-3 col-sm-6 mb-3">
-									<div class="card text-white bg-primary o-hidden h-100">
-										<div class="card-body">
-											<div class="card-body-icon">
-												<i class="fas fa-fw fa-comments"></i>
-											</div>
-											<div class="mr-5">DEBEMOS</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-sm-6 mb-3">
-									<div class="card text-white bg-warning o-hidden h-100">
-										<div class="card-body">
-											<div class="card-body-icon">
-												<i class="fas fa-fw fa-list"></i>
-											</div>
-											<div class="mr-5">SACAR</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-sm-6 mb-3">
-									<div class="card text-white bg-success o-hidden h-100">
-										<div class="card-body">
-											<div class="card-body-icon">
-												<i class="fas fa-fw fa-shopping-cart"></i>
-											</div>
-											<div class="mr-5">ESTAS</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-xl-3 col-sm-6 mb-3">
-									<div class="card text-white bg-danger o-hidden h-100">
-										<div class="card-body">
-											<div class="card-body-icon">
-												<i class="fas fa-fw fa-life-ring"></i>
-											</div>
-											<div class="mr-5">CARDS</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- /.container-fluid -->
-						<!-- Sticky Footer -->
-						
-						<footer class="sticky-footer">
-							<div class="container my-auto">
-								<div class="copyright text-center my-auto">
-									<span>Copyright © SSP 2018</span>
-								</div>
-							</div>
-						</footer>
+			<!-- /.container-fluid -->
+
+			<!-- Sticky Footer -->
+			<footer class="sticky-footer">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright © SSP 2018</span>
 					</div>
-					<!-- /.content-wrapper -->
 				</div>
-				<!-- /#wrapper -->
-				<!-- Scroll to Top Button-->
-				<a class="scroll-to-top rounded" href="#page-top">
-					<i class="fas fa-angle-up"></i>
-				</a>
-				<!-- Logout Modal-->
-				<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Estas seguro que quiere salir?</h5>
-								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+			</footer>
+			</div>
+			<!-- /.content-wrapper -->
+			</div>
+			<!-- /#wrapper -->
+			<!-- Scroll to Top Button-->
+			<a class="scroll-to-top rounded" href="#page-top">
+				<i class="fas fa-angle-up"></i>
+			</a>
+			<!-- Logout Modal-->
+			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Estas seguro que quiere salir?</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
-								</button>
-							</div>
-							<div class="modal-body">Selecciona 'Logout' si desea cerrar su session.</div>
-							<div class="modal-footer">
-								<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-								<a class="btn btn-primary" href="logIn.html">Logout</a>
-							</div>
+							</button>
+						</div>
+						<div class="modal-body">Selecciona 'Logout' si desea cerrar su session.</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+							<a class="btn btn-primary" href="logIn.html">Logout</a>
 						</div>
 					</div>
 				</div>
-				<!-- Bootstrap core JavaScript-->
-				<script src="bootstrap/jquery/jquery.min.js"></script>
-				<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-				<!-- Core plugin JavaScript-->
-				<script src="bootstrap/jquery-easing/jquery.easing.min.js"></script>
-				<!-- Page level plugin JavaScript-->
-				<script src="bootstrap/chart.js/Chart.min.js"></script>
-				<script src="bootstrap/datatables/jquery.dataTables.js"></script>
-				<script src="bootstrap/datatables/dataTables.bootstrap4.js"></script>
-				<!-- Custom scripts for all pages-->
-				<script src="js/sb-admin.min.js"></script>
-				<!-- Demo scripts for this page-->
-				<script src="js/demo/datatables-demo.js"></script>
-				<script src="js/demo/chart-area-demo.js"></script>
-			</body>
-		</html>
+			</div>
+			<!-- Bootstrap core JavaScript-->
+			<script src="bootstrap/jquery/jquery.min.js"></script>
+			<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- Core plugin JavaScript-->
+			<script src="bootstrap/jquery-easing/jquery.easing.min.js"></script>
+			<!-- Page level plugin JavaScript-->
+			<script src="bootstrap/chart.js/Chart.min.js"></script>
+			<script src="bootstrap/datatables/jquery.dataTables.js"></script>
+			<script src="bootstrap/datatables/dataTables.bootstrap4.js"></script>
+			<!-- Custom scripts for all pages-->
+			<script src="js/sb-admin.min.js"></script>
+			<!-- Demo scripts for this page-->
+			<script src="js/demo/datatables-demo.js"></script>
+			<script src="js/demo/chart-area-demo.js"></script>
+	</body>
+			
+</html>

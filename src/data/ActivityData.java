@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import entities.*;
 
 public class ActivityData  {
+
 	
 	public ArrayList<Activity> getAll() throws SQLException {
 		ArrayList<Activity> activities = new ArrayList<Activity>();

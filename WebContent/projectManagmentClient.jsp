@@ -56,6 +56,7 @@ pageEncoding="UTF-8"%>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-archive"></i>
             <span>ABM</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -64,7 +65,7 @@ pageEncoding="UTF-8"%>
         </li>
           <li class="nav-item active">
             <a class="nav-link" href="projectManagmentServlet">
-              <i class="fas fa-fw fa-table"></i>
+              <i class="fas fa-tasks"></i>
               <span>Seguimiento de Proyectos</span></a>
             </li>
           </ul>

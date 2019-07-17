@@ -58,6 +58,7 @@ pageEncoding="UTF-8" %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-archive"></i>
                     <span>ABM</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -71,13 +72,14 @@ pageEncoding="UTF-8" %>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" >
+                <a class="nav-link" href="reportsServlet">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Gestion Capacitaciones</span></a>
+                    <span>Reportes</span>
+                </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="projectManagmentServlet">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-project-diagram"></i>
                     <span>Gestion Proyectos</span></a>
             </li>
         </ul>
@@ -129,10 +131,10 @@ pageEncoding="UTF-8" %>
                             </div>
                         </div>
                         <div class="card-footer small text-muted">
-                            <button type="submit" name="addButton" class="btn btn-success" id="addButton" onclick="setHiddenValue(this.id)">Nuevo</button>
-                            <button type="submit" name="editButton" class="btn btn-info" id="editButton" onclick="setHiddenValue(this.id)">Editar</button>
+                            <button type="submit" name="addButton" class="btn btn-success" id="addButton" onclick="setHiddenValue(this.id)"><i class="fas fa-plus"></i></button>
+                            <button type="submit" name="editButton" class="btn btn-info" id="editButton" onclick="setHiddenValue(this.id)"><i class="fas fa-edit"></i></button>
                             <button type="submit" name="deleteButton" class="btn btn-danger float-right" id="deleteButton"
-                                onclick="setHiddenValue(this.id)">Eliminar</button>
+                                onclick="setHiddenValue(this.id)"><i class="fas fa-trash"></i></button>
                         </div>
                         <input type="hidden" name="rowValue" id="rowIdValue" />
                         <input type="hidden" name="clickedButton" id="idClickedButton" />

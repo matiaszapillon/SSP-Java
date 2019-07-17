@@ -60,6 +60,7 @@ pageEncoding="UTF-8"%>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-archive"></i>
                     <span>ABM</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -75,12 +76,14 @@ pageEncoding="UTF-8"%>
             <li class="nav-item">
                 <a class="nav-link">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Reportes</span></a>
+                    <span>Reportes</span>
+                </a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="projectManagmentServlet">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Gestion Proyectos</span></a>
+                    <i class="fas fa-project-diagram"></i>
+                    <span>Gestion Proyectos</span>
+                </a>
             </li>
         </ul>
         <div id="content-wrapper">
@@ -90,62 +93,60 @@ pageEncoding="UTF-8"%>
                 <div class="form-group">
                     <h4 align="center">Filtros</h4>
                 </div>
-              
-               
-                    <!-- Formulario de filtros -->
-                    <form class="mb-3" action="reportsServlet" method="POST">
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <label for="">Estado</label>
-                                <select name="stateProject" id="" class="form-control">
-                                    <option>-</option>
-                                    <option>No Iniciado</option>
-                                    <option>En Curso</option>
-                                    <option>Finalizado</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="">Cliente</label>
-                                <select class="form-control">
-                                    <option>
-                                        Seleccione cliente ..
-                                    </option>
-                                    <% if(clients != null){
+
+                <!-- Formulario de filtros -->
+                <form class="mb-3" action="reportsServlet" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="">Estado</label>
+                            <select name="stateProject" id="" class="form-control">
+                                <option>-</option>
+                                <option>No Iniciado</option>
+                                <option>En Curso</option>
+                                <option>Finalizado</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">Cliente</label>
+                            <select class="form-control">
+                                <option>
+                                    Seleccione cliente ..
+                                </option>
+                                <% if(clients != null){
                                             for(Client c : clients) {                                      
                                     %>
-                                    <option>
-                                        <%= c.getBusiness_name()%>
-                                    </option>
-                                    <% 		
+                                <option>
+                                    <%= c.getBusiness_name()%>
+                                </option>
+                                <% 		
                                         }}
                                     %>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for=""> Año inicio proyecto</label>
-                                <input type="text" name="startDateName" value="" class="form-control">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for=""> Año fin proyecto</label>
-                                <input type="text" name="endDateName" value="" class="form-control">
-                            </div>                                              
+                            </select>
                         </div>
-                        <div class="form-row">
-                            <div class="form-inline">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck" name="chkboxCost">
-                                    <label class="form-check-label" for="gridCheck">
-                                        Costo total
-                                    </label>
-                                </div>
-                                <div class="col-md-2">
-                                    <button type="submit" class="btn btn-outline-success" name="aplyFilter"><i class="fas fa-check"></i></button> 
-                                </div>  
+                        <div class="form-group col-md-2">
+                            <label for=""> Año inicio proyecto</label>
+                            <input type="text" name="startDateName" value="" class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for=""> Año fin proyecto</label>
+                            <input type="text" name="endDateName" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-inline">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" name="chkboxCost">
+                                <label class="form-check-label" for="gridCheck">
+                                    Costo total
+                                </label>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-success" name="aplyFilter"><i
+                                        class="fas fa-check"></i></button>
                             </div>
                         </div>
-                                          
-                    </form>
-                
+                    </div>
+                </form>
 
                 <!-- TABLA -->
                 <form action="projectManagmentServlet" method="post">
@@ -223,6 +224,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
     </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="bootstrap/jquery/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
