@@ -158,5 +158,15 @@ public class ProjectController {
 		
 	}
 
+	public ArrayList<Project> getProjectsByFilter(Client c, int startDate, int endDate) {
+		try {
+			return projectData.getProjectsByFilter(c,startDate,endDate);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;	
+	}
+
 
 }

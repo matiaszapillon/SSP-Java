@@ -151,12 +151,12 @@ public class ProjectData {
 		Project proj = new Project();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project, s.id_stage, s.name as 'etapa', s.description,\n" + 
-				"ps.state as 'estado', e.id_employee, e.name, e.surname, p.name as 'name_project',\n" + 
-				"p.description as 'description_project' FROM stage s\n" + 
-				"INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\n" + 
-				"INNER JOIN project p ON p.id_project = ps.id_project\n" + 
-				"LEFT JOIN employee e ON ps.id_employee = e.id_employee WHERE p.id_project = ?" ;
+		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project,p.start_date,p.end_date, s.id_stage, s.name as 'etapa', s.description,\n"
+				+ "ps.state as 'estado', e.id_employee, e.name, e.surname, p.name as 'name_project',\n"
+				+ "p.description as 'description_project' FROM stage s\n"
+				+ "INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\n"
+				+ "INNER JOIN project p ON p.id_project = ps.id_project\n"
+				+ "LEFT JOIN employee e ON ps.id_employee = e.id_employee WHERE p.id_project = ?";
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
@@ -168,6 +168,8 @@ public class ProjectData {
 			proj.setId(rs.getInt("p.id_project"));
 			proj.setName(rs.getString("p.name_project"));
 			proj.setDescription(rs.getString("p.description_project"));
+			proj.setEndDate(rs.getDate("end_date"));
+			proj.setStartDate(rs.getDate("start_date"));
 			do {
 
 				Employee e = new Employee();
@@ -435,21 +437,21 @@ public class ProjectData {
 		try {
 			conecction.setAutoCommit(false);
 			// Eliminar insumos
-			
+
 			deleteSupplies = conecction.prepareStatement(deleteSuppliesQuery);
 			deleteSupplies.setInt(1, idProject);
 			deleteSupplies.executeUpdate();
 			// Eliminar etapas
-			
+
 			deleteStages = conecction.prepareStatement(deleteStagesQuery);
 			deleteStages.setInt(1, idProject);
 			deleteStages.executeUpdate();
-			
+
 			// Eliminar Proyecto
 			deleteProject = conecction.prepareStatement(deleteProjectQuery);
 			deleteProject.setInt(1, idProject);
 			deleteProject.executeUpdate();
-			
+
 			conecction.commit();
 
 		} catch (Exception ex) {
@@ -480,9 +482,8 @@ public class ProjectData {
 		Client c = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select c.*\n" + 
-				"from project p inner join client c on c.id_client = p.id_client\n" + 
-				"where p.id_project = ?");
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement("select c.*\n"
+				+ "from project p inner join client c on c.id_client = p.id_client\n" + "where p.id_project = ?");
 		stmt.setInt(1, id);
 		rs = stmt.executeQuery();
 		if (rs != null && rs.next()) {
@@ -507,19 +508,17 @@ public class ProjectData {
 		}
 
 		return c;
-		
+
 	}
 
 	public void updateEndDate(int idProject) throws SQLException {
-		// TODO Auto-generated method 
+		// TODO Auto-generated method
 		PreparedStatement prepStmt = null;
-		String SqlQuery = "UPDATE project SET end_date = current_date() \r\n"
-				+ "WHERE id_project = ? ";
+		String SqlQuery = "UPDATE project SET end_date = current_date() \r\n" + "WHERE id_project = ? ";
 
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
-
 
 		// Ejecutar query
 		prepStmt.executeUpdate();
@@ -533,6 +532,98 @@ public class ProjectData {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public ArrayList<Project> getProjectsByFilter(Client c, int startDate, int endDate) throws SQLException {
+		ArrayList<Project> projects = new ArrayList<Project>();
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		String SqlQuery = "SELECT * FROM project p";
+		if (c != null) {
+			SqlQuery = SqlQuery + " INNER JOIN client c ON c.id_client = p.id_client WHERE c.id_client = ?";
+			if (startDate != 0) {
+				if (endDate != 0) {
+					SqlQuery = SqlQuery + " AND year(p.start_date) = ? AND year(p.end_date.) = ?";
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, c.getId());
+					prepStmt.setInt(2, startDate);
+					prepStmt.setInt(3, endDate);
+				} else {
+					SqlQuery = SqlQuery + " AND year(p.start_date) = ? ";
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, c.getId());
+					prepStmt.setInt(2, startDate);
+				}
+
+			} else {
+				if (endDate != 0) {
+					SqlQuery = SqlQuery + " AND year(p.end_date) = ? ";
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, c.getId());
+					prepStmt.setInt(2, endDate);
+				} else {
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, c.getId());
+				}
+
+			}
+		} else {
+			if (startDate != 0) {
+				if (endDate != 0) {
+					SqlQuery = SqlQuery + " WHERE year(p.start_date) = ? AND year(p.end_date) = ?";
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, startDate);
+					prepStmt.setInt(2, endDate);
+				}
+				SqlQuery = SqlQuery + " WHERE year(p.start_date) = ? ";
+				prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+				prepStmt.setInt(1, startDate);
+			} else {
+				if (endDate != 0) {
+					SqlQuery = SqlQuery + " WHERE year(p.end_date) = ? ";
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+					prepStmt.setInt(1, endDate);
+				} else {
+					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+
+				}
+			}
+		}
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+
+		if (rs != null) {
+			while (rs.next()) {
+				Project p = new Project();
+				p.setId(rs.getInt("id_project"));
+				p.setName(rs.getString("name"));
+				p.setDescription(rs.getString("description"));
+				p.setStartDate(rs.getDate("start_date"));
+				p.setEndDate(rs.getDate("end_date"));
+				if (c != null) {
+					Client client = new Client();
+					client.setId(rs.getInt("id_client"));
+					client.setBusiness_name(rs.getString("business_name"));
+					client.setCUIT_CUIL(rs.getString("CUIT_CUIL"));
+					p.setClient(client);
+				}
+				projects.add(p);
+			}
+			
+		}
+
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return projects;
 	}
 }

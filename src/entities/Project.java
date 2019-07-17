@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 public class Project implements Serializable{
@@ -12,10 +13,24 @@ public class Project implements Serializable{
 	private Client client;
 	private ArrayList<Supply> supplies = new ArrayList<Supply>();
 	private ArrayList<Stage> stages = new ArrayList<Stage>();
-	private float totalCost;
+	private float totalCost = 0;
+	private Date startDate;
+	private Date endDate;
 	
 	
 	
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
 	public float getTotalCost() {
 		return totalCost;
 	}

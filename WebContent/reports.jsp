@@ -85,7 +85,7 @@ pageEncoding="UTF-8"%>
         </ul>
         <div id="content-wrapper">
             <div class="container-fluid">
-                <%Project p =(Project)request.getAttribute("project") ; %>
+                <%ArrayList<Project> projects =(ArrayList<Project>)request.getAttribute("projects") ; %>
                 <%ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients"); %>
                 <div class="form-group">
                     <h4 align="center">Filtros</h4>
@@ -98,22 +98,22 @@ pageEncoding="UTF-8"%>
                             <div class="form-group col-md-3">
                                 <label for="">Estado</label>
                                 <select name="stateProject" id="" class="form-control">
-                                    <option>-</option>
-                                    <option>No Iniciado</option>
-                                    <option>En Curso</option>
-                                    <option>Finalizado</option>
+                                    <option selected>-</option>
+                                    <option >No Iniciado</option>
+                                    <option >En Curso</option>
+                                    <option >Finalizado</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="">Cliente</label>
-                                <select class="form-control">
-                                    <option>
-                                        Seleccione cliente ..
+                                <select class="form-control" name="client">
+                                    <option value="0" selected>
+                                        -
                                     </option>
                                     <% if(clients != null){
                                             for(Client c : clients) {                                      
                                     %>
-                                    <option>
+                                    <option value="<%=c.getId()%>">
                                         <%= c.getBusiness_name()%>
                                     </option>
                                     <% 		
@@ -123,11 +123,11 @@ pageEncoding="UTF-8"%>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for=""> Año inicio proyecto</label>
-                                <input type="text" name="startDateName" value="" class="form-control">
+                                <input type="text" name="startDateName"  class="form-control">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for=""> Año fin proyecto</label>
-                                <input type="text" name="endDateName" value="" class="form-control">
+                                <input type="text" name="endDateName"  class="form-control">
                             </div>                                              
                         </div>
                         <div class="form-row">
@@ -139,7 +139,7 @@ pageEncoding="UTF-8"%>
                                     </label>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-outline-success" name="aplyFilter"><i class="fas fa-check"></i></button> 
+                                    <button type="submit" class="btn btn-outline-success" name="applyFilter"><i class="fas fa-check"></i></button> 
                                 </div>  
                             </div>
                         </div>
@@ -152,7 +152,7 @@ pageEncoding="UTF-8"%>
                     <div class="card mb-3">
                         <div class="card-header">
                             <i class="fas fa-table"></i>
-                            Proveedores
+                            Proyectos
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -160,15 +160,42 @@ pageEncoding="UTF-8"%>
                                     <thead>
                                         <tr>
                                             <th>Seleccionar</th>
-                                            <th>Proveedor</th>
-                                            <th>Estado</th>
-                                            <th>Categoria</th>
-                                            <th>Precio insumo</th>
-                                            <th>Tipo de cambio</th>
+                                            <th>Nombre</th>
+                                            <th>Descripcion</th>
+                                            <th>Año de inicio</th>
+                                            <th>Año de finalizacion</th>
+                                            <th>Estado del proyecto</th>
+                                            <th>Cliente</th>
+                                            <th>Costo total del proyecto</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
+										<!-- Hacer for -->
+											<% if(projects != null) { 
+												for(Project p: projects) { %>
+											<tr>
+												<td>
+													<input type="radio" name="radioSelectedStage" value=<%= p.getId() %> >
+												</td>
+												<td><%= p.getName() %></td>
+												<td><%= p.getDescription() %></td>
+												<td><%= p.getStartDate()%></td>
+												<td><%= p.getEndDate()%></td>
+												<td><%= p.getState()%></td>
+												<td><%= p.getClient().getBusiness_name()%></td>
+												<td>
+													<% if(p.getTotalCost() != 0) { %> 	
+													<%=p.getTotalCost()%>																						
+												<% } else { %>
+													 "Sin calcular"
+												<% } %> 													
+												</td>
+											</tr>
+											<!-- Cerrar for -->
+											<% 
+												}	
+											}
+											%>
                                     </tbody>
                                 </table>
                             </div>
@@ -176,7 +203,7 @@ pageEncoding="UTF-8"%>
                         <div class="card-footer small text-muted">
                             <div class="row">
                                 <div>
-                                    <label class="col-form-label">Costo</label>
+                                    <label class="col-form-label">Ver si va algo aca que sirva</label>
                                 </div>
                                 <div class="col-auto">
                                     <input type="text" name="quantityName" value="">
