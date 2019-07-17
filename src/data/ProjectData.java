@@ -368,7 +368,7 @@ public class ProjectData {
 	public void createProject(Project p) throws SQLException {
 		PreparedStatement prepStmt = null;
 		ResultSet keyResultSet = null;
-		String SqlQuery = "INSERT INTO project (name, description, id_client) VALUES (?,?,?)";
+		String SqlQuery = "INSERT INTO project (name, description, id_client, start_date) VALUES (?,?,?,current_date())";
 
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
@@ -507,6 +507,32 @@ public class ProjectData {
 		}
 
 		return c;
+		
+	}
+
+	public void updateEndDate(int idProject) throws SQLException {
+		// TODO Auto-generated method 
+		PreparedStatement prepStmt = null;
+		String SqlQuery = "UPDATE project SET end_date = current_date() \r\n"
+				+ "WHERE id_project = ? ";
+
+		// Armar statement
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+
+
+		// Ejecutar query
+		prepStmt.executeUpdate();
+
+		// Cerrar conexion
+		try {
+			if (prepStmt != null) {
+				prepStmt.close();
+			}
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 }
