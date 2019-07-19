@@ -16,9 +16,10 @@ import controllers.ClientController;
 import controllers.ProjectController;
 import controllers.SupplyController;
 
-/**
+/*
  * Servlet implementation class reportsServlet
  */
+
 @WebServlet("/reportsServlet")
 public class reportsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +27,7 @@ public class reportsServlet extends HttpServlet {
 	ClientController clientController;
 	SupplyController supplyController;
 
-	/**
+	/*
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public reportsServlet() {
@@ -34,7 +35,7 @@ public class reportsServlet extends HttpServlet {
 		this.projController = new ProjectController();
 		this.clientController = new ClientController();
 		this.supplyController = new SupplyController();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -43,7 +44,7 @@ public class reportsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		ArrayList<Client> clients = clientController.getAll();
 		request.setAttribute("clients", clients);
 		request.getRequestDispatcher("reports.jsp").forward(request, response);
@@ -58,25 +59,37 @@ public class reportsServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		if (request.getParameter("applyFilter") != null) {
-		
-			ArrayList<Project> projectsToReport = new ArrayList<Project>();
-			// Aplicar filtros
 
+			// Array para enviar a la pagina
+			ArrayList<Project> projectsToReport = new ArrayList<Project>();
+			// Traer projects filtrados
+			ArrayList<Project> projectsByFilter = new ArrayList<Project>();
+			// Nuevo array para hacer la diferencia
+			ArrayList<Project> projects = new ArrayList<Project>();
+			
+			String stateProject;
 			Client c = null;
 			int startDate = 0;
 			int endDate = 0;
-			if (Integer.parseInt(request.getParameter("client")) != 0) {
-				int idClient = Integer.parseInt(request.getParameter("client"));
+			
+			// Filtro por cliente
+			if (Integer.parseInt(request.getParameter("clientID")) != 0) {
+				int idClient = Integer.parseInt(request.getParameter("clientID"));
 				c = clientController.getClientById(idClient);
 			}
-			if (request.getParameter("startDateName") != "") {
+			
+			// Filtro por start date
+			if (!request.getParameter("startDateName").isEmpty()) {
 				startDate = Integer.parseInt(request.getParameter("startDateName"));
 			}
-			if (request.getParameter("endDateName") != "") {
+			
+			// Filtro por end date
+			if (!request.getParameter("endDateName").isEmpty()) {
 				endDate = Integer.parseInt(request.getParameter("endDateName"));
 			}
-			ArrayList<Project> projectsByFilter = projController.getProjectsByFilter(c, startDate, endDate);
-			ArrayList<Project> projects = new ArrayList<Project>();
+			
+			// Traer projects filtrados
+			projectsByFilter = projController.getProjectsByFilter(c, startDate, endDate);
 
 			// Verifico si encontro alguno con los filtros realizados
 			if (projectsByFilter != null) {
@@ -85,34 +98,36 @@ public class reportsServlet extends HttpServlet {
 					Project proj = projController.getProjectWithStages(p.getId());
 					ArrayList<Supply> supplies = supplyController.getSuppliesByProject(p.getId());
 					proj.setSupplies(supplies);
+					// Cargo cliente 
+					proj.setClient(p.getClient());
+					// LLenar ambos array para luego hacer la dif
+					projectsToReport.add(proj);
 					projects.add(proj);
 				}
-				String stateProject = request.getParameter("stateProject");
+				// Traer state
+				stateProject = request.getParameter("stateProject");
 				// Eliminar del array proyectos distintos al stateProject.
-				
-				//ACA HAY UN ERRORRRRRRRRRRRR. 
-				// SI STATEPROJECT ES IGUAL A "-" NO DEBERIA ENTRAR AL IF
-				// sUPONGO QUE ES ALGO DE IGUALAR STRING NO SE HACE ASI JEJE
-				if (stateProject != "-") {
+				if (!stateProject.equals("-")) {
 					for (Project proj : projects) {
-						if (stateProject == (proj.getState())) {
-					//		projects.remove(proj); > Esto me saltaba un error por manipular el propio arraylist del foreach
-							projectsToReport.add(proj);
+						if (!stateProject.equals(proj.getState())) {
+							// Eliminar si no tiene el estado de filtro 
+							projectsToReport.remove(proj);
 						}
 					}
-
 				}
 			}
-			// Verifico si quedo alguno en el ArrayList despues de eliminar aquellos
-			// que no coinciden con el filtro de Estado
-			if (projectsToReport != null) {
-				if (request.getParameter("chkboxCost") != null) {
+			// Calculo costo si se solicita y si hay elementos en el array
+			if (!projectsToReport.isEmpty()) {
+				if (request.getParameter("chBoxCost") != null) {
 					for (Project project : projects) {
 						project.calculateTotalCost(project.getSupplies());
 					}
 				}
 			}
 			
+			// Carga de datos y reenvio a la pagina de reportes
+			ArrayList<Client> clients = clientController.getAll();
+			request.setAttribute("clients", clients);
 			request.setAttribute("projects", projectsToReport);
 			request.getRequestDispatcher("reports.jsp").forward(request, response);
 		}

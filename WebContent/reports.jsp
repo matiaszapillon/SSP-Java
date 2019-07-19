@@ -36,8 +36,8 @@ pageEncoding="UTF-8"%>
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <%User u =(User)session.getAttribute("usuario") ; %>
-                    <%=u.getUsername() %>
+                    <% User u =(User)session.getAttribute("usuario"); %>
+                    <%= u.getUsername() %>
                     <i class="fas fa-user-circle fa-fw"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -73,27 +73,28 @@ pageEncoding="UTF-8"%>
                     <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link">
+            <li class="nav-item active">
+                <a class="nav-link" href="reportsServlet">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Reportes</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="projectManagmentServlet">
                     <i class="fas fa-project-diagram"></i>
                     <span>Gestion Proyectos</span>
                 </a>
             </li>
         </ul>
+
+        <% ArrayList<Project> projects =(ArrayList<Project>) request.getAttribute("projects"); %>
+        <% ArrayList<Client> clients = (ArrayList<Client>) request.getAttribute("clients"); %>
+
         <div id="content-wrapper">
             <div class="container-fluid">
-                <%ArrayList<Project> projects =(ArrayList<Project>)request.getAttribute("projects") ; %>
-                <%ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients"); %>
                 <div class="form-group">
-                    <h4 align="center">Filtros</h4>
+                    <h4 class="text-center">FILTROS</h4>
                 </div>
-
                 <!-- Formulario de filtros -->
                 <form class="mb-3" action="reportsServlet" method="POST">
                     <div class="form-row">
@@ -108,19 +109,19 @@ pageEncoding="UTF-8"%>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="">Cliente</label>
-                            <select class="form-control" name="client">
+                            <select class="form-control" name="clientID">
                                 <option value="0" selected>
                                     -
                                 </option>
                                 <% if(clients != null){
-                                            for(Client c : clients) {                                      
-                                    %>
-                                <option value="<%=c.getId()%>">
-                                    <%= c.getBusiness_name()%>
+                                      for(Client c : clients) {                                      
+                                %>
+                                <option value="<%= c.getId() %>">
+                                    <%= c.getBusiness_name() %>
                                 </option>
                                 <% 		
-                                        }}
-                                    %>
+                                  }}
+                                %>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
@@ -135,19 +136,20 @@ pageEncoding="UTF-8"%>
                     <div class="form-row">
                         <div class="form-inline">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck" name="chkboxCost">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" name="chBoxCost">
                                 <label class="form-check-label" for="gridCheck">
                                     Costo total
                                 </label>
                             </div>
                             <div class="col-md-2">
-                                <button type="submit" class="btn btn-outline-success" name="applyFilter"><i
-                                        class="fas fa-check"></i></button>
+                                <button type="submit" class="btn btn-outline-success" name="applyFilter">
+                                    <i class="fas fa-check"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
-            </form>
 
             <!-- TABLA -->
             <form action="projectManagmentServlet" method="post">
@@ -159,45 +161,51 @@ pageEncoding="UTF-8"%>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                                <thead class="bg-dark text-white">
                                     <tr>
                                         <th>Seleccionar</th>
                                         <th>Nombre</th>
                                         <th>Descripcion</th>
-                                        <th>Año de inicio</th>
-                                        <th>Año de finalizacion</th>
-                                        <th>Estado del proyecto</th>
+                                        <th>Año Inicio</th>
+                                        <th>Año Finalizacion</th>
+                                        <th>Estado</th>
                                         <th>Cliente</th>
-                                        <th>Costo total del proyecto</th>
+                                        <th>Costo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Hacer for -->
-                                    <% if(projects != null) { 
-												for(Project p: projects) { %>
+                                    <% if(!projects.isEmpty()) { 
+									   		for(Project p: projects) { %>
                                     <tr>
                                         <td>
-                                            <input type="radio" name="radioSelectedStage" value=<%= p.getId() %>>
+                                            <input type="radio" name="radioSelectedStage" value="<%= p.getId() %>">
                                         </td>
                                         <td><%= p.getName() %></td>
                                         <td><%= p.getDescription() %></td>
-                                        <td><%= p.getStartDate()%></td>
-                                        <td><%= p.getEndDate()%></td>
-                                        <td><%= p.getState()%></td>
-                                        <td><%= p.getClient().getBusiness_name()%></td>
+                                        <td><%= p.getStartDate() %></td>
+                                        <td>
+	                                        <% if(p.getEndDate() == null){ %>
+	                                        No Finalizado
+	                                        <% } else { %>
+	                                        <%= p.getEndDate() %>
+	                                        <% } %>
+                                        </td>
+                                        <td><%= p.getState() %></td>
+                                        <td><%= p.getClient().getBusiness_name() %></td>
                                         <td>
                                             <% if(p.getTotalCost() != 0) { %>
-                                            <%=p.getTotalCost()%>
+                                            <%= p.getTotalCost() %>
                                             <% } else { %>
-                                            "Sin calcular"
+                                            Sin calcular
                                             <% } %>
                                         </td>
                                     </tr>
                                     <!-- Cerrar for -->
                                     <% 
-												}	
-											}
-											%>
+											}	
+										}
+									%>
                                 </tbody>
                             </table>
                         </div>

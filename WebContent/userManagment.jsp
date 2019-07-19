@@ -73,10 +73,10 @@ pageEncoding="UTF-8"%>
         </div>
       </li>
       <li class="nav-item">
-          <a class="nav-link">
-              <i class="fas fa-fw fa-chart-area"></i>
-              <span>Reportes</span>
-          </a>
+        <a class="nav-link" href="reportsServlet">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Reportes</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="projectManagmentServlet">

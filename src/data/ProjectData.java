@@ -153,10 +153,12 @@ public class ProjectData {
 		ResultSet rs = null;
 		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project,p.start_date,p.end_date, s.id_stage, s.name as 'etapa', s.description,\n"
 				+ "ps.state as 'estado', e.id_employee, e.name, e.surname, p.name as 'name_project',\n"
-				+ "p.description as 'description_project' FROM stage s\n"
+				+ "p.description as 'description_project'\n"
+				+ "FROM stage s\n"
 				+ "INNER JOIN project_stage ps ON ps.id_stage = s.id_stage\n"
 				+ "INNER JOIN project p ON p.id_project = ps.id_project\n"
-				+ "LEFT JOIN employee e ON ps.id_employee = e.id_employee WHERE p.id_project = ?";
+				+ "LEFT JOIN employee e ON ps.id_employee = e.id_employee\n"
+				+ "WHERE p.id_project = ?";
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
@@ -336,8 +338,10 @@ public class ProjectData {
 		ArrayList<Project> projects = new ArrayList<Project>();
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		String SQLQuery = "select * \n" + "from project p inner join client c\n" + "on p.id_client = c.id_client\n"
-				+ "where c.id_client = ?";
+		String SQLQuery = "SELECT * \n" + 
+				"FROM project p \n" + 
+				"INNER JOIN client c ON p.id_client = c.id_client \n" +
+				"WHERE c.id_client = ?";
 
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SQLQuery);
 		prepStmt.setInt(1, id);
@@ -544,7 +548,7 @@ public class ProjectData {
 			SqlQuery = SqlQuery + " INNER JOIN client c ON c.id_client = p.id_client WHERE c.id_client = ?";
 			if (startDate != 0) {
 				if (endDate != 0) {
-					SqlQuery = SqlQuery + " AND year(p.start_date) = ? AND year(p.end_date.) = ?";
+					SqlQuery = SqlQuery + " AND year(p.start_date) = ? AND year(p.end_date) = ?";
 					prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 					prepStmt.setInt(1, c.getId());
 					prepStmt.setInt(2, startDate);

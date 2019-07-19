@@ -139,9 +139,9 @@ pageEncoding="UTF-8"%>
 					</div>
 					<!-- Fila de Logos -->
 					<div class="row m-3">
-						<img src="images/java-logo.jpg" class="img-thumbnail rounded mx-auto" alt="Logo Java">
-						<img src="images/utn-logo.png" class="img-thumbnail rounded mx-auto" alt="Logo UTN">
-						<img src="images/bootstrap-logo.png" class="img-thumbnail rounded mx-auto" alt="Logo Bootstrap">
+						<img src="images/java-logo.jpg" class="rounded mx-auto" alt="Logo Java">
+						<img src="images/utn-logo.png" class="rounded mx-auto" alt="Logo UTN">
+						<img src="images/bootstrap-logo.png" class="rounded mx-auto" alt="Logo Bootstrap">
 					</div>
 				</div>
 			</div>
