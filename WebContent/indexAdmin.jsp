@@ -12,19 +12,15 @@ pageEncoding="UTF-8"%>
 		<link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
 		<title>Bienvenido </title>
 		<!-- Bootstrap core CSS-->
-			<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
-	
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
 		<!-- Custom fonts for this template-->
 		<link href="bootstrap/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-		
-		
-		
-		
 		<!-- Page level plugin CSS-->
 		<link href="bootstrap/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 		<!-- Custom styles for this template-->
 		<link href="css/sb-admin.css" rel="stylesheet">
 	</head>
+	
 	<body id="page-top">
 		
 		<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -36,8 +32,7 @@ pageEncoding="UTF-8"%>
 			
 			<ul class="navbar-nav ml-auto ml-md-0">
 				<li class="nav-item dropdown no-arrow">
-					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						
+					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">						
 						<%=((User)session.getAttribute("usuario")).getUsername() %>
 						<i class="fas fa-user-circle fa-fw"></i>
 					</a>
@@ -109,7 +104,7 @@ pageEncoding="UTF-8"%>
 								<div class="card col-6 mb-3 bg-dark text-white w-50">
 									<div class="row no-gutters">
 										<div class="col-md-4">
-											<img src="images/nico-photo.jpg" class="card-img" alt="Gomez Nicolas">
+											<img src="" class="card-img" alt="Gomez Nicolas">
 										</div>
 										<div class="col-md-8">
 											<div class="card-body">
@@ -123,7 +118,7 @@ pageEncoding="UTF-8"%>
 								<div class="card col-6 mb-3 bg-dark text-white w-50">
 									<div class="row no-gutters">
 										<div class="col-md-4">
-											<img src="images/mati-photo.jpg" class="card-img" alt="Matias Zapillon">
+											<img src="" class="card-img" alt="Matias Zapillon">
 										</div>
 										<div class="col-md-8">
 											<div class="card-body">

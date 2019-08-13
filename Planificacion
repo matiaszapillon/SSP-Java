@@ -1,31 +1,31 @@
 Planificacion para entrega Final del TP
 
 Requisitos:
-    MISSGIN:
-        Realizar reportes (consultar a Meca)
-        Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
-        Agregar cards distintivas del proyecto
-        Realizar mejoras visuales
+    MISSGIN:        
+		Subir trabajo a servidor (jLastic u otro gratuito)
 
     DOING:
-        Eliminar cards de pagina de inicio
+        Realizar reportes (consultar a Meca)
       	Modificar exceptions basicos (try-catch basicos) y poner customized exceptions
       	
     DONE:
     	Mail automatizado 
         Arreglar la parte de actividad (no reconoce la etapa a la que pertenece la actividad cuando se la quiere editar)    
-        
-Tiempo estimado de entrega: MAY/JUL
+        Realizar mejoras visuales
+		Eliminar cards de pagina de inicio
+		Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
+
+Tiempo estimado de entrega: 06/09
 
 
 Consultas:
-	Preguntar si el FactoryConexion.getInstancia().releaseConn(); no deberia ir siempre en una clausula finally.
+	Preguntar si el FactoryConexion.getInstancia().releaseConn(); no deberia ir siempre en una clausula finally. 
+	NO PORQUE PUEDE PASAR QUE NUNCA SE OBTENGA LA CONEXION, EN ESE CASO VA A TIRAR ERROR EL RELEASE EN EL FINALLY
 	
 	Cuando se usa la sentencia "throw e;" ?
-	
-	Realizar reportes (consultar a Meca)
-	
-	Las excepciones son para el usuario o para el usuario o para el programador?	
+
+	Las excepciones son para el usuario, para el programador o ambos? 
+	QUE LE LLEGUE AL USUARIO
 	
 	Cuando utilizar la clase de excepcion customizada?
 	
@@ -38,8 +38,9 @@ Consultas:
 			}
 		} catch (SQLException e) {
 			AppDataException customizedException = new AppDataException(e, "Error al cerrar la conexion a DB. \nSe lanzara un error");
-			System.out.println("Customized: " + customizedException.getMessage());
+			System.out.println("Customized: " + customizedException.getMessage()); //no es necesario, usar throw e
 			throw e;
 		}
 	}
+	
 	

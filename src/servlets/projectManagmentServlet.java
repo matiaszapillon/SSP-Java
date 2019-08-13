@@ -27,8 +27,8 @@ public class projectManagmentServlet extends HttpServlet {
 	 */
 	public projectManagmentServlet() {
 		super();
-		projController = new ProjectController();
-		// TODO Auto-generated constructor stub
+		this.projController = new ProjectController();
+		
 	}
 
 	/**
@@ -37,7 +37,6 @@ public class projectManagmentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		this.redirectToProjectManagment(request, response);
 	}
@@ -48,7 +47,7 @@ public class projectManagmentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+				
 		SupplyController sController = new SupplyController();
 		ProviderController provController = new ProviderController();
 
@@ -249,8 +248,7 @@ public class projectManagmentServlet extends HttpServlet {
 				Project projectWithStages = projController.getProjectWithStages(p.getId());
 				request.setAttribute("projectStages", projectWithStages);
 				request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
-			}
-			
+			}			
 		}
 		/* FIN addStageToProject */
 		
@@ -331,7 +329,7 @@ public class projectManagmentServlet extends HttpServlet {
 			// Buscar todos los clientes para seleccionar luego
 			ClientController cController = new ClientController();
 			ArrayList<Client> clients = cController.getAll();
-			// Mandar como par�metros
+			// Mandar como parametros
 			request.setAttribute("clientes", clients);
 			// Redireccionar
 			request.getRequestDispatcher("projectRegistration.jsp").forward(request, response);
@@ -393,18 +391,13 @@ public class projectManagmentServlet extends HttpServlet {
 				//Trae los proyecto de el cliente especifico
 				ArrayList<Project> projects = projController.getProjectsByClient(u.getClient().getId());
 				request.setAttribute("projects", projects);
-				request.getRequestDispatcher("projectManagmentClient.jsp").forward(request, response);
-			
-				
+				request.getRequestDispatcher("projectManagmentClient.jsp").forward(request, response);				
 			}else {
 				ArrayList<Project> projects = projController.getAll();
 				request.setAttribute("projects", projects);
 				request.getRequestDispatcher("projectManagment.jsp").forward(request, response);
 				// Trae todos los proyectos (Es un empleado)
 			}
-		}
-		
-
+		}	
 	}
-
 }

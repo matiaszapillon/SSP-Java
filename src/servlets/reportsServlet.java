@@ -23,6 +23,7 @@ import controllers.SupplyController;
 @WebServlet("/reportsServlet")
 public class reportsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	ProjectController projController;
 	ClientController clientController;
 	SupplyController supplyController;

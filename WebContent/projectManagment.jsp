@@ -49,9 +49,9 @@ pageEncoding="UTF-8"%>
       </li>
     </ul>
   </nav>
+  
   <div id="wrapper">
     <!-- Sidebar -->
-
     <ul class="sidebar navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="indexAdmin.jsp">

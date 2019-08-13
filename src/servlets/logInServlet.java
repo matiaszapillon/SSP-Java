@@ -70,9 +70,6 @@ public class logInServlet extends HttpServlet {
 				HttpSession session = request.getSession(true); 
 				session.setAttribute("usuario", u);
 				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
-	
-				
-				//response.sendRedirect("index.jsp"); > NO USAR.
 			}
 		} else {
 			// Mensaje a consola

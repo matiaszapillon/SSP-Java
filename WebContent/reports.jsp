@@ -30,8 +30,8 @@ pageEncoding="UTF-8"%>
         <!-- Navbar Search -->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         </form>
-        <!-- Navbar -->
 
+        <!-- Navbar -->
         <ul class="navbar-nav ml-auto ml-md-0">
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -48,9 +48,9 @@ pageEncoding="UTF-8"%>
             </li>
         </ul>
     </nav>
+
     <div id="wrapper">
         <!-- Sidebar -->
-
         <ul class="sidebar navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="indexAdmin.jsp">
@@ -87,9 +87,10 @@ pageEncoding="UTF-8"%>
             </li>
         </ul>
 
-        <% ArrayList<Project> projects =(ArrayList<Project>) request.getAttribute("projects"); %>
-        <% ArrayList<Client> clients = (ArrayList<Client>) request.getAttribute("clients"); %>
-
+        <% ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects"); %>
+        <% ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients"); %>
+        
+        <!-- Content wrapper -->
         <div id="content-wrapper">
             <div class="container-fluid">
                 <div class="form-group">
@@ -185,11 +186,11 @@ pageEncoding="UTF-8"%>
                                         <td><%= p.getDescription() %></td>
                                         <td><%= p.getStartDate() %></td>
                                         <td>
-	                                        <% if(p.getEndDate() == null){ %>
-	                                        No Finalizado
-	                                        <% } else { %>
-	                                        <%= p.getEndDate() %>
-	                                        <% } %>
+                                            <% if(p.getEndDate() == null){ %>
+                                            No Finalizado
+                                            <% } else { %>
+                                            <%= p.getEndDate() %>
+                                            <% } %>
                                         </td>
                                         <td><%= p.getState() %></td>
                                         <td><%= p.getClient().getBusiness_name() %></td>
@@ -222,25 +223,25 @@ pageEncoding="UTF-8"%>
                     </div>
                 </div>
             </form>
-        </div>
-        <!-- Sticky Footer -->
 
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2018</span>
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2018</span>
+                    </div>
                 </div>
-            </div>
-        </footer>
-    </div>
-    </div>
-    <!-- /.content-wrapper -->
+            </footer>
+        </div>
+        <!-- /.content-wrapper -->
     </div>
     <!-- /#wrapper -->
+    
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
