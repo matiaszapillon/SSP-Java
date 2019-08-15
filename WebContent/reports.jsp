@@ -49,6 +49,9 @@ pageEncoding="UTF-8"%>
         </ul>
     </nav>
 
+    <% ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects"); %>
+    <% ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients"); %>
+
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="sidebar navbar-nav">
@@ -87,9 +90,6 @@ pageEncoding="UTF-8"%>
             </li>
         </ul>
 
-        <% ArrayList<Project> projects = (ArrayList<Project>)request.getAttribute("projects"); %>
-        <% ArrayList<Client> clients = (ArrayList<Client>)request.getAttribute("clients"); %>
-        
         <!-- Content wrapper -->
         <div id="content-wrapper">
             <div class="container-fluid">
@@ -176,15 +176,34 @@ pageEncoding="UTF-8"%>
                                 </thead>
                                 <tbody>
                                     <!-- Hacer for -->
-                                    <% if(!projects.isEmpty()) { 
-									   		for(Project p: projects) { %>
+                                    <% if(projects != null) 
+                                    	for(Project p: projects) { 
+                                    %>
                                     <tr>
                                         <td>
                                             <input type="radio" name="radioSelectedStage" value="<%= p.getId() %>">
                                         </td>
-                                        <td><%= p.getName() %></td>
-                                        <td><%= p.getDescription() %></td>
-                                        <td><%= p.getStartDate() %></td>
+                                        <td>
+                                            <% if(p.getName() == null){ %>
+                                            -
+                                            <% } else { %>
+                                            <%= p.getName() %>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if(p.getDescription() == null){ %>
+                                            -
+                                            <% } else { %>
+                                            <%= p.getDescription() %>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if(p.getStartDate() == null){ %>
+                                            No Iniciado
+                                            <% } else { %>
+                                            <%= p.getStartDate() %>
+                                            <% } %>
+                                        </td>
                                         <td>
                                             <% if(p.getEndDate() == null){ %>
                                             No Finalizado
@@ -192,8 +211,19 @@ pageEncoding="UTF-8"%>
                                             <%= p.getEndDate() %>
                                             <% } %>
                                         </td>
-                                        <td><%= p.getState() %></td>
-                                        <td><%= p.getClient().getBusiness_name() %></td>
+                                        <td>
+                                            <% if(p.getState() == null){ %>
+                                            <% } else { %>
+                                            <%= p.getState() %>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if(p.getClient().getBusiness_name() == null){ %>
+                                            -
+                                            <% } else { %>
+                                            <%= p.getClient().getBusiness_name() %>
+                                            <% } %>
+                                        </td>
                                         <td>
                                             <% if(p.getTotalCost() != 0) { %>
                                             <%= p.getTotalCost() %>
@@ -204,8 +234,7 @@ pageEncoding="UTF-8"%>
                                     </tr>
                                     <!-- Cerrar for -->
                                     <% 
-											}	
-										}
+										}											
 									%>
                                 </tbody>
                             </table>
@@ -236,7 +265,7 @@ pageEncoding="UTF-8"%>
         <!-- /.content-wrapper -->
     </div>
     <!-- /#wrapper -->
-    
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>

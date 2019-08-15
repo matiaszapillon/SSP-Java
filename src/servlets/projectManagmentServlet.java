@@ -47,7 +47,7 @@ public class projectManagmentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				
+
 		SupplyController sController = new SupplyController();
 		ProviderController provController = new ProviderController();
 
