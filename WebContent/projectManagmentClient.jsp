@@ -180,7 +180,7 @@ pageEncoding="UTF-8"%>
                 <div class="modal-body">Selecciona "Logout" si desea salir y finalizar la session</div>
                 <div class="modal-footer">
                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                  <a class="btn btn-primary" href="logIn.html">Logout</a>
+                  <a class="btn btn-primary" href="logIn.jsp">Logout</a>
                 </div>
               </div>
             </div>

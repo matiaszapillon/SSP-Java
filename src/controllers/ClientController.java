@@ -32,8 +32,13 @@ public class ClientController {
 	}
 
 	public Client getClientByIdUser(int id) {
-
-		return this.getClientData().getClientByIdUser(id);
+		try {
+			return this.getClientData().getClientByIdUser(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public ArrayList<Client> getClientsWithoutUser() {

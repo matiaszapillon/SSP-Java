@@ -76,7 +76,7 @@ pageEncoding="UTF-8"%>
                     <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
                 </div>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="reportsServlet">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Reportes</span>

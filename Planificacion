@@ -5,7 +5,7 @@ Requisitos:
 		Subir trabajo a servidor (jLastic u otro gratuito)
 
     DOING:
-        Realizar reportes (consultar a Meca)
+        Realizar reportes 
       	Modificar exceptions basicos (try-catch basicos) y poner customized exceptions
       	
     DONE:
@@ -15,7 +15,7 @@ Requisitos:
 		Eliminar cards de pagina de inicio
 		Realizar filtros "intensivos" (consultas a DB de mayor complejidad)
 
-Tiempo estimado de entrega: 06/09
+Tiempo estimado de entrega: Mesa 06/09
 
 
 Consultas:

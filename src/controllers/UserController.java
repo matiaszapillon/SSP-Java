@@ -23,13 +23,13 @@ public class UserController {
 	}
 
 	public User isUserValid(String name, String pw) {
-		
-			try {
-				return getUserData().isUserValid(name, pw);
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			return null;	
+		try {
+			return getUserData().isUserValid(name, pw);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public ArrayList<User> getAll() {
@@ -54,35 +54,32 @@ public class UserController {
 
 	public void deleteUserFromClient(int idUser) {
 		try {
-			this.getUserData().deleteUserFromClient(idUser) ;
+			this.getUserData().deleteUserFromClient(idUser);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
+
 	public void deleteUserFromEmployee(int idUser) {
 		try {
-			this.getUserData().deleteUserFromEmployee(idUser) ;
+			this.getUserData().deleteUserFromEmployee(idUser);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	public void create(User user) {
-	try {
-		this.getUserData().create(user);
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+		try {
+			this.getUserData().create(user);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	}
- 
 	public void update(User u) {
-		// TODO Auto-generated method stub
 		try {
 			this.getUserData().update(u);
 		} catch (SQLException e) {
@@ -90,17 +87,5 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
-
-/*	public User getUserByCredentials(String username, String password) {
-		
-		User u = new User();
-		try {
-			u = this.getUserData().getUserByCredentials(username,password);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return u;
-	} */
 
 }

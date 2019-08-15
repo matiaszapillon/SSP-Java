@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
-import controllers.*;
+import controllers.ClientController;
+import controllers.EmployeeController;
+import controllers.UserController;
 import entities.Client;
 import entities.Employee;
 import entities.User;
-import util.customizedEceptions.AppDataException;
 
 /**
  * Servlet implementation class logInServlet
@@ -74,7 +74,10 @@ public class logInServlet extends HttpServlet {
 		} else {
 			// Mensaje a consola
 			System.out.println("Usuario y/o contraseña incorrecto");
-			request.getRequestDispatcher("logIn.html").forward(request, response);			
+			// Mensaje al usuario
+			String msjError = "Usuario y/o contraseña incorrecto";
+			request.setAttribute("msjError", msjError);
+			request.getRequestDispatcher("logIn.jsp").forward(request, response);			
 		}
 	}
 

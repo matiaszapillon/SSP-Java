@@ -45,6 +45,7 @@ public class UserData {
 		return u;
 
 	}
+	
 
 	public ArrayList<User> getAll() throws SQLException {
 		ArrayList<User> users = new ArrayList<User>();
@@ -83,6 +84,7 @@ public class UserData {
 		}
 		return users;
 	}
+	
 
 	public User getUserById(int id) throws SQLException {
 		User u = null;
@@ -119,8 +121,8 @@ public class UserData {
 			System.out.println(mensaje_customizado);
 		}
 		return u;
-
 	}
+	
 
 	public void deleteUserFromClient(int idUser) throws SQLException {
 		PreparedStatement updateClient = null;
@@ -162,10 +164,9 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		}
 	}
+	
 
-	public void deleteUserFromEmployee(int idUser) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void deleteUserFromEmployee(int idUser) throws SQLException {		
 		// Eliminar Usuario de tabla cliente o empleado y elimminar Usuario
 		PreparedStatement updateEmployee = null;
 		PreparedStatement deleteUser = null;
@@ -204,6 +205,7 @@ public class UserData {
 			FactoryConexion.getInstancia().releaseConn();
 		}
 	}
+	
 
 	public void create(User u) throws SQLException {
 		PreparedStatement stmt = null;
@@ -240,7 +242,6 @@ public class UserData {
 	}
 
 	public void update(User u) throws SQLException {
-		// TODO Auto-generated method stub
 		PreparedStatement stmt = null;
 		String SqlQuery = "UPDATE user SET username = ?, email = ?, password = ?, type = ? WHERE id_user = ?";
 		
