@@ -148,7 +148,7 @@ public class ProjectData {
 
 	public Project getProjectWithStages(int idProject) throws SQLException {
 
-		Project proj = new Project();
+		Project proj = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		String SqlQuery = "SELECT ps.id_project_stage ,p.id_project,p.start_date,p.end_date, s.id_stage, s.name as 'etapa', s.description,\n"
@@ -167,6 +167,7 @@ public class ProjectData {
 		rs = prepStmt.executeQuery();
 
 		if (rs != null && rs.next()) {
+			proj = new Project();
 			proj.setId(rs.getInt("p.id_project"));
 			proj.setName(rs.getString("p.name_project"));
 			proj.setDescription(rs.getString("p.description_project"));

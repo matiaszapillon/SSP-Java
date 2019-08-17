@@ -24,64 +24,17 @@ pageEncoding="UTF-8"%>
 <body id="page-top">
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-        <a class="navbar-brand mr-1" href="indexAdmin.jsp">Menu Administrador</a>
+        <a class="navbar-brand mr-1" href="logIn.jsp">SSP</a>
         <!-- Navbar Search -->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         </form>
 
-        <!-- Navbar -->
-        <ul class="navbar-nav ml-auto ml-md-0">
-            <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-user-circle fa-fw"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="logIn.html" data-toggle="modal" data-target="#logoutModal">Logout</a>
-                </div>
-            </li>
-        </ul>
+
     </nav>
 
     <div id="wrapper">
         <!-- Sidebar -->
-        <ul class="sidebar navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="indexAdmin.jsp">
-                    SSP
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-archive"></i>
-                    <span>ABM</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                    <a class="dropdown-item" href="providersManagmentServlet">Proveedores</a>
-                    <a class="dropdown-item">Insumos</a>
-                    <a class="dropdown-item">Etapas</a>
-                    <a class="dropdown-item" href="activityManagmentServlet">Actividades</a>
-                    <a class="dropdown-item">Empleados</a>
-                    <a class="dropdown-item" href="clientsManagmentServlet">Clientes</a>
-                    <a class="dropdown-item" href="userManagmentServlet">Usuarios</a>
-                </div>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="reportsServlet">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Reportes</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="projectManagmentServlet">
-                    <i class="fas fa-project-diagram"></i>
-                    <span>Gestion Proyectos</span>
-                </a>
-            </li>
-        </ul>
+
 
         <%
         Integer statusCode = (Integer) request.getAttribute("statusCode");

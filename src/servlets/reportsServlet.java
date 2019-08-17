@@ -94,16 +94,25 @@ public class reportsServlet extends HttpServlet {
 
 			// Verifico si encontro alguno con los filtros realizados
 			if (projectsByFilter != null) {
-
+				
 				for (Project p : projectsByFilter) {
+					if(p.getClient() == null) {
+						//Cargo cliente
+						p.setClient(projController.getClientByIdProject(p.getId()));
+					} 
 					Project proj = projController.getProjectWithStages(p.getId());
-					ArrayList<Supply> supplies = supplyController.getSuppliesByProject(p.getId());
-					proj.setSupplies(supplies);
-					// Cargo cliente 
-					proj.setClient(p.getClient());
-					// LLenar ambos array para luego hacer la dif
-					projectsToReport.add(proj);
-					projects.add(proj);
+					if(proj != null) {
+						ArrayList<Supply> supplies = supplyController.getSuppliesByProject(p.getId());
+						proj.setSupplies(supplies);
+						proj.setClient(p.getClient());
+						// LLenar ambos array para luego hacer la dif
+						projectsToReport.add(proj);
+						projects.add(proj);
+					}else {
+						projectsToReport.add(p);
+						projects.add(p);
+					}
+
 				}
 				// Traer state
 				stateProject = request.getParameter("stateProject");
@@ -120,7 +129,7 @@ public class reportsServlet extends HttpServlet {
 			// Calculo costo si se solicita y si hay elementos en el array
 			if (!projectsToReport.isEmpty()) {
 				if (request.getParameter("chBoxCost") != null) {
-					for (Project project : projects) {
+					for (Project project : projectsToReport) {
 						project.calculateTotalCost(project.getSupplies());
 					}
 				}
