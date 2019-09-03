@@ -5,11 +5,18 @@ import util.customizedEceptions.*;
 
 public class FactoryConexion {
 	private String driver="com.mysql.cj.jdbc.Driver";
-	private String host="localhost";
+	// local
+	/*private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String password="";
+	private String password="root";
 	private String db="ssp_db";
+	*/
+	// server (jelastic)
+	private String host = "node36804-gomez-zapillon-java-host.jelastic.saveincloud.net";
+	private String user = "root";
+	private String password = "DELzts94954";
+	private String db = "ssp_db";
 	
 	private static FactoryConexion instancia;
 		
@@ -37,10 +44,16 @@ public class FactoryConexion {
 	
 	public Connection getConn() throws SQLException {
 		try{
-			if(conn==null || conn.isClosed()){	
+			// local
+			/*if(conn==null || conn.isClosed()){	
 				conn = DriverManager.getConnection(
 			        "jdbc:mysql://"+host+":"+port+"/"+db+"?user="+user+"&password="+password+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 				     //jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+			}*/
+			// server 
+			if(conn==null || conn.isClosed()){	
+				conn = DriverManager.getConnection(
+			        "jdbc:mysql://"+host+"/"+db+"?user="+user+"&password="+password+"&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
 			}
 		} catch(SQLException e) {			
 			AppDataException customizedException = new AppDataException(e, "Error al conectarse a la DB");
