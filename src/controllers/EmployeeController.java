@@ -33,7 +33,13 @@ public class EmployeeController {
 	}
 	
 	public Employee getEmployeeByIdUser(int id) {
-		return getEmployeeData().getEmployeeByIdUser(id);
+		try {
+			return getEmployeeData().getEmployeeByIdUser(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public ArrayList<Employee> getEmployeesWithoutUser() {

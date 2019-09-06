@@ -109,6 +109,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
+		
 		if(request.getParameter("updateButton") != null) {
 			String idSup = request.getParameter("radioSelectedSupply");
 			int idSupply = Integer.parseInt(idSup);
@@ -122,6 +123,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.setAttribute("projectWithSupplies", projectWithSupplies);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
+		
 		if(request.getParameter("deleteSupplyName") != null) {
 			int idSupply = Integer.parseInt((request.getParameter("radioSelectedSupply")));
 			String idP = request.getParameter("idProjectName");
@@ -134,6 +136,7 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 			
 		}
+		
 		// Metodo que calcula el costo del proyecto
 		if (request.getParameter("calculateCostName") != null) {
 			String idP = request.getParameter("idProjectName");
@@ -152,7 +155,6 @@ public class projectManagmentServlet extends HttpServlet {
 			 * AGREGAR Y LUEGO ELEGIR EL PROVEEDOR (SOLO SE PODRA SELECCIONAR LOS
 			 * PROVEEDORES QUE ESTAN APROBADOS)
 			 */
-
 			String idP = request.getParameter("idProjectName");
 			int idProject = Integer.parseInt(idP);
 			Project projectWithSupplies = projController.getProjectById(idProject);
@@ -165,10 +167,13 @@ public class projectManagmentServlet extends HttpServlet {
 			request.getRequestDispatcher("addSupplyToProject.jsp").forward(request, response);
 
 		}
+		
 		// Manejo para ver etapas del proyecto
 		if (request.getParameter("stagesButton") != null) {
 			int idProject = Integer.parseInt(request.getParameter("idProjectName"));
-			Project p = projController.getProjectWithStages(idProject);
+			Project p = projController.getProjectById(idProject);
+			ArrayList<Stage> projectStages = projController.getProjectStages(idProject);
+			p.setStages(projectStages);
 			request.setAttribute("projectStages", p);
 			request.getRequestDispatcher("projectDetails.jsp").forward(request, response);
 		}
@@ -254,7 +259,7 @@ public class projectManagmentServlet extends HttpServlet {
 		
 		
 		/* INFO de updateProjectStage */
-		
+		// Desplegar lista de empleados
 		if(request.getParameter("btnCollapseAttendant") != null) {
 			// Traer todos los empleados para poder seleccionarlos despues
 			EmployeeController eController = new EmployeeController();
@@ -264,7 +269,7 @@ public class projectManagmentServlet extends HttpServlet {
 			// Redireccionar
 			request.getRequestDispatcher("updateProjectStage.jsp").forward(request, response);
 		}
-		
+		// Agregar encargado
 		if(request.getParameter("addSelectedEmployee") != null) {
 			int idEmp = Integer.parseInt(request.getParameter("radioEmployee"));
 			// Traer encargado

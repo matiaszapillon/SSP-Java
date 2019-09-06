@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" type="image/png" sizes="48x48" href="images/logo-utn.png">
-	<title>Bienvenido </title>
+	<title>Bienvenido</title>
 	<!-- Bootstrap core CSS-->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Custom fonts for this template-->
@@ -93,7 +93,7 @@ pageEncoding="UTF-8"%>
 			<div class="container-fluid">
 				<div class="container">
 					<% Project projectWithSupplies = (Project)request.getAttribute("projectWithSupplies"); %>
-					<% Project projectWithStages = (Project)request.getAttribute("projectStages"); %>
+					<% Project projectStages = (Project)request.getAttribute("projectStages"); %>
 					<form method="post" action="projectManagmentServlet" onsubmit="return validateForm()">
 						<input type="hidden" name="clickedButton" id="idClickedButton" />
 						<div class="row">
@@ -124,7 +124,6 @@ pageEncoding="UTF-8"%>
 							</div>
 						</div>
 
-
 						<div class="row">
 							<div class="col-auto">
 								<button type="submit" name="suppliesName" id="suppliesId"
@@ -133,13 +132,13 @@ pageEncoding="UTF-8"%>
 							</div>
 							<div class="col-auto">
 								<button type="submit" name="stagesButton" id="stagesButtonId"
-									class="btn btn-primary form-group" onclick="setHiddenValue(this.id)">Etapas</button>
+									class="btn btn-primary form-group" 
+									onclick="setHiddenValue(this.id)">Etapas</button>
 							</div>
 						</div>
 
-
-						<!--  DIV para Stages -->
-						<div <% if(projectWithStages == null) { %> style="display:none" <% } %>>
+						<!--  DIV para Etapas -->
+						<div <% if(projectStages == null) { %> style="display:none" <% } %>>
 							<div class="card mb-3">
 								<!-- Header -->
 								<div class="card-header">
@@ -164,8 +163,10 @@ pageEncoding="UTF-8"%>
 											</thead>
 											<tbody>
 												<!-- Hacer for -->
-												<% if(projectWithStages != null) { 
-												for(Stage stageAct: projectWithStages.getStages()) { %>
+												<% if(projectStages != null) {
+													ArrayList<Stage> stages = projectStages.getStages();
+													if(!stages.isEmpty()){
+														for(Stage stageAct: projectStages.getStages()) { %>
 												<tr>
 													<td>
 														<input type="radio" name="radioSelectedStage"
@@ -183,9 +184,10 @@ pageEncoding="UTF-8"%>
 												</tr>
 												<!-- Cerrar for -->
 												<% 
+														}
+													}		
 												}
-											}
-											%>
+												%>
 											</tbody>
 										</table>
 									</div>
@@ -239,7 +241,7 @@ pageEncoding="UTF-8"%>
 												</tr>
 											</thead>
 											<tbody>
-												<%
+											<%
 											if(projectWithSupplies != null) {
 												ArrayList<Supply> supplies = projectWithSupplies.getSupplies();
 												for(Supply s : supplies) {
@@ -271,19 +273,19 @@ pageEncoding="UTF-8"%>
 														</div>
 													</td>
 													<td>
-														<%=s.getUnity()   %>
+														<%= s.getUnity()   %>
 													</td>
 													<td>
 														<%= s.getStock() %>
 													</td>
-													<%if(s.getProvider().getBusiness_name() != null){ %>
+													<% if(s.getProvider().getBusiness_name() != null){ %>
 													<td>
 														<%= s.getProvider().getBusiness_name() %></td>
-													<%} else { %>
+													<% } else { %>
 													<td>
 														<%= s.getProvider().getName() + " " + s.getProvider().getSurname() %>
 													</td>
-													<%} %>
+													<% } %>
 													<td>
 														<%= s.getProvider().getCategory() %>
 													</td>

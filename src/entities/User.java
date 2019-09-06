@@ -7,6 +7,10 @@ import java.io.Serializable;
  *
  */
 	public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public final static int EMPLOYEE = 1;
 	public final static int CLIENT = 2;
 	public final static int ADMINISTRATOR = 3;
@@ -20,8 +24,6 @@ import java.io.Serializable;
 	private Client client = null;
 	private Project currentProject = new Project();
 	private Stage currentStage = new Stage();
-	
-	
 	
 	
 	public User() {}

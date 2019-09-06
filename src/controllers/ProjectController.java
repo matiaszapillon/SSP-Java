@@ -63,6 +63,16 @@ public class ProjectController {
 		return null;
 	}
 	
+	public ArrayList<Stage> getProjectStages(int idProject) {
+		try {
+			return projectData.getProjecStages(idProject);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public ArrayList<Stage> getStagesOutOfProject(int idProject){
 		try {
 			return projectData.getStagesOutOfProject(idProject);

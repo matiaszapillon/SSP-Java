@@ -16,16 +16,16 @@ import entities.Stage;
 public class ProjectData {
 
 	public Project getProjectById(int idProject) throws SQLException {
-		// TODO Auto-generated method stub
 		Project p = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+		String sqlQuery = 
 				"SELECT p.id_project, p.description, p.name as 'name_project' , c.*, s.description as 'description_stage', \r\n"
-						+ "	s.id_stage, s.name as 'name_stage', ps.state\r\n" + "FROM project p \r\n"
-						+ "LEFT JOIN client c ON p.id_client = c.id_client \r\n"
-						+ "LEFT JOIN project_stage ps ON p.id_project = ps.id_project \r\n"
-						+ "LEFT JOIN stage s ON ps.id_stage = s.id_stage  \r\n" + "WHERE p.id_project = ?");
+				+ "	s.id_stage, s.name as 'name_stage', ps.state\r\n" + "FROM project p \r\n"
+				+ "LEFT JOIN client c ON p.id_client = c.id_client \r\n"
+				+ "LEFT JOIN project_stage ps ON p.id_project = ps.id_project \r\n"
+				+ "LEFT JOIN stage s ON ps.id_stage = s.id_stage  \r\n" + "WHERE p.id_project = ?";
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(sqlQuery);
 		stmt.setInt(1, idProject);
 		rs = stmt.executeQuery();
 		if (rs != null && rs.next()) {
@@ -33,7 +33,6 @@ public class ProjectData {
 			p.setDescription(rs.getString("description"));
 			p.setId(rs.getInt("id_project"));
 			p.setName(rs.getString("name_project"));
-
 			if (rs.getInt("id_client") != 0) {
 				Client c = new Client();
 				c.setAddress(rs.getString("address"));
@@ -43,7 +42,6 @@ public class ProjectData {
 				c.setId(rs.getInt("id_client"));
 				p.setClient(c);
 			}
-
 			if (rs.getInt("s.id_stage") != 0) {
 				do {
 					Stage stage = new Stage();
@@ -64,8 +62,9 @@ public class ProjectData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+			String msjError = "No se ha podido traer el proyecto solicitado";
+			System.out.println(msjError);
 		}
-
 		return p;
 	}
 
@@ -147,7 +146,6 @@ public class ProjectData {
 	}
 
 	public Project getProjectWithStages(int idProject) throws SQLException {
-
 		Project proj = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -162,10 +160,8 @@ public class ProjectData {
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
-
 		// Ejecutar query
 		rs = prepStmt.executeQuery();
-
 		if (rs != null && rs.next()) {
 			proj = new Project();
 			proj.setId(rs.getInt("p.id_project"));
@@ -174,25 +170,20 @@ public class ProjectData {
 			proj.setEndDate(rs.getDate("end_date"));
 			proj.setStartDate(rs.getDate("start_date"));
 			do {
-
 				Employee e = new Employee();
 				e.setId(rs.getInt("e.id_employee"));
 				e.setName(rs.getString("e.name"));
 				e.setSurname(rs.getString("e.surname"));
-
 				Stage s = new Stage();
 				s.setId(rs.getInt("s.id_stage"));
 				s.setName(rs.getString("etapa"));
 				s.setDescription(rs.getString("s.description"));
 				s.setState(rs.getInt("estado"));
 				s.setEmployee(e);
-
 				proj.getStages().add(s);
-
 			} while (rs.next());
 
 		}
-
 		// Cerrar conexion
 		try {
 			if (rs != null)
@@ -202,9 +193,58 @@ public class ProjectData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String msjError = "No se ha podido realizar la consulta";
+			System.out.println(msjError);
 		}
 
 		return proj;
+	}
+	
+	public ArrayList<Stage> getProjecStages(int idProject) throws SQLException {
+		ArrayList<Stage> projectStages = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		String SqlQuery = "SELECT ps.id_project_stage, s.id_stage, s.name as 'etapa', s.description,\r\n"
+				+ "ps.state as 'estado', e.id_employee, e.name, e.surname\r\n"
+				+ "FROM project p \r\n"
+				+ "LEFT JOIN project_stage ps ON p.id_project = ps.id_project \r\n"
+				+ "LEFT JOIN stage s ON ps.id_stage = s.id_stage  \r\n"
+				+ "LEFT JOIN employee e ON ps.id_employee = e.id_employee\r\n"
+				+ "WHERE p.id_project = ?";
+		// Armar statement
+		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
+		prepStmt.setInt(1, idProject);
+		// Ejecutar query
+		rs = prepStmt.executeQuery();
+		if (rs != null && rs.next()) {
+			projectStages = new ArrayList<Stage>();
+			do {
+				Employee e = new Employee();
+				e.setId(rs.getInt("e.id_employee"));
+				e.setName(rs.getString("e.name"));
+				e.setSurname(rs.getString("e.surname"));
+				Stage s = new Stage();
+				s.setId(rs.getInt("s.id_stage"));
+				s.setName(rs.getString("etapa"));
+				s.setDescription(rs.getString("s.description"));
+				s.setState(rs.getInt("estado"));
+				s.setEmployee(e);
+				projectStages.add(s);
+			} while (rs.next());
+		}
+		// Cerrar conexion
+		try {
+			if (rs != null)
+				rs.close();
+			if (prepStmt != null)
+				prepStmt.close();
+			FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			String msjError = "No se ha podido realizar la consulta";
+			System.out.println(msjError);
+		}
+		return projectStages;
 	}
 
 	public Stage getProjectSage(int idProject, int idStage) throws SQLException {
@@ -248,6 +288,8 @@ public class ProjectData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String msjError = "No se ha podido realizar la consulta";
+			System.out.println(msjError);
 		}
 
 		return s;
@@ -260,17 +302,15 @@ public class ProjectData {
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		String SqlQuery = "SELECT id_stage, name, description \r\n" + "FROM stage\r\n" + "WHERE id_stage NOT IN (\r\n"
-				+ "					SELECT ps.id_stage \r\n" + "					FROM project p \r\n"
-				+ "					INNER JOIN project_stage ps ON p.id_project = ps.id_project\r\n"
-				+ "					WHERE p.id_project = ?\r\n" + "					);";
-
+				+ "SELECT ps.id_stage \r\n" 
+				+ "FROM project p \r\n"
+				+ "INNER JOIN project_stage ps ON p.id_project = ps.id_project\r\n"
+				+ "WHERE p.id_project = ?";
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		prepStmt.setInt(1, idProject);
-
 		// Ejecutar query
 		rs = prepStmt.executeQuery();
-
 		if (rs != null) {
 			while (rs.next()) {
 				Stage s = new Stage();
@@ -282,7 +322,6 @@ public class ProjectData {
 				stagesOutOfProject.add(s);
 			}
 		}
-
 		// Cerrar conexion
 		try {
 			if (rs != null)
@@ -292,8 +331,9 @@ public class ProjectData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String msjError = "No se ha podido realizar la consulta";
+			System.out.println(msjError);
 		}
-
 		return stagesOutOfProject;
 	}
 
@@ -302,7 +342,6 @@ public class ProjectData {
 		PreparedStatement prepStmt = null;
 		String SqlQuery = "UPDATE project_stage SET state = ?, id_employee = ? \r\n"
 				+ "WHERE id_project = ? AND id_stage = ?";
-
 		// Armar statement
 		prepStmt = FactoryConexion.getInstancia().getConn().prepareStatement(SqlQuery);
 		switch (state) {
@@ -319,10 +358,8 @@ public class ProjectData {
 		prepStmt.setInt(2, idEmployee);
 		prepStmt.setInt(3, idProject);
 		prepStmt.setInt(4, idStage);
-
 		// Ejecutar query
 		prepStmt.executeUpdate();
-
 		// Cerrar conexion
 		try {
 			if (prepStmt != null) {
@@ -331,6 +368,8 @@ public class ProjectData {
 			FactoryConexion.getInstancia().releaseConn();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			String msjError = "No se ha podido modificar la etapa";
+			System.out.println(msjError);
 		}
 	}
 
